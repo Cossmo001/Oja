@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Product, Order, User } from "./types";
 import { PRODUCTS, DEFAULT_USER } from "./data";
 import { ScreenSelector } from "./components/ScreenSelector";
-import { MobileApp } from "./mobile-app/MobileApp";
+import { MobileApp } from "./mobile/MobileApp";
 import { FarmersDashboard } from "./farm-dashboard/FarmersDashboard";
 import { ManagementDashboard } from "./admin/ManagementDashboard";
 
