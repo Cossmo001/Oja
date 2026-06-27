@@ -1,0 +1,6 @@
+{
+  "name": "Oja Freshness Marketplace",
+  "description": "A premium agricultural marketplace focused on certified freshness, traceability, and trust, bridging rural freshness and urban kitchens with an AI-powered assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
