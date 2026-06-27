@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Product, CartItem, Order, ChatMessage, User } from "../types";
-import { PRODUCTS, DEFAULT_USER, DEFAULT_ADDRESSES } from "../data";
-import { Navbar } from "../components/Navbar";
-import { FreshnessTimeline } from "../components/FreshnessTimeline";
-import { TraceabilityCard } from "../components/TraceabilityCard";
-import { PartnerRegistration } from "../components/PartnerRegistration";
+import { Product, CartItem, Order, ChatMessage, User, PRODUCTS, DEFAULT_USER, DEFAULT_ADDRESSES, Navbar, FreshnessTimeline, TraceabilityCard, PartnerRegistration } from "@oja/shared";
 
 const AVATAR_PRESETS = [
   { name: "Oja Default (Man)", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" },

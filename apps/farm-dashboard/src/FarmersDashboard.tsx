@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Product, Order, User } from "../types";
+import React, { useState, useEffect } from "react";
+import { Product, Order, User } from "@oja/shared";
 
 interface FarmersDashboardProps {
   products: Product[];
@@ -39,6 +39,20 @@ export const FarmersDashboard: React.FC<FarmersDashboardProps> = ({
   onScreenChange,
 }) => {
   const [activeTab, setActiveTab] = useState<"harvests" | "pickups" | "compliance" | "finance">("harvests");
+  const [dashboardViewMode, setDashboardViewMode] = useState<"landscape" | "portrait">("landscape");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setDashboardViewMode("portrait");
+      } else {
+        setDashboardViewMode("landscape");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Filter products that belong to Segun Alao's source "Jos Highlands Farms" or "Jos Highlands Farm"
   const farmerSourceName = "Jos Highlands Farms";
@@ -206,13 +220,41 @@ export const FarmersDashboard: React.FC<FarmersDashboardProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={() => onScreenChange("home")}
-          className="bg-white hover:bg-[#FF4D00] hover:text-white text-[#0B3014] border-2 border-[#0B3014] shadow-[3px_3px_0px_0px_#FF4D00] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95"
-        >
-          <span className="material-symbols-outlined text-sm font-bold">shopping_basket</span>
-          Return to Shop
-        </button>
+        <div className="flex items-center gap-3">
+          {/* View Mode Toggle (System Landscape vs Phone Portrait) */}
+          <div className="hidden md:flex bg-[#071f0d] p-1.5 rounded-xl border-2 border-white/20 gap-1 text-[10px] font-bold">
+            <button
+              onClick={() => setDashboardViewMode("landscape")}
+              className={`px-3 py-1.5 rounded-lg uppercase tracking-wider transition-all flex items-center gap-1 ${
+                dashboardViewMode === "landscape"
+                  ? "bg-[#FF4D00] text-white font-black"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              <span className="material-symbols-outlined text-xs">desktop_windows</span>
+              System (Landscape)
+            </button>
+            <button
+              onClick={() => setDashboardViewMode("portrait")}
+              className={`px-3 py-1.5 rounded-lg uppercase tracking-wider transition-all flex items-center gap-1 ${
+                dashboardViewMode === "portrait"
+                  ? "bg-[#FF4D00] text-white font-black"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              <span className="material-symbols-outlined text-xs">smartphone</span>
+              Phone (Portrait)
+            </button>
+          </div>
+
+          <button
+            onClick={() => onScreenChange("home")}
+            className="bg-white hover:bg-[#FF4D00] hover:text-white text-[#0B3014] border-2 border-[#0B3014] shadow-[3px_3px_0px_0px_#FF4D00] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95"
+          >
+            <span className="material-symbols-outlined text-sm font-bold">shopping_basket</span>
+            Return to Shop
+          </button>
+        </div>
       </header>
 
       {/* Tabs list */}
@@ -239,7 +281,11 @@ export const FarmersDashboard: React.FC<FarmersDashboardProps> = ({
       </div>
 
       {/* Main Page Content */}
-      <div className="p-6 flex-1 max-w-7xl w-full mx-auto space-y-6">
+      <div className={`p-4 md:p-6 flex-1 w-full mx-auto space-y-6 transition-all duration-300 ${
+        dashboardViewMode === "portrait"
+          ? "max-w-md lg:border-4 lg:border-[#0B3014] lg:rounded-[36px] lg:shadow-[12px_12px_0px_0px_#0B3014] lg:h-[840px] lg:my-6 lg:overflow-y-auto bg-[#F5F5F0] relative custom-scrollbar"
+          : "max-w-7xl"
+      }`}>
         {successMessage && (
           <div className="bg-white border-2 border-[#0B3014] text-[#0B3014] p-3 rounded-xl flex items-start gap-2 shadow-[4px_4px_0px_0px_#FF4D00] text-xs font-black uppercase tracking-tight fade-in">
             <span className="material-symbols-outlined text-green-700 text-lg font-bold">verified</span>

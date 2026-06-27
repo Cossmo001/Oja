@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Product, Order, User, CartItem } from "../types";
+import React, { useState, useEffect } from "react";
+import { Product, Order, User, CartItem } from "@oja/shared";
+import { DashboardCharts } from "./components/DashboardCharts";
 
 interface ManagementDashboardProps {
   products: Product[];
@@ -44,6 +45,20 @@ export const ManagementDashboard: React.FC<ManagementDashboardProps> = ({
   onScreenChange,
 }) => {
   const [activeTab, setActiveTab] = useState<"overview" | "products" | "users" | "partners" | "logistics" | "settings">("overview");
+  const [dashboardViewMode, setDashboardViewMode] = useState<"landscape" | "portrait">("landscape");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setDashboardViewMode("portrait");
+      } else {
+        setDashboardViewMode("landscape");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Mock platform users state
   const [platformUsers, setPlatformUsers] = useState<PlatformUser[]>([
@@ -246,13 +261,41 @@ export const ManagementDashboard: React.FC<ManagementDashboardProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={() => onScreenChange("home")}
-          className="bg-white hover:bg-[#FF4D00] hover:text-white text-[#0B3014] border-2 border-[#0B3014] shadow-[3px_3px_0px_0px_#FF4D00] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95"
-        >
-          <span className="material-symbols-outlined text-sm font-bold">shopping_basket</span>
-          Back to Marketplace
-        </button>
+        <div className="flex items-center gap-3">
+          {/* View Mode Toggle (System Landscape vs Phone Portrait) */}
+          <div className="hidden md:flex bg-[#071f0d] p-1.5 rounded-xl border-2 border-white/20 gap-1 text-[10px] font-bold">
+            <button
+              onClick={() => setDashboardViewMode("landscape")}
+              className={`px-3 py-1.5 rounded-lg uppercase tracking-wider transition-all flex items-center gap-1 ${
+                dashboardViewMode === "landscape"
+                  ? "bg-[#FF4D00] text-white font-black"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              <span className="material-symbols-outlined text-xs">desktop_windows</span>
+              System (Landscape)
+            </button>
+            <button
+              onClick={() => setDashboardViewMode("portrait")}
+              className={`px-3 py-1.5 rounded-lg uppercase tracking-wider transition-all flex items-center gap-1 ${
+                dashboardViewMode === "portrait"
+                  ? "bg-[#FF4D00] text-white font-black"
+                  : "text-white/60 hover:text-white"
+              }`}
+            >
+              <span className="material-symbols-outlined text-xs">smartphone</span>
+              Phone (Portrait)
+            </button>
+          </div>
+
+          <button
+            onClick={() => onScreenChange("home")}
+            className="bg-white hover:bg-[#FF4D00] hover:text-white text-[#0B3014] border-2 border-[#0B3014] shadow-[3px_3px_0px_0px_#FF4D00] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95"
+          >
+            <span className="material-symbols-outlined text-sm font-bold">shopping_basket</span>
+            Back to Marketplace
+          </button>
+        </div>
       </header>
 
       {/* Main Tabs Horizontal Row */}
@@ -281,7 +324,11 @@ export const ManagementDashboard: React.FC<ManagementDashboardProps> = ({
       </div>
 
       {/* Primary Dashboard Content Panel */}
-      <div className="p-6 flex-1 max-w-7xl w-full mx-auto space-y-6">
+      <div className={`p-4 md:p-6 flex-1 w-full mx-auto space-y-6 transition-all duration-300 ${
+        dashboardViewMode === "portrait"
+          ? "max-w-md lg:border-4 lg:border-[#0B3014] lg:rounded-[36px] lg:shadow-[12px_12px_0px_0px_#0B3014] lg:h-[840px] lg:my-6 lg:overflow-y-auto bg-[#F5F5F0] relative custom-scrollbar"
+          : "max-w-7xl"
+      }`}>
         {/* ================= OVERVIEW TAB ================= */}
         {activeTab === "overview" && (
           <div className="space-y-6 fade-in">
@@ -337,63 +384,8 @@ export const ManagementDashboard: React.FC<ManagementDashboardProps> = ({
               </div>
             </div>
 
-            {/* Platform Analytics Curve using pure responsive SVGs for 100% style matching */}
-            <div className="bg-white p-6 rounded-2xl border-4 border-[#0B3014] shadow-[6px_6px_0px_0px_#0B3014] space-y-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 className="text-sm font-black text-[#0B3014] uppercase tracking-wider">Lagos Hub Delivery Success & GMV Trend</h3>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase mt-0.5">Real-time daily transaction curve comparison</p>
-                </div>
-                <div className="flex gap-4 text-[10px] uppercase font-black">
-                  <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#0B3014]" /> GMV</span>
-                  <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#FF4D00]" /> Deliveries</span>
-                </div>
-              </div>
-
-              <div className="relative h-44 w-full bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2">
-                <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
-                  {/* Grid Lines */}
-                  <line x1="0" y1="20" x2="500" y2="20" stroke="#f1f1f1" strokeWidth="1" />
-                  <line x1="0" y1="50" x2="500" y2="50" stroke="#f1f1f1" strokeWidth="1" />
-                  <line x1="0" y1="80" x2="500" y2="80" stroke="#f1f1f1" strokeWidth="1" />
-                  
-                  {/* Area fill for GMV curve */}
-                  <path
-                    d="M0,90 Q80,40 160,70 T320,30 T500,10 L500,100 L0,100 Z"
-                    fill="rgba(11,48,20,0.06)"
-                  />
-                  {/* GMV Trend Curve */}
-                  <path
-                    d="M0,90 Q80,40 160,70 T320,30 T500,10"
-                    fill="none"
-                    stroke="#0B3014"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Delivery Success Curve */}
-                  <path
-                    d="M0,85 Q70,75 150,55 T300,45 T500,25"
-                    fill="none"
-                    stroke="#FF4D00"
-                    strokeWidth="2.5"
-                    strokeDasharray="4"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Nodes */}
-                  <circle cx="160" cy="70" r="4" fill="#0B3014" />
-                  <circle cx="320" cy="30" r="4" fill="#0B3014" />
-                  <circle cx="500" cy="10" r="4" fill="#0B3014" />
-                </svg>
-                <div className="absolute bottom-1.5 left-2 right-2 flex justify-between text-[8px] font-bold text-slate-400 uppercase tracking-widest">
-                  <span>Monday</span>
-                  <span>Wednesday</span>
-                  <span>Friday</span>
-                  <span>Sunday (Peak)</span>
-                </div>
-              </div>
-            </div>
+            {/* Platform Analytics Charts */}
+            <DashboardCharts orders={orders} products={products} viewMode={dashboardViewMode} />
 
             {/* Platform Recent Incidents & Actions Log */}
             <div className="bg-white rounded-2xl border-4 border-[#0B3014] shadow-[6px_6px_0px_0px_#0B3014] overflow-hidden text-xs">

@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { Order, Product } from "../../types";
+import { Order, Product } from "@oja/shared";
 import { DateRangePicker } from "./DateRangePicker";
 
 interface DashboardChartsProps {
