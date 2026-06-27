@@ -45,11 +45,12 @@ export const ScreenSelector: React.FC<ScreenSelectorProps> = ({
       ],
     },
     {
-      title: "Partner Portals",
+      title: "Partner & Platform Portals",
       screens: [
         { id: "partner-portal", name: "Grow with Oja (Landing)", icon: "spa" },
         { id: "partner-registration", name: "Partner Registration Steps", icon: "app_registration" },
         { id: "partner-dashboard", name: "Farm Partner Dashboard", icon: "analytics" },
+        { id: "management-dashboard", name: "Oja Management Dashboard", icon: "admin_panel_settings" },
       ],
     },
     {
