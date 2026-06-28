@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oja Admin Management</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dadc",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary-fixed": "#002203",
+                    "on-background": "#191c1e",
+                    "primary": "#002c06",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed-variant": "#135219",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#989bff",
+                    "surface": "#f7f9fb",
+                    "primary-fixed-dim": "#95d78e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#41493e",
+                    "outline": "#717a6d",
+                    "on-tertiary-fixed": "#07006c",
+                    "secondary-fixed": "#6ffbbe",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#95d78e",
+                    "outline-variant": "#c0c9bb",
+                    "background": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#1f1ab3",
+                    "surface-tint": "#2e6b2f",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#74b46e",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "primary-fixed": "#b0f3a7",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "secondary": "#006c49",
+                    "surface-container": "#eceef0",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#0b0088",
+                    "primary-container": "#00450d",
+                    "on-secondary-fixed": "#002113"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "lg": "24px",
+                    "sidebar-width": "260px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "title-lg": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "title-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #F8FAFC;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .soft-shadow {
+            box-shadow: 0px 2px 4px rgba(0, 69, 13, 0.04);
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background-color: rgba(247, 249, 251, 0.8);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background w-full top-0 sticky z-50 border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center justify-between px-md h-16 w-full">
+<div class="flex items-center gap-sm">
+<button class="active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary">Admins</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+<button class="active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="px-container-margin py-lg space-y-lg max-w-md mx-auto">
+<!-- Header Section -->
+<section class="space-y-base">
+<div class="flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg text-on-surface">Manage Governance</h2>
+<button class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-lg flex items-center gap-xs active:scale-95 transition-transform" onclick="toggleModal('invite-modal')">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                    Invite
+                </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee user permissions and security access.</p>
+</section>
+<!-- Stats Grid (Bento Style) -->
+<section class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant soft-shadow">
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">admin_panel_settings</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Active Admins</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">12</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant soft-shadow">
+<div class="flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Security Level</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">High</div>
+</div>
+</section>
+<!-- Admin List -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Team Members</h3>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">Total 7</span>
+</div>
+<div class="space-y-sm">
+<!-- Admin Item 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex items-center justify-between hover:bg-surface-bright transition-colors cursor-pointer active:scale-[0.98] duration-100">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged woman with a confident expression, wearing a navy blue blazer. She is in a bright, modern corporate office environment with soft focus greenery in the background. The lighting is clean and professional, using a high-key light mode aesthetic with forest green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFp6m3YrAa7nl683o_t8Ed_e-bkaUArJZF7IHEiQgljSWRCxFHp19RBuyVAf3ZwzWQ4iaAsiJDWbGfFiy1FRxFjcEyqXSu7kwvm1SwdLkJf-oE_pAI9IINqM4wvViwaDVAvEW0U3iBobrnWuYIeYlF7FGbvGGr-cnOo1NuVGfOGYcQOx4iTTTN6zpaD8pLJas2j9j8bXe38pqFIs14Nq5Kq0uFfhrLCqKKz-nTUbRzpCm_cui56ZNQz9APuWwCVtkxldMUPbePuCs"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Sarah Johnson</div>
+<div class="flex items-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Super Admin</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-md text-label-md text-secondary">Active now</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Admin Item 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex items-center justify-between hover:bg-surface-bright transition-colors cursor-pointer active:scale-[0.98] duration-100">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young man with glasses, smiling warmly. He is wearing a crisp white shirt and a dark green sweater vest. The background is a minimalist, modern office space with soft natural lighting and subtle geometric shadows. The aesthetic is clean, professional, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCujHVMqiGpCZP7AX9c5BxkmF4evoHT9KPvDQKvxM6HAEHqVbshqrRzsG-8e25G1WqhC50zzFesi65TmZMFlHPPNT_Js8RrsNoYUpZTiDUr8h65GUYLD1RE8xWL-i2sPAJFl3lPIjLKL7Y_eAp4IWmERvmyqnETwIu3XfvuY3BqMK33tnN7qocnroZOKaPOfFcucfA-LhrgJbKkGaS4FEeOqFN3LgyAPlXjzA7iyvhesV90JHtG-LARqRmwLJZxHpaqbDTWb1nax4A"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Marcus Chen</div>
+<div class="flex items-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Logistics</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Last seen 2h ago</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Admin Item 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex items-center justify-between hover:bg-surface-bright transition-colors cursor-pointer active:scale-[0.98] duration-100">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a woman with braided hair and a friendly, professional demeanor. She is wearing a forest green silk blouse against a clean, off-white wall background with a single elegant plant leaf in the corner. The lighting is soft and flattering, emphasizing a modern, professional corporate admin brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIZCWe_3k6dkz7O643DzrCLLEzpre5gxWQ6DbUyQSJvDQr8N-GPW0BTNRJWvmwL5MtsWqXgWYnYbCtPz8u7SMIv43N8fv0U9Lt31dZYmfv041F_6Yc3N55EtA1Ghg-IZoCuXW3t7-BqzCrj_BgqlGdcw8PDOAFDZeAuoZY9oBy8jEvZZPDLXYLtyCpfleUb9XR0TlhpDciTVqtR8JXjPe6Jq7FnreaUBcOKYqwHy77WZHFqBOPQnWodLe2Lm4hCq8O6fMld0ZVEXU"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Amara Okafor</div>
+<div class="flex items-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Support</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Online</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Admin Item 4 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex items-center justify-between hover:bg-surface-bright transition-colors cursor-pointer active:scale-[0.98] duration-100">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive male with silver hair, wearing a tailored charcoal suit and a light green tie. The setting is a glass-walled conference room with urban views obscured by soft focus. The light is bright and airy, conveying authority, reliability, and modern corporate elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQBhFEaO618CgrWQUh7ZqZK1m5FLlpSA1pY_9oikz3-apI0PElKnrsaVddINRURQQ1iFbYgTdEdE-H_IuPeePexcmp4NcAZyWrODgmbAo4_nc_iADEJrKfa0-RM_qF7xCGilQ-6AML2gMuJ4UMqZ2tynUr9t5Pgoaee2ed_yuyG-JN0mYmUwAOSvryP2DHJiFdD63BWXDmw4rTKZMDx4nYNWYbqYGJ8Y0-F5lUgVKuwYv6N5HZOWB4NZnqpXJV8fsbQrkN2Z20C08"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">David Miller</div>
+<div class="flex items-center gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Super Admin</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-md text-label-md text-error">Away</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Permissions Quick View -->
+<section class="bg-primary-container p-md rounded-xl space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-primary-container">security</span>
+<h3 class="font-title-md text-title-md text-on-primary-container">Role Access Overview</h3>
+</div>
+<div class="grid grid-cols-1 gap-sm">
+<div class="flex justify-between items-center bg-black/10 p-sm rounded-lg">
+<span class="font-label-lg text-label-lg text-on-primary-container">Order Management</span>
+<span class="font-label-md text-label-md text-on-primary-container/80">3 Roles</span>
+</div>
+<div class="flex justify-between items-center bg-black/10 p-sm rounded-lg">
+<span class="font-label-lg text-label-lg text-on-primary-container">Inventory Control</span>
+<span class="font-label-md text-label-md text-on-primary-container/80">2 Roles</span>
+</div>
+<div class="flex justify-between items-center bg-black/10 p-sm rounded-lg">
+<span class="font-label-lg text-label-lg text-on-primary-container">Financial Exports</span>
+<span class="font-label-md text-label-md text-on-primary-container/80">1 Role</span>
+</div>
+</div>
+<button class="w-full py-sm border border-on-primary-container/30 text-on-primary-container font-label-lg rounded-lg hover:bg-black/10 transition-colors">
+                Audit All Permissions
+            </button>
+</section>
+</main>
+<!-- Invite Modal (Hidden by default) -->
+<div class="fixed inset-0 bg-black/50 z-[60] flex items-end sm:items-center justify-center p-md hidden opacity-0 transition-opacity duration-300" id="invite-modal">
+<div class="bg-surface-container-lowest w-full max-w-sm rounded-t-2xl sm:rounded-2xl p-lg space-y-md transform translate-y-full transition-transform duration-300">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Invite New Admin</h3>
+<button class="p-1" onclick="toggleModal('invite-modal')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-md">
+<div>
+<label class="font-label-lg text-label-lg text-on-surface-variant block mb-1">Email Address</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="name@oja.com" type="email"/>
+</div>
+<div>
+<label class="font-label-lg text-label-lg text-on-surface-variant block mb-1">Assign Role</label>
+<select class="w-full px-md py-sm rounded-lg border border-outline focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md appearance-none bg-white">
+<option>Super Admin</option>
+<option>Logistics Manager</option>
+<option>Support Representative</option>
+<option>Financial Analyst</option>
+</select>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-md rounded-lg font-title-md active:opacity-80 transition-opacity" onclick="toggleModal('invite-modal')">
+                Send Invite
+            </button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm bg-surface-container-lowest dark:bg-on-background border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,69,13,0.04)]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all duration-100 p-2 rounded-xl">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md-mobile text-label-md-mobile mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all duration-100 p-2 rounded-xl">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md-mobile text-label-md-mobile mt-1">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all duration-100 p-2 rounded-xl">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="font-label-md-mobile text-label-md-mobile mt-1">Inventory</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md-mobile text-label-md-mobile mt-0.5">Admins</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all duration-100 p-2 rounded-xl">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md-mobile text-label-md-mobile mt-1">More</span>
+</button>
+</nav>
+<script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            const content = modal.querySelector('div');
+            
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    content.classList.remove('translate-y-full');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                content.classList.add('translate-y-full');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Ripple Effect Utility
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                let d = Math.max(this.clientWidth, this.clientHeight);
+                ripple.style.width = ripple.style.height = d + 'px';
+                let rect = this.getBoundingClientRect();
+                ripple.style.left = e.clientX - rect.left - d/2 + 'px';
+                ripple.style.top = e.clientY - rect.top - d/2 + 'px';
+                ripple.classList.add('animate-ripple');
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+<style>
+        .animate-ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</body></html>

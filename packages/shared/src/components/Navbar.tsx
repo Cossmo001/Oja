@@ -22,7 +22,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-[#F5F5F0] border-t-4 border-x-4 border-[#0B3014] py-3 px-3 flex justify-around items-center z-40 max-w-md mx-auto rounded-t-[24px]">
+    <nav 
+      className="w-full bg-[#F5F5F0] border-t-4 border-[#0B3014] pt-3 px-1 grid grid-cols-5 place-items-end pb-3 z-40 max-w-md mx-auto rounded-t-[24px] mt-auto relative"
+      style={{ paddingBottom: 'calc(max(env(safe-area-inset-bottom), 12px) + 8px)' }}
+    >
       {tabs.map((tab) => {
         const isActive = currentScreen === tab.id || (tab.id === "home" && currentScreen === "vegetables") || (tab.id === "home" && currentScreen === "product-detail");
         
@@ -31,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               key={tab.id}
               onClick={() => onScreenChange(tab.id)}
-              className="flex flex-col items-center justify-center -mt-8 relative"
+              className="flex flex-col items-center justify-center -mt-8 relative w-full"
             >
               <div className={`w-14 h-14 rounded-full flex items-center justify-center border-4 border-[#0B3014] transition-all duration-300 ${
                 isActive 
@@ -42,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {tab.icon}
                 </span>
               </div>
-              <span className={`text-[10px] mt-1 font-black uppercase tracking-wider transition-colors ${
+              <span className={`text-[11px] mt-1 font-black uppercase tracking-wider transition-colors ${
                 isActive ? "text-[#FF4D00] font-black" : "text-[#0B3014]"
               }`}>
                 {tab.label}
@@ -55,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             key={tab.id}
             onClick={() => onScreenChange(tab.id)}
-            className="flex flex-col items-center justify-center py-1 px-3 rounded-lg relative transition-all duration-200 active:scale-95"
+            className="flex flex-col items-center justify-center py-1 px-1 rounded-lg relative transition-all duration-200 active:scale-95 w-full"
           >
             <div className="relative flex items-center justify-center">
               <span className={`material-symbols-outlined text-2xl transition-colors duration-200 ${
@@ -71,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               )}
             </div>
-            <span className={`text-[10px] mt-0.5 font-black uppercase tracking-wider transition-colors duration-200 ${
+            <span className={`text-[11px] mt-0.5 font-black uppercase tracking-wider transition-colors duration-200 ${
               isActive ? "text-[#FF4D00] font-black underline underline-offset-4 decoration-2" : "text-[#0B3014]/50"
             }`}>
               {tab.label}

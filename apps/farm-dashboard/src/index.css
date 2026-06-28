@@ -1,64 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Space Grotesk", "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
-  --font-headline: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Georgia", "Playfair Display", ui-serif, serif;
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Manrope", ui-sans-serif, system-ui, sans-serif;
 
-  /* Theme Color Tokens remapped for Bold Typography Editorial Theme */
-  --color-error: #FF4D00;
-  --color-on-primary-container: #FF4D00;
-  --color-surface-bright: #FFFFFF;
-  --color-primary-fixed: #0B3014;
-  --color-surface-container: #E8E8E3;
-  --color-surface-container-highest: #0B3014;
-  --color-background: #F5F5F0;
-  --color-tertiary: #FF4D00;
-  --color-on-error-container: #0B3014;
-  --color-on-tertiary: #ffffff;
-  --color-tertiary-fixed: #FF4D00;
-  --color-surface: #FFFFFF;
-  --color-on-primary-fixed-variant: #0B3014;
-  --color-primary-container: #0B3014;
-  --color-on-error: #ffffff;
-  --color-surface-container-low: #F5F5F0;
-  --color-on-tertiary-fixed-variant: #FF4D00;
-  --color-secondary-fixed: #E8E8E3;
-  --color-surface-tint: #0B3014;
-  --color-inverse-surface: #0B3014;
-  --color-on-secondary-fixed-variant: #0B3014;
-  --color-outline-variant: #0B3014;
-  --color-on-secondary: #ffffff;
-  --color-on-primary: #ffffff;
-  --color-secondary-fixed-dim: #E8E8E3;
-  --color-on-surface-variant: #0B3014;
-  --color-surface-dim: #E8E8E3;
-  --color-outline: #0B3014;
-  --color-on-primary-fixed: #FFFFFF;
-  --color-secondary-container: #FF4D00;
-  --color-inverse-primary: #FFFFFF;
-  --color-surface-container-high: #E8E8E3;
-  --color-surface-variant: #E8E8E3;
-  --color-secondary: #FF4D00;
-  --color-on-surface: #0B3014;
-  --color-inverse-on-surface: #F5F5F0;
-  --color-primary: #0B3014;
-  --color-on-background: #0B3014;
-  --color-primary-fixed-dim: #FFFFFF;
-  --color-tertiary-container: #0B3014;
-  --color-error-container: #E8E8E3;
-  --color-on-secondary-fixed: #0B3014;
-  --color-tertiary-fixed-dim: #FF4D00;
-  --color-on-tertiary-fixed: #FFFFFF;
+  /* Theme Color Tokens mapped for Oja Certified Fresh Farmer's Dashboard */
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f9f9f9;
   --color-surface-container-lowest: #ffffff;
-  --color-on-tertiary-container: #FFFFFF;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #41493e;
+  --color-inverse-surface: #2f3131;
+  --color-inverse-on-surface: #f1f1f1;
+  --color-outline: #717a6d;
+  --color-outline-variant: #c0c9bb;
+  --color-surface-tint: #2e6b2f;
+  --color-primary: #002c06;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #00450d;
+  --color-on-primary-container: #74b46e;
+  --color-inverse-primary: #95d78e;
+  --color-secondary: #8f4e00;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fea85a;
+  --color-on-secondary-container: #733d00;
+  --color-tertiary: #002c06;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #00450e;
+  --color-on-tertiary-container: #66b664;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #b0f3a7;
+  --color-primary-fixed-dim: #95d78e;
+  --color-on-primary-fixed: #002203;
+  --color-on-primary-fixed-variant: #135219;
+  --color-secondary-fixed: #ffdcc2;
+  --color-secondary-fixed-dim: #ffb77a;
+  --color-on-secondary-fixed: #2e1500;
+  --color-on-secondary-fixed-variant: #6d3a00;
+  --color-tertiary-fixed: #a3f69c;
+  --color-tertiary-fixed-dim: #88d983;
+  --color-on-tertiary-fixed: #002204;
+  --color-on-tertiary-fixed-variant: #005312;
+  --color-background: #f9f9f9;
+  --color-on-background: #1a1c1c;
+  --color-surface-variant: #e2e2e2;
 
-  --color-success-green: #0B3014;
-  --color-warning-amber: #FF4D00;
-  --color-error-red: #FF4D00;
-  --color-outline-muted: #0B3014;
+  --color-success-green: #2a6b2c;
+  --color-warning-amber: #ff8f00;
+  --color-error-red: #ba1a1a;
+  --color-outline-muted: #c0c9bb;
 }
 
 /* Material Symbols Initialization */
@@ -213,5 +213,33 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headline);
+}
+
+.dark {
+  /* Override core theme variables */
+  --color-background: #0a0c0e;
+  --color-surface: #101215;
+  --color-on-surface: #ecf0f2;
+  --color-on-surface-variant: #c0c9bb;
+  --color-outline: #8b9387;
+  
+  --color-primary: #95d78e;
+  --color-on-primary: #002203;
+  --color-secondary: #fea85a; /* High-contrast orange for dark mode */
+
+  /* Override general utilities and shades */
+  --color-white: #101215; /* Elevated card bg */
+  --color-slate-50: #16191c; /* Subtle backgrounds */
+  --color-slate-100: #1c1f22;
+  --color-slate-200: #292d32; /* Borders */
+  --color-slate-300: #393f46;
+  --color-slate-400: #8c97a5; /* Secondary texts */
+  --color-slate-500: #a2adb9;
+  --color-slate-700: #dce2e8;
+  --color-slate-800: #ecf0f2; /* Primary headings */
+  --color-slate-900: #ffffff;
+  
+  --color-surface-container-low: #131619;
+  --color-surface-container-lowest: #101215;
 }
 

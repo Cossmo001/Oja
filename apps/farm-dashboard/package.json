@@ -6,21 +6,52 @@
   "scripts": {
     "dev": "vite --port 3001",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:start": "concurrently \"npm run dev\" \"wait-on http://localhost:3001 && electron .\"",
+    "electron:build": "npm run build && electron-builder"
   },
   "dependencies": {
+    "@capacitor/core": "^6.2.1",
+    "@capacitor/push-notifications": "^6.0.5",
     "@oja/shared": "*",
-    "lucide-react": "^0.546.0",
     "framer-motion": "^10.0.0",
+    "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "recharts": "^3.9.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.0.4",
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/cli": "^6.2.1",
+    "@capacitor/ios": "^6.2.1",
     "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "concurrently": "^10.0.3",
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3",
     "tailwindcss": "^4.1.14",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "wait-on": "^9.0.10"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.oja.farm",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

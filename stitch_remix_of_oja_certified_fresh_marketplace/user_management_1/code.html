@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management - AgriManage Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .user-card-shadow {
+            box-shadow: 0 2px 4px rgba(0, 69, 13, 0.04);
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#d8dadc",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary-fixed": "#002203",
+                      "on-background": "#191c1e",
+                      "primary": "#002c06",
+                      "on-secondary-fixed-variant": "#005236",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-primary-fixed-variant": "#135219",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#f7f9fb",
+                      "secondary-container": "#6cf8bb",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#989bff",
+                      "surface": "#f7f9fb",
+                      "primary-fixed-dim": "#95d78e",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-low": "#f2f4f6",
+                      "on-surface-variant": "#41493e",
+                      "outline": "#717a6d",
+                      "on-tertiary-fixed": "#07006c",
+                      "secondary-fixed": "#6ffbbe",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#95d78e",
+                      "outline-variant": "#c0c9bb",
+                      "background": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#1f1ab3",
+                      "surface-tint": "#2e6b2f",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#00714d",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#74b46e",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "tertiary-fixed": "#e1e0ff",
+                      "primary-fixed": "#b0f3a7",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "secondary": "#006c49",
+                      "surface-container": "#eceef0",
+                      "on-surface": "#191c1e",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "tertiary": "#0b0088",
+                      "primary-container": "#00450d",
+                      "on-secondary-fixed": "#002113"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "lg": "24px",
+                      "sidebar-width": "260px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "display-lg": ["Manrope"],
+                      "title-lg": ["Manrope"],
+                      "headline-md-mobile": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "title-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-on-background shadow-sm border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16 w-full z-40">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary p-2 active:opacity-80 transition-opacity">menu</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary font-black">AgriManage Admin</h1>
+</div>
+<button class="material-symbols-outlined text-primary p-2 active:opacity-80 transition-opacity">notifications</button>
+</header>
+<main class="px-md pt-md space-y-md">
+<!-- Dashboard Summary Grid (Bento Style) -->
+<section class="grid grid-cols-2 gap-sm">
+<div class="col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow">
+<div class="flex justify-between items-start mb-2">
+<p class="font-label-lg text-label-lg text-on-surface-variant">TOTAL CUSTOMERS</p>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary">12,482</h2>
+<p class="font-label-md text-label-md text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +14% from last month
+                </p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow">
+<p class="font-label-lg text-label-lg text-on-surface-variant">ACTIVE</p>
+<h3 class="font-title-lg text-title-lg text-secondary">11,902</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow">
+<p class="font-label-lg text-label-lg text-on-surface-variant">RESTRICTED</p>
+<h3 class="font-title-lg text-title-lg text-error">580</h3>
+</div>
+</section>
+<!-- Search and Filter -->
+<section class="sticky top-16 bg-background pt-2 z-30 pb-2">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-full font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search by name, email, or ID..." type="text"/>
+</div>
+<div class="flex gap-2 mt-sm overflow-x-auto no-scrollbar py-1">
+<button class="flex-none px-4 py-1.5 bg-primary text-on-primary rounded-full font-label-lg text-label-lg shadow-sm">All Users</button>
+<button class="flex-none px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full font-label-lg text-label-lg border border-outline-variant">Active</button>
+<button class="flex-none px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full font-label-lg text-label-lg border border-outline-variant">Flagged</button>
+<button class="flex-none px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full font-label-lg text-label-lg border border-outline-variant">Banned</button>
+</div>
+</section>
+<!-- User List Content -->
+<section class="space-y-sm pb-8">
+<!-- User 1: Active -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow hover:border-primary transition-colors cursor-pointer group">
+<div class="flex items-start justify-between">
+<div class="flex gap-md items-center">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-secondary-container" data-alt="A professional headshot of a middle-aged male farmer in a light blue denim shirt. He has a warm smile and is positioned against a soft-focus background of a green organic farm during the golden hour. The lighting is natural and high-key, conveying trustworthiness and a clean corporate agricultural aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsROd_FWiPbbFLGVZCgmbbfYuN9XIAL4BuKT49dO0Pfg2gtvGeRSUq9QdlA_lBLUtXpEqtBLV56y8qsAVyahNJNf0sWn-jZ3zdhHPHWCSLG9NIEtMeuzOVkh2qKhaMOeikduGn341M0W9A24f5v7R7IRNqx_5HNI6ZPftBBzDprwufIzyMgocffW691h63sefv7A89uJ05u0wlkCbBcdjiIfUdXkaJAAiFs8-SSBVho2DqYrkTV29ffD9AGPAn3Hzylqc0Oa78PZA"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-secondary-container border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-background">Samuel Adebayo</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">sam.ade@farmcentral.ng</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-md text-label-md">ACTIVE</span>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex gap-sm">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg active:opacity-90 transition-opacity">View Profile</button>
+<button class="flex-1 py-2 border border-outline text-on-surface-variant rounded-lg font-label-lg text-label-lg active:bg-surface-variant transition-colors">Restrict</button>
+</div>
+</div>
+<!-- User 2: Flagged -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow hover:border-primary transition-colors cursor-pointer group">
+<div class="flex items-start justify-between">
+<div class="flex gap-md items-center">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-error-container" data-alt="A portrait of a young female entrepreneur wearing a professional blazer. Her expression is neutral but observant. The setting is a bright, modern glass-walled office with subtle indoor greenery. The lighting is crisp and cool, maintaining a sophisticated corporate tone with balanced contrast and high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1WmT2Ae9NLGV-TcpnFCdGL_5hiDcDswb8RUJ59oWE84ajY6kdZMk6LXcI2uOvQD7B-QLlW_MqbTJG2gbyUnQa7pXAWnrnbujVd-7PaEP6O1h4KXrTVrOD6bADH5NKpsJIx2zZ0ljPJU6vluJKGoTDwRJPib6A9ARlpKbIYwVRxkFO8vX7_GDsUwqpcdLHlpqy89veCP5v_P2fSAeoRttLfs-S06om5X-6sif8TWW-naIiWvHDseerdJk4-gfxCSRnlI8OwfVhFsE"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-error-container border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-background">Elena Petrova</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">elena.p@globaltrade.com</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded font-label-md text-label-md">FLAGGED</span>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex gap-sm">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg active:opacity-90 transition-opacity">View Profile</button>
+<button class="flex-1 py-2 border border-error text-error rounded-lg font-label-lg text-label-lg active:bg-error/5 transition-colors">Ban Account</button>
+</div>
+</div>
+<!-- User 3: Banned -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md user-card-shadow opacity-75 grayscale-[0.5]">
+<div class="flex items-start justify-between">
+<div class="flex gap-md items-center">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A close-up of a diverse male professional in a smart-casual olive green shirt. The background consists of modern architectural lines in soft gray tones. The mood is somber and professional, with cinematic soft lighting that highlights facial details without being overly bright. Minimalist and corporate aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwgmnUru0ZSgNb45IVEHHzCT22u8n56Gy9SGJGqoz70YPVLVu5sBmBo3GowigBpmwYVPfugBZdeLQGXp6wTMJeVwSEvykOTK5iWhmaR8fyu1zIa1lEg2c5u-JoyNU5y_pM-bACCgvgrBiR_Zd6ANKUpqzWGl0klFJtc3g3qcdxFh98GlnG5v7N5bD2_kM8wI9KTOv8lXFd_pOo7tJQdHZVM4K3lDNsCexYOT_FLzE-tq74C3LnxFfAc86v5P7oURqKgXIOHbIUIZM"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-outline border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">block</span>
+</div>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-background">Marcus Thorne</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">m.thorne@unauthorized.io</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-on-surface-variant text-surface-container-lowest rounded font-label-md text-label-md">BANNED</span>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex gap-sm">
+<button class="flex-1 py-2 bg-surface-container-high text-on-surface rounded-lg font-label-lg text-label-lg">View History</button>
+<button class="flex-1 py-2 bg-secondary text-on-secondary rounded-lg font-label-lg text-label-lg">Restore Access</button>
+</div>
+</div>
+<!-- User 4: Active -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md user-card-shadow hover:border-primary transition-colors cursor-pointer group">
+<div class="flex items-start justify-between">
+<div class="flex gap-md items-center">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-secondary-container" data-alt="A vibrant professional portrait of a woman of South Asian descent in a bright white linen top. She is standing in a greenhouse with lush green foliage blurred behind her. The lighting is warm and sun-drenched, creating a fresh, organic atmosphere that aligns with a premium agricultural brand identity. Clean and high-resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXLgVLAz3awAuwvAu-AR1ntt-FYRsViATY6l1ubtS-NkpbHEkXAhipNEWCrO8Myf-XjFB2JJJe4SQf2PsPF8AYNBH9QuXmBp308jxlu-Gj-OTXddYQ4dmlOTD1KuCKAGr3yFRACcHnBayQSBsOrD_XW4WbRj36roXuB1HiYLdEKvkEYOsMj3rgy5UiYjcHggaqljtf0N0E897U49CzCeS2jYVa1zC7Hkb3D32M8lty2KkaUMzhwOTgNrNeloMPCNw1E3Mk7F_IrgA"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-secondary-container border-2 border-white rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-background">Anita Sharma</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">anita@sharmaproduce.com</p>
+</div>
+</div>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-md text-label-md">ACTIVE</span>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant flex gap-sm">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg active:opacity-90 transition-opacity">View Profile</button>
+<button class="flex-1 py-2 border border-outline text-on-surface-variant rounded-lg font-label-lg text-label-lg active:bg-surface-variant transition-colors">Restrict</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Shell Support (BottomNavBar for Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm bg-surface-container-lowest dark:bg-on-background border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,69,13,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100">receipt_long</span>
+<span class="font-label-md text-label-md mt-1">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100">potted_plant</span>
+<span class="font-label-md text-label-md mt-1">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-100">more_horiz</span>
+<span class="font-label-md text-label-md mt-1">More</span>
+</a>
+</nav>
+<!-- FAB for adding users -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-[28px]">person_add</span>
+</button>
+<script>
+        // Simple Interaction logic for demo
+        document.querySelectorAll('.user-card-shadow').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if(!e.target.closest('button')) {
+                    // Logic for opening full user details
+                    console.log('Opening user details...');
+                }
+            });
+        });
+
+        // Search highlight logic
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('h4').forEach(header => {
+                const card = header.closest('.user-card-shadow');
+                if (header.innerText.toLowerCase().includes(term)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body></html>

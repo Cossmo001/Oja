@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oja Admin - Partner Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#95d78e",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "primary-container": "#00450d",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#74b46e",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#002203",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-container": "#989bff",
+                        "secondary": "#006c49",
+                        "tertiary": "#0b0088",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#00714d",
+                        "primary": "#002c06",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1f1ab3",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#717a6d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary-fixed-variant": "#135219",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#2e6b2f",
+                        "outline-variant": "#c0c9bb",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed": "#b0f3a7",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-primary": "#95d78e",
+                        "on-surface-variant": "#41493e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "container-margin": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "sidebar-width": "260px",
+                        "xs": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "title-md": ["Manrope"],
+                        "title-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-lg": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "label-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-indicator {
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 24px;
+            background-color: #4edea3; /* Lime accent */
+            border-radius: 0 4px 4px 0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 4px rgba(0, 69, 13, 0.04);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0e3e5;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="docked-left h-full w-64 fixed left-0 top-0 z-40 bg-surface-container-lowest border-r border-outline-variant flex flex-col p-md gap-xl">
+<div class="flex items-center gap-md mb-lg px-sm">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-8 h-8 object-contain" data-alt="A minimalist, professional logo for a fresh produce logistics company. The logo is a stylized, geometric 'O' in vibrant forest green and crisp white, set against a dark primary green background. The style is modern, corporate, and clean, evoking feelings of freshness, reliability, and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr33bk_RpIjs8NA6y-xibJl002B1FOgHukSAGZa3fdv8l-2nQd4nokjSGsW0mpTodVzZSvQTCqXWe7gzn-BixxmZndZtsZAQEZaKEXj1Zf4wmommiLl9LFoU6sv4kSxoi2loWWL5OiF1f67iCUOVDS3yVI79UOsY1ydZRf2tBm1x3pLUegjW5YqBeVZmtMaTtDUuB5VCEjKgoHZKKxN-ErldMmFtWE-NKqdOaRA8tymKMffDQ_hlS3sboo726I6Nzx_aYTjqItVsY"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Oja Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Certified Freshness</p>
+</div>
+</div>
+<nav class="flex flex-col gap-sm flex-1">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<!-- ACTIVE: Partners -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm relative" href="#">
+<div class="sidebar-active-indicator"></div>
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden bg-surface-dim">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a female logistics director in her late 30s. She wears a smart charcoal blazer and has a confident, warm smile. The lighting is bright and high-key, with a clean office background that feels modern and professional. The overall aesthetic is corporate, reliable, and sharp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn7SwS2uS-qZN3YySBdcoRzdL3ATUN9AhS9aN0NKsAcmoq6Gwrq3lQlwb7Up5D13aU-s9x3NwTIUs9WKI9US2ltyVjcPCd1vbQ0YnqJISjp9vRRk_hQmEqeypo_yGVklBLJ1vFVgoP2JWxhNLL-i6qxl_nKCVB00iw8RXsFtqlYVeCT5uiskTrmgvmXqiS9WvHoQFOlHXK8kgImI6V6h29kGVdhnYyXMXrfk1I2OlFXjy_-ITsJH1nw1Ir-EDVmqBJfFz1mXFD9YQ"/>
+</div>
+<div>
+<p class="font-title-md text-body-md font-bold text-on-surface">Alex Rivera</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Ops Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="docked-top w-full sticky top-0 z-30 flex justify-between items-center h-16 px-xl ml-64 bg-surface-bright/90 backdrop-blur-md border-b border-outline-variant shadow-sm">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-xl pr-md py-2 text-body-md focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none" placeholder="Search partners, regions, or SKUs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-bright"></span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-lg flex items-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Add New Partner
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-lg overflow-y-auto h-[calc(100vh-64px)] custom-scrollbar">
+<!-- Dashboard Header -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Partner Ecosystem</h2>
+<p class="font-body-lg text-body-md text-on-surface-variant mt-1">Manage vendor relations and monitor registration pipelines.</p>
+</div>
+<div class="flex gap-md">
+<div class="px-md py-sm bg-surface-container-highest rounded-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span>
+<span class="font-label-lg text-on-surface">Last 30 Days</span>
+</div>
+</div>
+</div>
+<!-- Registration Pipeline Overview (Bento Style) -->
+<div class="grid grid-cols-12 gap-lg mb-xl">
+<!-- Pipeline Summary -->
+<div class="col-span-8 glass-card rounded-xl p-lg flex flex-col gap-lg">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Registration Pipeline</h3>
+<button class="text-secondary font-label-lg hover:underline">View All Candidates</button>
+</div>
+<div class="flex items-center gap-xl">
+<div class="flex-1 flex flex-col gap-sm">
+<div class="h-2 w-full bg-surface-container flex rounded-full overflow-hidden">
+<div class="bg-secondary w-[45%]" title="Verification"></div>
+<div class="bg-primary-fixed-dim w-[30%]" title="Inspection"></div>
+<div class="bg-surface-container-highest w-[25%]" title="Legal"></div>
+</div>
+<div class="flex justify-between text-label-md font-label-md text-on-surface-variant">
+<span>Verification (12)</span>
+<span>Inspection (8)</span>
+<span>Legal (6)</span>
+</div>
+</div>
+<div class="text-right">
+<p class="font-display-lg text-display-lg text-primary leading-none">26</p>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider">Total Pending</p>
+</div>
+</div>
+</div>
+<!-- Conversion Metric -->
+<div class="col-span-4 bg-primary text-on-primary rounded-xl p-lg relative overflow-hidden">
+
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<p class="font-label-lg text-on-primary-container uppercase opacity-80">Conversion Rate</p>
+<p class="font-display-lg text-headline-lg mt-sm">92.4%</p>
+</div>
+<div class="flex items-center gap-sm text-secondary-fixed">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-lg">+4.2% from last qtr</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Directory & Tabs -->
+<div class="glass-card rounded-xl overflow-hidden mb-xl">
+<div class="border-b border-outline-variant px-lg py-md flex justify-between items-center bg-surface-container-lowest">
+<div class="flex gap-lg">
+<button class="font-label-lg border-b-2 border-primary text-primary py-sm">Active Partners (142)</button>
+<button class="font-label-lg text-on-surface-variant py-sm hover:text-on-surface transition-colors">Onboarding (26)</button>
+<button class="font-label-lg text-on-surface-variant py-sm hover:text-on-surface transition-colors">Dormant (14)</button>
+</div>
+<div class="flex gap-md">
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="p-2 bg-white rounded-md shadow-sm">
+<span class="material-symbols-outlined text-[20px]">list</span>
+</button>
+<button class="p-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+</div>
+<button class="flex items-center gap-sm border border-outline-variant rounded-lg px-md py-sm font-label-lg text-on-surface">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filter
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr class="text-on-surface-variant font-label-lg border-b border-outline-variant">
+<th class="px-lg py-md font-label-lg uppercase tracking-wider">Partner Name</th>
+<th class="px-lg py-md font-label-lg uppercase tracking-wider">Region</th>
+<th class="px-lg py-md font-label-lg uppercase tracking-wider">Product Categories</th>
+<th class="px-lg py-md font-label-lg uppercase tracking-wider">Status</th>
+<th class="px-lg py-md font-label-lg uppercase tracking-wider text-right">Compliance</th>
+<th class="px-lg py-md"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Table Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A lush green farm aerial shot featuring orderly rows of organic vegetables under bright, natural daylight. The image is crisp and clean, reflecting the 'Certified Freshness' brand values of Oja. The color palette is dominated by deep greens and earthy browns, captured in a modern, professional agricultural photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCYd0noV4FCX1zW2Jzvdg4Z0wmofIzGMkRu0Q9sKX8Hd-IAAqJ7yodXiB_eHjIOw98l-PsUQqJMaKXt4sJVJ_WJ0W7AjKg4Wjxb8Yjl7zQgVMotJp9LNNUNj5Y7_GQwmuJjn6xjKEovPD13K1fj1iI3u3zKLnyplW9C7DY-ng0rCkDuoTeNCVS16zytjlXwyj9VKefflIfqdlG5Ao_W_nr6fQ-Coh42ONqVVEieiiEk1Hb2zt2aGYUZQ38IdN6vDYWFTJgdSLqVrc"/>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Green Valley Organics</p>
+<p class="font-label-md text-on-surface-variant">ID: OJ-4402</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Western Highlands</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Root Veg</span>
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Leafy Greens</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-lg text-on-surface">Active</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="font-title-md text-secondary">98%</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up artistic shot of high-quality, sun-ripened citrus fruits in a rustic wooden crate. The lighting is warm and golden, highlighting the textures of the fruit skins. The photography style is premium and corporate, aligning with a high-end fresh food marketplace aesthetic. Colors are vibrant orange and deep browns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC72Ek2f7oEmdstsaKe9JoLkkkJUbPasgHUa0I4nsjXQTWHuH_CSM7XiNq_ipn-V-Qhr1E1RNra42z613NCXEZ2p9BJ7L8zQF5fWnQhTKZw9GZ-cgOXyGGeGtuceibf0MfJepU5-ZmSfHwr0fI3IfyO3mMXHeQ2oz-b9RmAJrDALXzTKkZWxlOvwVu2ZledEQazazQIGeAKwPy8c5hNigCvNgIVCb483DgLT5Of2u93z4SD8FASQlvqtF8e4JZUy4mVDWe7mdCiZdg"/>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Sun-Kissed Orchards</p>
+<p class="font-label-md text-on-surface-variant">ID: OJ-5120</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Coastal Basin</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Citrus</span>
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Stone Fruit</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-lg text-on-surface">Active</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="font-title-md text-secondary">100%</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional image of a modern hydroponic greenhouse facility with bright, cool white lighting. The perspective leads down a central aisle between vertical growing racks. The style is clean, clinical, and technologically advanced, suitable for a 'Certified Fresh' logistics admin interface. The palette is dominated by whites and electric greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ2zW2vo_NTMD-7v9kiw6US_hofbkoTGc1OKyklXi-ll2R_NKKNgAxzA013AlstDjo42loQUuGJUjg36qL0G5GCaz71JRe2sRO3L_4BZA2PVjT3jqPfWSX9KE40bXWNb8NnuzgrqE1Gh3qwfyL2As2dxXp5Xdb-0XMXJ6P7vZi0MkzMhwkylEc5w6Qr6EhZh3TtCwDmpVkunkGDkrCXx5BoEnFquUpgQ843geZg0OHSoXggHqMQIpEyI-6uiqm_BZitDUn1mhRv0M"/>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Metro Hydro-Farms</p>
+<p class="font-label-md text-on-surface-variant">ID: OJ-9921</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Urban North</td>
+<td class="px-lg py-md">
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Herbs</span>
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container rounded-full text-label-md font-label-md border border-secondary-container/30">Microgreens</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
+<span class="font-label-lg text-on-surface">In Audit</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<span class="font-title-md text-error">82%</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-lg bg-surface-container-low flex justify-between items-center">
+<span class="font-label-md text-on-surface-variant">Showing 1 to 10 of 142 partners</span>
+<div class="flex gap-sm">
+<button class="px-md py-1 border border-outline-variant rounded-md font-label-lg bg-white text-on-surface disabled:opacity-50" disabled="">Previous</button>
+<button class="px-md py-1 border border-outline-variant rounded-md font-label-lg bg-white text-on-surface hover:bg-surface-container">Next</button>
+</div>
+</div>
+</div>
+<!-- Featured Partner Profile Preview (Side Drawer / Glass Pane) -->
+<div class="grid grid-cols-12 gap-lg">
+<div class="col-span-12 lg:col-span-12 glass-card rounded-xl p-lg flex flex-col md:flex-row gap-xl items-start">
+<div class="w-full md:w-64 h-48 bg-surface-dim rounded-xl overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="A wide-angle, scenic shot of a sprawling mountain farm at sunrise. The landscape is blanketed in soft morning mist, with tiered cultivation plots following the contours of the hills. The aesthetic is breathtaking and professional, conveying the heritage and organic quality of the brand. Hues of lavender, soft gold, and deep forest green." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYFgHuJWjW01fZfkkHoOHMk-pkuWSJCXZkQ2YKx-A7MZgq-PVvTQLj4jYVZJeBORxbLw5yfqNUl7QDVyNZrHB-hH7i-fTAIqeI7zsPHjDdY1fQUq5yIldOFl26yBYnx_DhgLt_-shLreBBpZjXZtoOzHny-OsqnAODZkwFeevvoZdUVc_CHn3bHWRmG4lL6KYC2ahNfEx8blW3hakusN_rovI4D5jiKnLtHaB7X1EWr04D18JhPU_i9GAQP2wHsz4y2fsB3gPFtG8"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white/20 backdrop-blur-md text-white px-md py-sm rounded-lg font-label-lg border border-white/40">Change Photo</button>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-md">
+<div>
+<div class="flex items-center gap-sm mb-1">
+<h4 class="font-headline-md text-headline-md text-primary">Green Valley Organics</h4>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Global GAP Certified • Sustainable Farming Partner since 2019</p>
+</div>
+<div class="flex gap-md">
+<button class="px-lg py-sm border border-outline rounded-lg font-label-lg hover:bg-surface-container transition-colors">Edit Profile</button>
+<button class="px-lg py-sm bg-primary text-on-primary rounded-lg font-label-lg shadow-md hover:opacity-90 transition-opacity">Contact Partner</button>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-lg mt-lg">
+<div class="p-md bg-surface-container-low rounded-lg">
+<p class="font-label-md text-on-surface-variant uppercase mb-1">Annual Yield</p>
+<p class="font-title-lg text-on-surface">1,240 Tons</p>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg">
+<p class="font-label-md text-on-surface-variant uppercase mb-1">Active SKUs</p>
+<p class="font-title-lg text-on-surface">42 Products</p>
+</div>
+<div class="p-md bg-surface-container-low rounded-lg">
+<p class="font-label-md text-on-surface-variant uppercase mb-1">On-Time Delivery</p>
+<p class="font-title-lg text-on-surface">99.2%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction JS -->
+<script>
+        // Simple search highlight simulation
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.01]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.01]');
+        });
+
+        // Table row interaction simulation
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Add a subtle flash effect on click
+                row.classList.add('bg-primary-fixed/20');
+                setTimeout(() => {
+                    row.classList.remove('bg-primary-fixed/20');
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

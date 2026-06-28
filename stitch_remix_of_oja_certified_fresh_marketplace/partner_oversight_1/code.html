@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Partner Oversight | AgriManage Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dadc",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary-fixed": "#002203",
+                    "on-background": "#191c1e",
+                    "primary": "#002c06",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed-variant": "#135219",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#989bff",
+                    "surface": "#f7f9fb",
+                    "primary-fixed-dim": "#95d78e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-low": "#f2f4f6",
+                    "on-surface-variant": "#41493e",
+                    "outline": "#717a6d",
+                    "on-tertiary-fixed": "#07006c",
+                    "secondary-fixed": "#6ffbbe",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#95d78e",
+                    "outline-variant": "#c0c9bb",
+                    "background": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#1f1ab3",
+                    "surface-tint": "#2e6b2f",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#00714d",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#74b46e",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "primary-fixed": "#b0f3a7",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "secondary": "#006c49",
+                    "surface-container": "#eceef0",
+                    "on-surface": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "tertiary": "#0b0088",
+                    "primary-container": "#00450d",
+                    "on-secondary-fixed": "#002113"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "lg": "24px",
+                    "sidebar-width": "260px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "title-lg": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "title-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .partner-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+        }
+        .partner-card:active {
+            transform: scale(0.98);
+        }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-on-background shadow-sm border-b border-outline-variant dark:border-outline z-50 flex items-center justify-between px-md h-16">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-high">menu</button>
+<h1 class="font-display-lg text-display-lg font-black text-primary dark:text-primary-fixed !text-headline-md">AgriManage Admin</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-high">notifications</button>
+</div>
+</header>
+<main class="pb-24 px-gutter pt-md max-w-md mx-auto">
+<!-- Header Section -->
+<section class="mb-lg">
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-primary mb-xs">Partner Oversight</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and monitor your farm network.</p>
+</section>
+<!-- Stats Bento Row -->
+<div class="grid grid-cols-2 gap-sm mb-lg">
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md">
+<span class="material-symbols-outlined text-secondary mb-xs">groups</span>
+<div class="font-label-lg text-label-lg text-on-surface-variant">Active Partners</div>
+<div class="font-headline-md-mobile text-headline-md-mobile">142</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md">
+<span class="material-symbols-outlined text-primary-container mb-xs">verified</span>
+<div class="font-label-lg text-label-lg text-on-surface-variant">Compliance</div>
+<div class="font-headline-md-mobile text-headline-md-mobile">98%</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex gap-sm mb-md overflow-x-auto pb-xs">
+<button class="flex items-center gap-xs bg-primary text-on-primary font-label-lg text-label-lg px-md py-2 rounded-full whitespace-nowrap active:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Onboard New Partner
+            </button>
+<button class="flex items-center gap-xs border border-outline text-on-surface-variant font-label-lg text-label-lg px-md py-2 rounded-full whitespace-nowrap active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                Filters
+            </button>
+</div>
+<!-- Search Bar -->
+<div class="relative mb-lg">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-xl pr-md py-3 bg-white border border-outline-variant rounded-xl font-body-md text-body-md focus:outline-none focus:border-primary transition-colors" placeholder="Search partners, location, or supply..." type="text">
+</div>
+<!-- Partner List -->
+<div class="space-y-md">
+<!-- Partner 1 -->
+<div class="partner-card bg-white border border-outline-variant rounded-xl p-md shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up of a smiling organic farmer in a sun-drenched field, wearing a high-quality denim shirt. The lighting is soft and golden, emphasizing a clean, light-mode corporate aesthetic. The background features lush green rows of crops blurred in a cinematic depth of field, conveying reliability and premium quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzPeUvA4v6UjupMThuVx7lMPYd8rJNbK1DOomX1X4Wk0kH8zoFyGSx0yRZi8S6c_OYqMLQdPjCoy8HpV4gL_bqcufpxOVajxbzuU-VPFZdjrLQAgrWIFWoxtDfjIYhKvdXJmXnjgSFn_kqfXdKMUCFa9HIGWjkT82a9e6XTIRJ_pcHKUBgK1sDziPSrYdDlbHDftggkDQnFw7uwdiL2dYa4Rg0q9F2y_tr86DEcigfWKWyTAyO_4HveC_pX94DXprsR44DzlCRccc">
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Green Valley Organics</h3>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="font-label-md text-label-md">Sonoma, CA</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-secondary-container text-on-secondary-container font-label-lg text-label-lg px-2 py-0.5 rounded-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified
+                        </span>
+<div class="flex items-center mt-xs text-[#EAB308]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-on-surface ml-0.5">4.9</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs border-t border-outline-variant pt-sm">
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Leafy Greens</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Berries</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Roots</span>
+</div>
+</div>
+<!-- Partner 2 -->
+<div class="partner-card bg-white border border-outline-variant rounded-xl p-md shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro shot of vibrant, multi-colored heirloom tomatoes glistening under soft morning dew. The image uses a bright, high-key lighting scheme consistent with a modern light-mode UI. Every detail is crisp and fresh, representing premium farm-to-table supply. Forest green accents are subtly reflected in the background foliage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7RIbG0ZmYMBOq0Kb8MlwGTdsrwkIGZM-_ZU1wIKJdEmQMBr6LpBtIsnU-Uofw4L0Nd8Mmg6v5JgfzKPOY3rVyjBjMOXiUbC7zcaRnHRO_A-mZmNKfMeFwJ1P51JbrbbTIIiKwpX4iNzM2m0ylgkMtzIp7Irp7wre3It79aarIXzS8x6NSqlrg_uTuD1FuQNOmiVmPsMNohxIRuG8Xxpqp51Decw7sPyWNFuu_ucS85Qe5cxbBqP-l53ktg40cJ8unG_pMHvhac5Y">
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Highland Orchards</h3>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="font-label-md text-label-md">Asheville, NC</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-surface-container-highest text-on-surface-variant font-label-lg text-label-lg px-2 py-0.5 rounded-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                            Pending
+                        </span>
+<div class="flex items-center mt-xs text-[#EAB308]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-on-surface ml-0.5">4.7</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs border-t border-outline-variant pt-sm">
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Pome Fruits</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Stone Fruits</span>
+</div>
+</div>
+<!-- Partner 3 -->
+<div class="partner-card bg-white border border-outline-variant rounded-xl p-md shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist workspace view featuring a laptop displaying complex agricultural data charts. Next to the laptop is a small potted herb and a glass of water. The scene is bathed in natural daylight, reflecting a high-tech admin environment. The color palette consists of whites, soft greys, and vibrant forest greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2EPAasis8zjJjUxkHNxJkUkR1iWg2P-TAkQ3LYA2i9swbX0EuaCDH4zVJDq4tfLy6L2-I1k3LXLB94MJia1L0MVUqbSdeDO_bYZN0hHJ-JJxG0oVhYWdAA7Cr5JZqXM1Axf8tPN_tkQezq1AgEc0I7GJGTIASfsWinBzU9-8dX_0qZYJL1_lIRoWS3nPD8vKRCsvbhSmskHgcnD_W9Vuh_yZRLPkOri5-SH9-UsgtB0OOtsSKP0felU5Cm91C-fZDfqU427oPA0E">
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Riverdale Dairy</h3>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="font-label-md text-label-md">Madison, WI</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-error-container text-on-error-container font-label-lg text-label-lg px-2 py-0.5 rounded-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            Under Review
+                        </span>
+<div class="flex items-center mt-xs text-[#EAB308]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-on-surface ml-0.5">4.2</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs border-t border-outline-variant pt-sm">
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Dairy Products</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Artisan Cheese</span>
+</div>
+</div>
+<!-- Partner 4 -->
+<div class="partner-card bg-white border border-outline-variant rounded-xl p-md shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An expansive aerial view of a meticulously organized regenerative farm with distinct circular crop patterns. The lighting is late afternoon sun, casting long, soft shadows. The overall aesthetic is professional, clean, and organized, representing large-scale efficiency. The landscape is a rich tapestry of deep greens and earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGlabk42o3zfoLBMSvGcY64cyquDkh7moem5pgKvkNHIgTrKykcd1HsHudPXIX64LNukQU0Cuh1HY5hz4T1HzU78DNtUon2n-PDYzGQA6rSLo_pbnM3oYWnhtpM807cKB27wJhBqx44C7UZTOyzMtcuE8_5PI58uOC2UGuy6_LJ_Zj5XnC82_gRrUU8yXYOuaNQdgbFP5QsJZ-rx5ls8RV0XMcKbcRun1CSOkQkhpJsyM8vMU8p-wG6u-9vFslPylekHlswWzb-2s">
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Apex Grains Co.</h3>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+<span class="font-label-md text-label-md">Ames, IA</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-secondary-container text-on-secondary-container font-label-lg text-label-lg px-2 py-0.5 rounded-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            Verified
+                        </span>
+<div class="flex items-center mt-xs text-[#EAB308]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-on-surface ml-0.5">4.8</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs border-t border-outline-variant pt-sm">
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Wheat</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Oats</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">Barley</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only Layout) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm bg-surface-container-lowest dark:bg-on-background border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,69,13,0.04)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md-mobile text-label-md-mobile">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md-mobile text-label-md-mobile">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="font-label-md-mobile text-label-md-mobile">Inventory</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-fixed rounded-full px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-md-mobile text-label-md-mobile">Partners</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-label-md-mobile text-label-md-mobile">More</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('.partner-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // In a real app, this would navigate to the partner details
+                console.log('Partner clicked');
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#002c06",
+                    "outline-variant": "#c0c9bb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#135219",
+                    "surface-bright": "#f7f9fb",
+                    "outline": "#717a6d",
+                    "on-primary-fixed": "#002203",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "surface-container-high": "#e6e8ea",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#95d78e",
+                    "surface-dim": "#d8dadc",
+                    "on-background": "#191c1e",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-container": "#6cf8bb",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-surface": "#191c1e",
+                    "tertiary-container": "#1f1ab3",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed": "#b0f3a7",
+                    "on-primary-container": "#74b46e",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#0b0088",
+                    "on-tertiary-container": "#989bff",
+                    "surface-tint": "#2e6b2f",
+                    "primary-container": "#00450d",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#eceef0",
+                    "background": "#f7f9fb",
+                    "inverse-primary": "#95d78e",
+                    "secondary": "#006c49",
+                    "tertiary-fixed": "#e1e0ff",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#41493e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "sidebar-width": "260px",
+                    "sm": "8px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-md-mobile": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "label-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "title-lg": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for data-rich admin panels */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c0c9bb; border-radius: 10px; }
+        
+        /* Animation for the charts/bars */
+        @keyframes grow {
+            from { height: 0; opacity: 0; }
+            to { height: var(--final-height); opacity: 1; }
+        }
+        .bar-animate {
+            animation: grow 1s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- NavigationDrawer (Sidebar) - Visible on Desktop -->
+<aside class="hidden md:flex h-full w-sidebar-width fixed left-0 top-0 z-50 bg-primary shadow-xl flex flex-col py-lg transition-transform duration-300" id="sidebar">
+<div class="px-md mb-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Oja</h1>
+</div>
+<!-- Profile Header -->
+<div class="px-md mb-lg flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-fixed flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female business executive in her 40s, looking confident and smiling. She is wearing a structured green blazer that matches the brand's primary color. The background is a soft-focus modern office with clean lines and natural lighting, maintaining a high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZqhiPqzkLIaMAnK_qaHPm9e3d9BQPD8cUvFZ8gPpFdA_4rzj1ZcrFJaaMrQQtPvrIeDPoJUOGLT77x7RwjsxdnKe-ZxEK4qVlR0ZX7x8Fg8OzfiUcD79GVhj5JNqhAPMPyHhsTMYulMS2TDP8wh8NfCTYuhoqEGU8_jkaFjzr_aHrHCoBxNAAnkqeAHk_p79Fc-t-STkkVZd31sLKRj64SQYq4NjnOOdBpP_k55cNdk9nIAu00-yjrV8QuSgUN43rpeO93xhdTuI">
+</div>
+<div class="overflow-hidden">
+<p class="font-title-md text-title-md text-on-primary truncate">Admin</p>
+<p class="font-label-lg text-label-lg text-on-primary/70">Global Manager</p>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> Online
+                </span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Navigation -->
+<a class="flex items-center gap-md bg-primary text-on-primary font-bold py-3 px-4 transition-colors rounded-lg mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-on-primary/5 hover:text-on-primary py-3 px-4 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-on-primary/5 hover:text-on-primary py-3 px-4 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-on-primary/5 hover:text-on-primary py-3 px-4 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-lg text-label-lg">Partners</span>
+</a>
+<a class="flex items-center gap-md text-on-primary/70 hover:bg-on-primary/5 hover:text-on-primary py-3 px-4 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="md:ml-[260px] min-h-screen flex flex-col pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 md:left-[260px] right-0 z-40 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center h-16 px-gutter shadow-sm">
+<div class="flex items-center gap-sm">
+<button class="md:hidden p-2 hover:bg-surface-container-high rounded-full transition-all active:scale-95 duration-150" onclick="toggleSidebar()">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h2 class="font-headline-md-mobile text-headline-md-mobile font-extrabold text-primary">Oja Admin</h2>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden sm:flex relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container border border-outline-variant rounded-lg text-body-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search data..." type="text">
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full relative transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="mt-16 p-container-margin flex-1">
+<!-- Dashboard Welcome -->
+<div class="mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Dashboard Overview</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Welcome back, Admin. Here's what's happening today.</p>
+</div>
+<!-- Metrics Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+<!-- Total Orders -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)] flex flex-col gap-xs group hover:border-primary/20 transition-all">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Total Orders</span>
+<div class="p-1.5 bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed text-lg" data-icon="shopping_cart">shopping_cart</span>
+</div>
+</div>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">1,284</span>
+<span class="font-label-md text-label-md text-secondary-fixed-dim bg-secondary/10 px-1.5 py-0.5 rounded flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]" data-icon="arrow_upward">arrow_upward</span> 12%
+                        </span>
+</div>
+<div class="mt-2 h-8 flex items-end gap-1">
+<div class="w-full bg-outline-variant/20 h-1 rounded-full relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-primary w-2/3 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Revenue -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)] flex flex-col gap-xs group hover:border-primary/20 transition-all">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Revenue</span>
+<div class="p-1.5 bg-secondary-container rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container text-lg" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">$42.5k</span>
+<span class="font-label-md text-label-md text-secondary-fixed-dim bg-secondary/10 px-1.5 py-0.5 rounded flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]" data-icon="arrow_upward">arrow_upward</span> 8%
+                        </span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">+$3,100 vs last month</p>
+</div>
+<!-- New Partners -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)] flex flex-col gap-xs group hover:border-primary/20 transition-all">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">New Partners</span>
+<div class="p-1.5 bg-tertiary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-lg" data-icon="handshake">handshake</span>
+</div>
+</div>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">24</span>
+<span class="font-label-md text-label-md text-secondary-fixed-dim bg-secondary/10 px-1.5 py-0.5 rounded flex items-center gap-xs">
+<span class="material-symbols-outlined text-[12px]" data-icon="arrow_upward">arrow_upward</span> 5%
+                        </span>
+</div>
+<div class="flex -space-x-2 overflow-hidden mt-1">
+<div class="inline-block h-6 w-6 rounded-full border-2 border-surface-container-lowest bg-surface-container-high"></div>
+<div class="inline-block h-6 w-6 rounded-full border-2 border-surface-container-lowest bg-surface-container-high"></div>
+<div class="inline-block h-6 w-6 rounded-full border-2 border-surface-container-lowest bg-surface-container-high"></div>
+<div class="flex items-center justify-center h-6 w-6 rounded-full border-2 border-surface-container-lowest bg-primary-fixed-dim text-[10px] font-bold">+21</div>
+</div>
+</div>
+</section>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Revenue Growth Visualization -->
+<section class="lg:col-span-8 bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="font-title-lg text-title-lg text-on-surface">Revenue Growth</h4>
+<div class="flex gap-sm">
+<button class="px-3 py-1 text-label-lg font-bold bg-primary text-on-primary rounded-full">Weekly</button>
+<button class="px-3 py-1 text-label-lg font-bold text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">Monthly</button>
+</div>
+</div>
+<!-- Simplified Visual Chart using pure CSS/HTML bars for maximum performance -->
+<div class="relative h-64 w-full flex items-end justify-between gap-2 px-2 pt-8">
+<!-- Y-Axis labels (conceptual) -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[10px] text-outline opacity-50 pb-8">
+<span class="">$50k</span><span class="">$25k</span><span class="">$0</span>
+</div>
+<!-- Grid lines -->
+<div class="absolute inset-x-0 top-8 bottom-8 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-outline-variant/30 w-full"></div>
+<div class="border-b border-outline-variant/30 w-full"></div>
+<div class="border-b border-outline-variant/30 w-full"></div>
+</div>
+<!-- Animated Bars -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm relative bar-animate" style="--final-height: 40%; height: 40%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-primary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Mon</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-secondary/20 rounded-t-sm relative bar-animate" style="--final-height: 65%; height: 65%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-secondary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Tue</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm relative bar-animate" style="--final-height: 55%; height: 55%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-primary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Wed</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-tertiary/20 rounded-t-sm relative bar-animate" style="--final-height: 85%; height: 85%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-tertiary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Thu</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/40 rounded-t-sm relative bar-animate" style="--final-height: 70%; height: 70%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-primary rounded-t-sm"></div>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$34k</div>
+</div>
+<span class="font-label-md text-label-md text-outline">Fri</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-secondary/20 rounded-t-sm relative bar-animate" style="--final-height: 50%; height: 50%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-secondary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Sat</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm relative bar-animate" style="--final-height: 60%; height: 60%;">
+<div class="absolute top-0 inset-x-0 h-1 bg-primary rounded-t-sm"></div>
+</div>
+<span class="font-label-md text-label-md text-outline">Sun</span>
+</div>
+</div>
+</section>
+<!-- Recent Orders Summary -->
+<section class="lg:col-span-4 bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="font-title-lg text-title-lg text-on-surface">Recent Orders</h4>
+<a class="font-label-lg text-label-lg text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<!-- Order Item 1 -->
+<div class="flex items-center gap-md p-3 hover:bg-surface-container transition-colors rounded-lg group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" data-icon="package">package</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-title-md text-title-md text-on-surface truncate">#ORD-9421</p>
+<p class="font-label-md text-label-md text-on-surface-variant">2 mins ago • $142.00</p>
+</div>
+<span class="px-2 py-1 bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md rounded-full border border-secondary/10">Processing</span>
+</div>
+<!-- Order Item 2 -->
+<div class="flex items-center gap-md p-3 hover:bg-surface-container transition-colors rounded-lg group border-t border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-title-md text-title-md text-on-surface truncate">#ORD-9420</p>
+<p class="font-label-md text-label-md text-on-surface-variant">15 mins ago • $89.50</p>
+</div>
+<span class="px-2 py-1 bg-primary-fixed/30 text-on-primary-fixed-variant font-label-md text-label-md rounded-full border border-primary/10">Delivered</span>
+</div>
+<!-- Order Item 3 -->
+<div class="flex items-center gap-md p-3 hover:bg-surface-container transition-colors rounded-lg group border-t border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" data-icon="inventory">inventory</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-title-md text-title-md text-on-surface truncate">#ORD-9419</p>
+<p class="font-label-md text-label-md text-on-surface-variant">45 mins ago • $1,204.00</p>
+</div>
+<span class="px-2 py-1 bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md rounded-full border border-secondary/10">Processing</span>
+</div>
+</div>
+<!-- Promo Card/Action in Sidebar Area -->
+<div class="mt-lg p-md bg-primary-container rounded-xl text-on-primary relative overflow-hidden group">
+<div class="relative z-10">
+<p class="font-title-md text-title-md mb-1">New Partner Alert</p>
+<p class="font-body-md text-body-md opacity-80 mb-4">GreenLeaf Farms joined the platform.</p>
+<button class="bg-primary-fixed text-on-primary-fixed px-4 py-2 rounded-lg font-label-lg text-label-lg hover:scale-105 transition-transform">Verify Account</button>
+</div>
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-fixed/10 rounded-full -mr-8 -mt-8"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,69,13,0.05)] flex justify-around items-center h-16 px-2 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl px-4 py-1 active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: &quot;FILL&quot; 1, &quot;wght&quot; 400, &quot;GRAD&quot; 0, &quot;opsz&quot; 24;">home</span>
+<span class="font-label-md text-label-md" style="font-variation-settings: &quot;FILL&quot; 1, &quot;wght&quot; 400, &quot;GRAD&quot; 0, &quot;opsz&quot; 24;">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="box">box</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+</div>
+<!-- Backdrop for mobile drawer -->
+<div class="fixed inset-0 bg-black/50 z-40 hidden md:hidden" id="backdrop" onclick="toggleSidebar()"></div>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('backdrop');
+            
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+                backdrop.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+                backdrop.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Micro-interaction for sidebar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                if(window.innerWidth < 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

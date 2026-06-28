@@ -1,0 +1,472 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin - Product Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface": "#191c1e",
+                    "on-primary-fixed": "#002203",
+                    "on-surface-variant": "#41493e",
+                    "inverse-on-surface": "#eff1f3",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#74b46e",
+                    "surface-bright": "#f7f9fb",
+                    "tertiary-container": "#1f1ab3",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary-fixed-variant": "#005236",
+                    "outline": "#717a6d",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#989bff",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-tint": "#2e6b2f",
+                    "primary-fixed": "#b0f3a7",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-fixed": "#07006c",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#135219",
+                    "on-background": "#191c1e",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "on-secondary-fixed": "#002113",
+                    "inverse-primary": "#95d78e",
+                    "primary": "#002c06",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#0b0088",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#95d78e",
+                    "background": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#eceef0",
+                    "secondary": "#006c49",
+                    "primary-container": "#00450d",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "sidebar-width": "260px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "container-margin": "24px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "label-lg": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c0c9bb; border-radius: 10px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-sidebar-width fixed left-0 top-0 z-40 bg-primary-container shadow-md py-lg transition-transform duration-300 ease-in-out">
+<div class="px-6 mb-xl">
+<span class="font-headline-md text-headline-md font-extrabold text-primary-fixed">Oja Admin</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<!-- Active State: Products -->
+<a class="flex items-center gap-md bg-primary text-on-primary rounded-r-full py-3 px-6 border-l-4 border-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-label-lg text-label-lg">Partners</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-lg text-label-lg">Admins</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Users</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="flex items-center gap-md p-md rounded-xl bg-on-primary-container/5 border border-on-primary-container/10">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of an African administrator wearing business casual attire, set against a clean, light green studio background. The lighting is soft and flattering, emphasizing a trustworthy and expert character. High-quality corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN3zcktaGoP_zj4jxdlQwG3R_8n08d1duBl8MMo4BDOwdLLcOQntnB6mgBytKtZxHjJ5gZECkKnbiLYRS-wS85la-Ll_C-gl6gqLLfgzA_pwlQFUokKx8oMVtte4BbTjAEyKYCrUCJE171c_TXkWbsTjeFDJHLH8Zj07KvI6IOInX0hSg6DsVvKa4G1C26xc-WRaw1C79y89gVu07RajukDr0iHC8hl2FatM9znXCK0ZXn1Lw1V_V_0ZyOPmuAmHEo_c0ejJ5c_r4">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-primary-container truncate">Admin User</span>
+<span class="text-[10px] text-on-primary-container/60 truncate">admin@oja.com</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top AppBar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 bg-surface border-b border-outline-variant shadow-sm fixed top-0 z-30 md:pl-[276px]">
+<div class="flex items-center gap-md">
+<button class="md:hidden p-2 text-primary cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-primary">Inventory Management</h1>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hidden sm:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-body-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all w-64 lg:w-80" placeholder="Search products..." type="text">
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full cursor-pointer transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 md:pb-8 px-4 md:px-lg md:ml-sidebar-width min-h-screen">
+<!-- Category Quick Filters -->
+<section class="mb-lg mt-4 overflow-x-auto no-scrollbar">
+<div class="flex gap-sm pb-2">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-sm whitespace-nowrap">All Items</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-variant transition-colors whitespace-nowrap">Grains</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-variant transition-colors whitespace-nowrap">Produce</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-variant transition-colors whitespace-nowrap">Oils &amp; Spices</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-variant transition-colors whitespace-nowrap">Poultry</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-variant transition-colors whitespace-nowrap">Packaged</button>
+</div>
+</section>
+<!-- Stats Overview Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-lg">
+<div class="bg-surface-container-lowest p-md border border-outline-variant rounded-xl shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Total SKU</span>
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">1,284</div>
+<div class="mt-2 text-label-md font-label-md text-secondary">+12 this month</div>
+</div>
+<div class="bg-surface-container-lowest p-md border border-outline-variant rounded-xl shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Out of Stock</span>
+<span class="material-symbols-outlined text-error">cancel</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">18</div>
+<div class="mt-2 text-label-md font-label-md text-error">Needs attention</div>
+</div>
+<div class="bg-surface-container-lowest p-md border border-outline-variant rounded-xl shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Low Stock</span>
+<span class="material-symbols-outlined text-tertiary-fixed-variant">warning</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">42</div>
+<div class="mt-2 text-label-md font-label-md text-on-tertiary-fixed-variant">Reorder suggested</div>
+</div>
+<div class="bg-surface-container-lowest p-md border border-outline-variant rounded-xl shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Inventory Value</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface">$14.2k</div>
+<div class="mt-2 text-label-md font-label-md text-secondary">Est. Retail</div>
+</div>
+</div>
+<!-- Inventory Table Section -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)] overflow-hidden">
+<div class="p-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md border-b border-outline-variant">
+<h2 class="font-title-md text-title-md text-on-surface">All Products</h2>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-3 py-1.5 border border-outline-variant rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-xs px-3 py-1.5 bg-primary-container text-on-primary-container border border-on-primary-container/10 rounded-lg font-label-lg text-label-lg hover:bg-on-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span> Export
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-md py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Product</th>
+<th class="px-md py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-md py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Price</th>
+<th class="px-md py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Stock</th>
+<th class="px-md py-3 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-md py-3 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Product Row 1: Low Stock -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up high-resolution shot of premium organic brown rice in a burlap sack. The lighting is warm and rustic, emphasizing natural textures. The color palette is earthy with tones of gold, beige, and deep green. Professional food product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQvpPi_3Knn7lC-v-kp9_hJyaxma4xPxyT5exR3CNewQV8hggTZNLjRrgPyOKl_5vU_QjMJ3pno-W5tUE_y3SsqvNfzvlsXwu131oFLfC-_nB8Ho7npM5bEdwKi-50niMvEIuFtOX7h-n0U6rGO3ter3mW4i6qQ-EAmjTRXii_mwtPbWdP3wU1YAgcCmaDsoVY8K4lu9zyeSckzgB0uxoRTsivpAWRg2BSkls4aUk4by3JptnjjAqF81YWV1UBvO7LW-xdgdORQQY">
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Premium Brown Rice</span>
+<span class="text-body-md text-on-surface-variant">5kg Bag</span>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container font-label-lg text-label-lg rounded">Grains</span>
+</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">$12.50</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">8 Units</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-error-container text-on-error-container font-label-lg text-label-lg rounded-full animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Low Stock
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-1 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Macro photography of vibrant red cherry tomatoes with glistening water droplets on a clean white surface. Soft natural lighting from the side creating delicate highlights. Fresh, healthy, and organic aesthetic in a minimalist light-mode environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAod4-U2fVmIUV0N3T6rTyk5RSfAywkpxlZdgWQRt9W76Qslh5jnDU6hGFkt1ug6h87d4noZ0fk-W-ba5pFVyl_ilSO7TARQyglU0A7FaAmOh3vsB50TAXQ1urj-fKQTA6pA5YkZtXa0w0rPrQt8_LeBchUCEDDuxbw36QayyqBBQIOtc9MVDCb1wwnNLUeRvj6GTwtQQvHdbCvxWCA01L-RF7xbVC6bNqDcKMZSIKXt4ChCOYbP33wApOWJHjAM-OX2BrUri15kyk">
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Cherry Tomatoes</span>
+<span class="text-body-md text-on-surface-variant">250g Pack</span>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container font-label-lg text-label-lg rounded">Produce</span>
+</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">$3.20</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">145 Units</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary-fixed/30 text-on-primary-fixed-variant font-label-lg text-label-lg rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> In Stock
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-1 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A bottle of cold-pressed extra virgin olive oil standing on a dark wooden countertop. The golden liquid glows against the dark background. Highlights of green and amber. High-end culinary photography style with a focus on purity and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9YEIlUqcgUi3mTioNppxjmQRQJ2Eec5bjAL8yWPzNU7GXyQ2rPX7PCcMYWgmUKVJm_vc96IHFQf1gAT4n10gtWNyhKEPgnpgW4MgNzEUuFO5zmv5twDBs-DRRCa_KRmEulUqSCV3WMbWQlctMdPBVIzLirpz7QjYT4CswQM8bX90E6G98KH6ds3ZXajpe-PRXw5nee-5rOpVZTBvzdcuI2Iv70WkA0s8ZRM4YbhpTSuOkuFMAKEP-wxl-Rk-hijUOLVKkAzKHYvw">
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Cold Pressed Olive Oil</span>
+<span class="text-body-md text-on-surface-variant">750ml Bottle</span>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container font-label-lg text-label-lg rounded">Oils &amp; Spices</span>
+</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">$18.99</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">54 Units</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary-fixed/30 text-on-primary-fixed-variant font-label-lg text-label-lg rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> In Stock
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-1 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 4: Low Stock -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A stack of farm-fresh organic brown eggs in a minimal cardboard carton. Top-down view with soft morning light filtering in. The aesthetic is clean, natural, and artisanal. A palette of muted cream, brown, and soft green." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXThJfV96yNDswn9C-wkk-61j2Sj8Eg6JChV8bXpo5Luajb-7HsL4CIiQskouFN4ZeyGjFhDicweZeer6UFdYNTiB5EM4UsRi_0UnBqy6tFsUaNHJYNohasRL5PPDpsJd3AwNsxgL4gk_boIkjltHnTIAUwjnYT7xVyMTKiLg8zILsfE4srjqDlgbmbY7EzLs6qUHp62IBG4qmJAjDPbidJXCjsoKuMphuUebz3lcguKkMNuTjxRJKV7rEL4MPexUUrk8vmb2u0I8">
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Organic Farm Eggs</span>
+<span class="text-body-md text-on-surface-variant">Dozen</span>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container font-label-lg text-label-lg rounded">Poultry</span>
+</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">$5.50</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">3 Units</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-error-container text-on-error-container font-label-lg text-label-lg rounded-full animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Low Stock
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-1 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-4">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Freshly harvested organic spinach leaves in a bright modern kitchen environment. The leaves are vibrant green with tiny water beads. Bright, airy lighting that suggests health and vitality. High-quality editorial food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKVeLOYlCn_3CuD40E-uj8Y8-W1AKxnHPCZ36xD2iRGNDnIjI-HKPWPuYSGbKpZM8qePIs-o2D9VqymmVEE8lfmOlnrFjLavMv7wa2sn7yNGRmFbN3648eSoNSjXzomZtWEEchu2sz2pxPih4kDcKTPp3z5yGGGG0WHcWDuTwPIpxuqLHfIdANeSPcPwosoMufiUFYj17yr99g2t1QgzxIbsBJcSdWG1csIi0hNhTCmRKEj34Jas6POCoq6V__0x_L1g6qEmZj--E">
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Baby Spinach</span>
+<span class="text-body-md text-on-surface-variant">200g Bag</span>
+</div>
+</div>
+</td>
+<td class="px-md py-4">
+<span class="px-2 py-1 bg-secondary-container/20 text-on-secondary-container font-label-lg text-label-lg rounded">Produce</span>
+</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">$2.80</td>
+<td class="px-md py-4 font-body-md text-body-md text-on-surface">32 Units</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary-fixed/30 text-on-primary-fixed-variant font-label-lg text-label-lg rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> In Stock
+                                </span>
+</td>
+<td class="px-md py-4 text-right">
+<button class="p-1 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Showing 1-10 of 1,284 products</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded-lg hover:bg-surface-variant text-on-surface-variant transition-colors disabled:opacity-30">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center border border-primary bg-primary text-on-primary rounded-lg font-label-lg text-label-lg">1</button>
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded-lg hover:bg-surface-variant text-on-surface-variant transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded-lg hover:bg-surface-variant text-on-surface-variant transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center border border-outline-variant rounded-lg hover:bg-surface-variant text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-lg bottom-24 md:bottom-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">add</span>
+<span class="absolute right-16 bg-inverse-surface text-inverse-on-surface px-3 py-1 rounded-lg text-label-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-md">Add New Product</span>
+</button>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface border-t border-outline-variant shadow-lg md:hidden z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl px-4 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">package_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Potential expansion or detail navigation
+                console.log('Product selected');
+            });
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-primary');
+        });
+    </script>
+
+
+</body></html>

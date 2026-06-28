@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oja Admin | Orders Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar for data-rich density */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .order-row:hover {
+            background-color: #f8fafc;
+            cursor: pointer;
+        }
+
+        /* Slide-over panel animation */
+        #side-panel {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+        #side-panel.open {
+            transform: translateX(0);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d8dadc",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#002203",
+                        "on-background": "#191c1e",
+                        "primary": "#002c06",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#135219",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#6cf8bb",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#989bff",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#95d78e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface-variant": "#41493e",
+                        "outline": "#717a6d",
+                        "on-tertiary-fixed": "#07006c",
+                        "secondary-fixed": "#6ffbbe",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#95d78e",
+                        "outline-variant": "#c0c9bb",
+                        "background": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#1f1ab3",
+                        "surface-tint": "#2e6b2f",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#00714d",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#74b46e",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "tertiary-fixed": "#e1e0ff",
+                        "primary-fixed": "#b0f3a7",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "secondary": "#006c49",
+                        "surface-container": "#eceef0",
+                        "on-surface": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#0b0088",
+                        "primary-container": "#00450d",
+                        "on-secondary-fixed": "#002113"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "lg": "24px",
+                        "sidebar-width": "260px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "md": "16px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-primary-container border-r border-outline-variant flex flex-col h-full py-lg px-md z-40">
+<div class="mb-xl px-md">
+<h1 class="font-headline-md text-headline-md font-bold text-secondary-fixed">Oja Admin</h1>
+<p class="font-label-lg text-label-lg text-on-primary-container opacity-60">Marketplace Hub</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">dashboard</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Dashboard</span>
+</a>
+<!-- Active State: Orders -->
+<a class="flex items-center gap-md bg-secondary text-on-secondary rounded-lg px-md py-sm border-l-4 border-secondary-fixed" href="#">
+<span class="material-symbols-outlined fill-icon">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">inventory_2</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">handshake</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Partners</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">admin_panel_settings</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Admins</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">group</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Users</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container opacity-80 px-md py-sm hover:bg-primary transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-white">settings</span>
+<span class="font-label-lg text-label-lg group-hover:text-white">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md py-md border-t border-on-primary-container/10">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full border-2 border-secondary-fixed" data-alt="A professional headshot of a female tech administrator with a kind expression, wearing a sleek blazer, set against a blurred office background with warm lighting and deep forest green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY4Vyo4gDknkL9aNZIrt-kFQo5FQp7-zNg1HnbxwdQCE8tavhJ3ocQYqBLumPVbXJqUsGKs-NoGrq-ub7cZsjpkTlChsyTn26Mir7PaLhoYlZQ_UoB1gpKKU7ouJMS0S4GvH_pWlnYNE3xRsRV1x3DNck0Dcw2ZJaK9_1D4jaP3w21W5HUIBX0Bp1i9OIk3ik3bpL_PtGUG-SAgzZr6XFSSxN6i-Eh89MvsoC6ZrTR-tQycSCyYA9uO2oavPBTtMSOn1M5QwAJEaY"/>
+<div>
+<p class="font-label-lg text-on-secondary-fixed">Sarah Jenkins</p>
+<p class="text-[10px] text-on-primary-container opacity-60 uppercase tracking-widest font-bold">Senior Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface border-b border-surface-variant flex justify-between items-center px-container-margin z-30 shadow-sm">
+<div class="flex items-center gap-md w-1/3">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-body-md focus:ring-2 focus:ring-secondary transition-all" placeholder="Search orders, customers, or SKUs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm px-md py-1 bg-secondary-container/20 rounded-full">
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+<span class="font-label-lg text-on-secondary-container">System Status: Optimal</span>
+</div>
+<div class="flex items-center gap-md border-l border-outline-variant pl-lg">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors relative">
+                        notifications
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">help_outline</button>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="pt-24 px-container-margin pb-xl">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Orders Management</h2>
+<p class="font-body-md text-on-surface-variant">Real-time overview of marketplace fulfillment</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm px-md py-2 border border-outline text-on-surface font-label-lg rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                        Export CSV
+                    </button>
+<button class="flex items-center gap-sm px-lg py-2 bg-secondary text-white font-label-lg rounded-lg shadow-sm hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Manual Order
+                    </button>
+</div>
+</div>
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-4 gap-md mb-xl">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex flex-col gap-xs shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<span class="text-on-surface-variant font-label-lg">Active Orders</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">1,284</span>
+<span class="text-secondary font-label-md flex items-center">+12% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex flex-col gap-xs shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<span class="text-on-surface-variant font-label-lg">Pending Fulfillment</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">84</span>
+<span class="text-on-surface-variant font-label-md">-5% <span class="material-symbols-outlined text-[14px]">trending_down</span></span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex flex-col gap-xs shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<span class="text-on-surface-variant font-label-lg">Daily Revenue</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">$42,390</span>
+<span class="text-secondary font-label-md flex items-center">+8% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant flex flex-col gap-xs shadow-[0_2px_4px_rgba(0,69,13,0.04)]">
+<span class="text-on-surface-variant font-label-lg">Average Order Value</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-headline-lg text-headline-lg text-primary">$154.20</span>
+<span class="text-on-surface-variant font-label-md">+2%</span>
+</div>
+</div>
+</div>
+<!-- Filters & Data Table Container -->
+<div class="bg-white rounded-2xl border border-outline-variant shadow-[0_2px_4px_rgba(0,69,13,0.04)] overflow-hidden">
+<!-- Advanced Filter Bar -->
+<div class="p-md bg-surface-container-low/50 border-b border-outline-variant flex flex-wrap gap-md items-center">
+<div class="flex items-center gap-sm bg-white px-sm py-1.5 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<span class="font-label-lg">Oct 1, 2023 - Oct 14, 2023</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] cursor-pointer">expand_more</span>
+</div>
+<div class="flex items-center gap-sm bg-white px-sm py-1.5 rounded-lg border border-outline-variant">
+<span class="font-label-lg text-on-surface-variant">Status:</span>
+<span class="font-label-lg">All Orders</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] cursor-pointer">expand_more</span>
+</div>
+<div class="flex items-center gap-sm bg-white px-sm py-1.5 rounded-lg border border-outline-variant">
+<span class="font-label-lg text-on-surface-variant">Value:</span>
+<span class="font-label-lg">Over $100</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] cursor-pointer">close</span>
+</div>
+<div class="ml-auto flex items-center gap-md">
+<span class="text-on-surface-variant font-label-lg italic">64 orders selected</span>
+<button class="bg-secondary/10 text-secondary px-md py-1.5 rounded-lg font-label-lg hover:bg-secondary/20 transition-colors">Bulk Ship</button>
+</div>
+</div>
+<!-- Table Header -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="p-md"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/></th>
+<th class="p-md font-label-lg text-on-surface-variant">Order ID</th>
+<th class="p-md font-label-lg text-on-surface-variant">Customer</th>
+<th class="p-md font-label-lg text-on-surface-variant">Items</th>
+<th class="p-md font-label-lg text-on-surface-variant">Status</th>
+<th class="p-md font-label-lg text-on-surface-variant">Total</th>
+<th class="p-md font-label-lg text-on-surface-variant">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Table Rows -->
+<tr class="order-row group" onclick="toggleSidePanel('OJA-84920')">
+<td class="p-md"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" onclick="event.stopPropagation()" type="checkbox"/></td>
+<td class="p-md font-label-lg text-primary">#OJA-84920</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary font-bold text-xs uppercase">ML</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">Marcus L.</span>
+<span class="text-[10px] text-on-surface-variant">marcus.l@example.com</span>
+</div>
+</div>
+</td>
+<td class="p-md">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-lg border-2 border-white overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up of vibrant green organic kale leaves, fresh and crisp with visible textures, part of a premium food marketplace collection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNs3G7Y-2jPW6pRXLiRGltqGVxYk1NUkOFPQ_74AVLVUeCUgqysPZN7pIlhaJwCul50VRnJ3p4XyWgi_rwCoLjBVVUaUYenI82AfbE9AEQfq8qXRwMb9WjDbFB2dQ5w7WMDKJT8-RevFyf3J3GDH0VsDYhceOC2370dIu6ZG5qAPyzGIlfTP8sq7WhAFcDwJao1-T9SM1MshRnz0X3u_OPmvLJriWqSQyB8ogjOow--AH40NMTmno4rJ9tv2yfHnc6OtaVEUdU0nc"/>
+</div>
+<div class="w-8 h-8 rounded-lg border-2 border-white overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="High quality overhead shot of small ripe cherry tomatoes in a minimalist wooden crate, bright natural lighting, professional food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3F1Dup6lHpWCnbh-IZ83SGvHL1l3Q_J1RB3mIya0qm6uBXB8NEpMTUbnIz1dgox1-X-v14vsDQc6y27ecR4sBGqAvkGgeBf4TBi7HyAoISVm0BOT5fMMEUgBZfcGP579gUcwG_VL0fSzWNyUxkKFLbfGHmAd5THfG329CPqyOU4vu5mF4FTSoTGQPy7QO8hKrFzz-2NidNH4egXMi2FFJYv3_t4Gw2lMibBXXZT1oIBaq2ZJ6oeMMC_iMMxHQ4ZA_EVheLqdadU4"/>
+</div>
+<div class="w-8 h-8 rounded-lg border-2 border-white bg-surface-container flex items-center justify-center text-[10px] font-bold">+2</div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-sm py-1 bg-secondary-container/20 text-on-secondary-container text-[10px] font-bold uppercase tracking-wider rounded-full">Processing</span>
+</td>
+<td class="p-md font-label-lg text-primary">$142.00</td>
+<td class="p-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary">more_vert</button>
+</td>
+</tr>
+<tr class="order-row group" onclick="toggleSidePanel('OJA-84919')">
+<td class="p-md"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" onclick="event.stopPropagation()" type="checkbox"/></td>
+<td class="p-md font-label-lg text-primary">#OJA-84919</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary font-bold text-xs uppercase">AH</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">Alicia H.</span>
+<span class="text-[10px] text-on-surface-variant">alicia.h@webmail.com</span>
+</div>
+</div>
+</td>
+<td class="p-md">
+<div class="w-8 h-8 rounded-lg overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Artisanal sourdough bread loaf with a perfectly golden crust, dusting of flour on top, photographed on a dark rustic slate background with dramatic side lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-yaKK1k4TxqOOI6TuXhnm2b4U6HxWEbcZKEuz5mymXczgLULSHun8yvtZdHoIwhAty8S_b1_ya_tu_AT2mQjoz10IEFD7t1vFN94XdEoeGSgPaW0cvyGu4gU9Yg7EoTU00Sj4Joa43Fa8kIYH1xUhd_ZezYNU-rsPAZFQAeJxkJaKrCnsodbmmFYAfVU2or8bPR8S0Ca3obTAA6J5U84B2kimgNWPQ7hdzS8qco3AjuNWQkeQeHttRVWKX9BAoNmqW3J-INTvwDo"/>
+</div>
+</td>
+<td class="p-md">
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-wider rounded-full">Shipped</span>
+</td>
+<td class="p-md font-label-lg text-primary">$45.50</td>
+<td class="p-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary">more_vert</button>
+</td>
+</tr>
+<tr class="order-row group" onclick="toggleSidePanel('OJA-84918')">
+<td class="p-md"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" onclick="event.stopPropagation()" type="checkbox"/></td>
+<td class="p-md font-label-lg text-primary">#OJA-84918</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-error-container/20 flex items-center justify-center text-error font-bold text-xs uppercase">DK</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">David K.</span>
+<span class="text-[10px] text-on-surface-variant">dk_99@provider.net</span>
+</div>
+</div>
+</td>
+<td class="p-md">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-lg border-2 border-white overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A jar of premium golden honey with a wooden dipper, warm backlight catching the viscous honey's glow, clean minimalist white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBpXRtpcHjdiRtsXx5bIZZnnEdcxWxyKz8FuE2K0vhEPbLEqWrFAzCwurmAKmieswLivs8PnmtEBEVozjuUGZsXgaE2DZFqKNcGe5OVrk3exCLxreFYJCZr_BcERiaHJ2ZZaXBJTJGlfhZGcoZ6ozb9AS0e5dgR6QuBoPz8zJhm0L504qTWbkkUf0uYJ1a2GmT8LNm42M3ZL_HPHRj0gTfX461IPlJaZPg9dvIIJ6p8JBLLfrEUMF-_8gaYmmDdLBeMbF4ekFFkgw"/>
+</div>
+<div class="w-8 h-8 rounded-lg border-2 border-white bg-surface-container flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+</td>
+<td class="p-md">
+<span class="px-sm py-1 bg-error-container/20 text-on-error-container text-[10px] font-bold uppercase tracking-wider rounded-full">Delayed</span>
+</td>
+<td class="p-md font-label-lg text-primary">$328.00</td>
+<td class="p-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary">more_vert</button>
+</td>
+</tr>
+<!-- Repeat for data density -->
+<tr class="order-row group" onclick="toggleSidePanel('OJA-84917')">
+<td class="p-md"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" onclick="event.stopPropagation()" type="checkbox"/></td>
+<td class="p-md font-label-lg text-primary">#OJA-84917</td>
+<td class="p-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary font-bold text-xs uppercase">SJ</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-on-surface">Sam J.</span>
+<span class="text-[10px] text-on-surface-variant">sam.j@domain.com</span>
+</div>
+</div>
+</td>
+<td class="p-md">
+<div class="w-8 h-8 rounded-lg overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Selection of organic root vegetables like carrots and parsnips with green tops, arranged artfully on a light gray marble surface, soft diffuse lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQidpmQmX5YZtVRNB1r6hnySqMuxE1TMO4lwWGifeAmM7fRNO1bBa1jXXZs-y9B1OOA-7TjGyH5X4W-Qp7xPqkSs1aGpm5WDce3nhvPkqVU97DEp9ofPC9kBkEiv3m-8Ie8xymObY9yOLuukzaTYaXExyHtQ00cOUJSQuarAdrG_8AL0z_RHc-1Ew3t78BPAQ929jvcUSTW31EErN0AHi46XPvWHuHrkPXEBJAXOptlhfU9cZrWBAthHw74VKvPMusryGqnDbKhCI"/>
+</div>
+</td>
+<td class="p-md">
+<span class="px-sm py-1 bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-wider rounded-full">Delivered</span>
+</td>
+<td class="p-md font-label-lg text-primary">$12.90</td>
+<td class="p-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="p-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">Showing 1 to 25 of 1,284 orders</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded hover:bg-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-secondary text-white font-label-lg">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-variant font-label-lg">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-variant font-label-lg">3</button>
+<span class="px-xs">...</span>
+<button class="w-8 h-8 rounded hover:bg-surface-variant font-label-lg">52</button>
+<button class="p-1 rounded hover:bg-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Detailed Order Side Panel (Hidden by default) -->
+<div class="fixed inset-0 bg-primary-container/40 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" id="side-panel-overlay" onclick="toggleSidePanel()"></div>
+<div class="fixed right-0 top-0 h-screen w-[480px] bg-white shadow-2xl z-50 flex flex-col" id="side-panel">
+<div class="p-lg border-b border-outline-variant flex justify-between items-start">
+<div>
+<span class="px-sm py-1 bg-secondary-container/30 text-on-secondary-container text-[10px] font-bold uppercase tracking-widest rounded-md mb-xs inline-block">Order Details</span>
+<h3 class="font-headline-md text-headline-md text-primary" id="panel-order-id">#OJA-84920</h3>
+<p class="font-body-md text-on-surface-variant">Placed on Oct 12, 2023 at 10:45 AM</p>
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors" onclick="toggleSidePanel()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-lg space-y-xl">
+<!-- Customer Section -->
+<section>
+<h4 class="font-label-lg text-on-surface-variant uppercase tracking-widest mb-md">Customer Information</h4>
+<div class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant">
+<img class="w-12 h-12 rounded-full border border-outline-variant" data-alt="Minimalist abstract portrait icon for a male customer, featuring clean lines and a professional aesthetic, set against a soft lime green background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6QY8IwUUeczDvQrtCdSPUoaEqwNVThKJ0nF5ZKq0zLeppQcctIdFkFBUymYAJbTOaU33I0eSrBNz5ccikEh914er7O9SKJhykR6J5jP-S1py-1c6TzDkxiIGmPYJN2r47M43mghuXCgELkTBdqR1MmDZOAZqRnlGlc2GOIPWPeCcrnRnkzi96OWzCDb2Dyfj4Bkh6wtwKzGWrsVqKL_3X-1S_-3W4zBOKOJkMpZqfvBpiFh3-nISx-8OUfv9pmguBsKG2RUeFRm4"/>
+<div class="flex-1">
+<p class="font-title-md text-title-md text-primary">Marcus L.</p>
+<p class="text-body-md text-on-surface-variant">marcus.l@example.com</p>
+</div>
+<button class="material-symbols-outlined text-secondary">open_in_new</button>
+</div>
+</section>
+<!-- Items List -->
+<section>
+<div class="flex justify-between items-center mb-md">
+<h4 class="font-label-lg text-on-surface-variant uppercase tracking-widest">Order Items (4)</h4>
+<span class="font-label-lg text-primary">$142.00 Total</span>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-md">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A small bundle of fresh organic baby carrots with bright green stems attached, sitting on a light wooden cutting board with soft, airy natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwgVuS3Y5B1FpCS8ultYMEOnkj5DbqYGRVbUMIpx0fMOizVoUiSFvc6rn7vaFOhUA2a5AzxJejLIxswr0amE6m-5H6zoFTC1OmYzteOoA9C2cQOTLWwT2PdsGIkUuQSALxJuFemnAseEBom5keeoFmaILizwDnxEob6EQav0uGYGDwwSWpJve2FqvpFnkp8svBMqoWaGCPRDKpNnpfTWZ812LyF-KW85ZOxE6Tzf5VRFmBhDQ9sPgMJ6ggppsCWOeoVVcMby1aSGU"/>
+<div class="flex-1">
+<p class="font-label-lg text-on-surface">Organic Baby Carrots</p>
+<p class="text-label-md text-on-surface-variant">2 lbs • $4.50/lb</p>
+</div>
+<span class="font-label-lg text-on-surface">$9.00</span>
+</div>
+<div class="flex items-center gap-md">
+<img class="w-12 h-12 rounded-lg object-cover" data-alt="A rustic ceramic bowl filled with dark red ripe cherries, water droplets visible on the fruit, high contrast lighting emphasizing freshness and color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnoYSRGCQxHazhC14M_wX31mlTgU1O9mUiw5nCnaJvPWfRlLZRv0asdZFb9H3yv9stpjr2DbOuW-tEiVDQzg3Ow-uO10O7djC1u8-1xIq3QBoExWTeLksYhTzDbsRA7PEjdHsU0A3HBUH_N8swJjjB-PYFHPaBd0Fs4P98GyIf_xJ9jU6oBxNYpCarBg2VhtYcgYnVFwqhQVoT9cOaX5rL-xBi8JJ_SU9eE8ABHpdUkg6q1DdDeJOoogYXmVSP8a2YfZ4YctmMdAw"/>
+<div class="flex-1">
+<p class="font-label-lg text-on-surface">Farm Fresh Cherries</p>
+<p class="text-label-md text-on-surface-variant">1 bag • $12.00/bag</p>
+</div>
+<span class="font-label-lg text-on-surface">$12.00</span>
+</div>
+<!-- Mock items for density -->
+<div class="py-md border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">Subtotal</span>
+<span class="font-label-lg text-on-surface">$124.50</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">Shipping (Express)</span>
+<span class="font-label-lg text-on-surface">$17.50</span>
+</div>
+</div>
+</section>
+<!-- Fulfillment Progress -->
+<section>
+<h4 class="font-label-lg text-on-surface-variant uppercase tracking-widest mb-md">Fulfillment Timeline</h4>
+<div class="relative pl-8 space-y-lg before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant">
+<div class="relative">
+<div class="absolute -left-8 w-6 h-6 rounded-full bg-secondary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-[14px]">check</span>
+</div>
+<p class="font-label-lg text-on-surface">Payment Confirmed</p>
+<p class="text-label-md text-on-surface-variant">Oct 12, 10:45 AM</p>
+</div>
+<div class="relative">
+<div class="absolute -left-8 w-6 h-6 rounded-full bg-secondary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-[14px] animate-pulse">sync</span>
+</div>
+<p class="font-label-lg text-on-surface">Order Picked</p>
+<p class="text-label-md text-on-surface-variant">Oct 12, 02:30 PM • Warehouse A</p>
+</div>
+<div class="relative opacity-40">
+<div class="absolute -left-8 w-6 h-6 rounded-full bg-outline-variant flex items-center justify-center z-10">
+</div>
+<p class="font-label-lg text-on-surface">Ready for Pickup</p>
+<p class="text-label-md text-on-surface-variant">Pending...</p>
+</div>
+</div>
+</section>
+<!-- Map Location -->
+<section>
+<h4 class="font-label-lg text-on-surface-variant uppercase tracking-widest mb-md">Delivery Destination</h4>
+<div class="rounded-xl overflow-hidden border border-outline-variant h-32 relative">
+<img class="w-full h-full object-cover grayscale opacity-60" data-location="Brooklyn, New York" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTrIX9AOjxq3gGQxkFzd7G3rv1Haao5eZl11XMU2MG1bDsM8S5JykDeM2_BuggiUONE8SQ4WvPgfWlnOzWJGSFg8WvNo4h2b750UXWyJ3AY5t7txD5aduJVm_bCuvk1f_dI7MGb7yGsBWh2ZexyQwBI6WnRWxDw3wwneaFHJfA0ZGLB9ErnAAtrIQU8BYMEjh0g9Er_53kVp3vrZXqPGytY1ebllmOUztP6r8LR4ARWzydS8u-fWw6TBOKpCU_sxrwzSB34iDFiGM"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-error fill-icon text-4xl">location_on</span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 bg-white/90 p-2 rounded-lg text-[10px] font-bold">
+                        124 Prospect Park West, Brooklyn, NY 11215
+                    </div>
+</div>
+</section>
+</div>
+<div class="p-lg bg-surface-container-low border-t border-outline-variant flex gap-md">
+<button class="flex-1 py-3 bg-secondary text-white font-label-lg rounded-xl hover:opacity-90 transition-all">Mark as Ready</button>
+<button class="px-4 py-3 border border-outline text-on-surface rounded-xl hover:bg-white transition-colors">
+<span class="material-symbols-outlined">print</span>
+</button>
+</div>
+</div>
+<script>
+        function toggleSidePanel(orderId) {
+            const panel = document.getElementById('side-panel');
+            const overlay = document.getElementById('side-panel-overlay');
+            const idDisplay = document.getElementById('panel-order-id');
+
+            if (orderId) {
+                idDisplay.innerText = '#' + orderId;
+                panel.classList.add('open');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                panel.classList.remove('open');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // Add visual micro-interaction for rows
+        document.querySelectorAll('.order-row').forEach(row => {
+            row.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.995)';
+            });
+            row.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

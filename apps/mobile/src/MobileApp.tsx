@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Product, CartItem, Order, ChatMessage, User, PRODUCTS, DEFAULT_USER, DEFAULT_ADDRESSES, Navbar, FreshnessTimeline, TraceabilityCard, PartnerRegistration } from "@oja/shared";
-
+import { Product, CartItem, Order, ChatMessage, User, DEFAULT_ADDRESSES, Navbar, FreshnessTimeline, TraceabilityCard, PartnerRegistration, supabase } from "@oja/shared";
+import { Keyboard } from '@capacitor/keyboard';
+import { Capacitor } from '@capacitor/core';
 const AVATAR_PRESETS = [
   { name: "Oja Default (Man)", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" },
   { name: "Chioma (Woman)", url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" },
@@ -11,26 +12,26 @@ const AVATAR_PRESETS = [
 
 // Helper to clean recommended product tags from chat text
 const cleanMessageText = (text: string): string => {
-  return text.replace(/\[RECOMMENDED_PRODUCTS:\s*[^\]]+\]/gi, "").trim();
+  return text.replace(/\[RECOMMENDED_products:\s*[^\]]+\]/gi, "").trim();
 };
 
 // Helper to parse recommended products from chat text
-const getRecommendedProducts = (text: string): Product[] => {
+const getRecommendedProducts = (text: string, products: Product[]): Product[] => {
   const foundIds = new Set<string>();
   
   // 1. Tag-based matching
-  const match = text.match(/\[RECOMMENDED_PRODUCTS:\s*([^\]]+)\]/i);
+  const match = text.match(/\[RECOMMENDED_products:\s*([^\]]+)\]/i);
   if (match) {
     const ids = match[1].split(",").map(id => id.trim());
     ids.forEach(id => {
-      if (PRODUCTS.some(p => p.id === id)) {
+      if (products.some(p => p.id === id)) {
         foundIds.add(id);
       }
     });
   }
 
   // 2. Fallback keyword matching
-  PRODUCTS.forEach(p => {
+  products.forEach(p => {
     // Escaped product name for safe regex matching
     const escapedName = p.name.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     const regex = new RegExp(`\\b${escapedName}\\b`, 'i');
@@ -39,7 +40,7 @@ const getRecommendedProducts = (text: string): Product[] => {
     }
   });
 
-  return PRODUCTS.filter(p => foundIds.has(p.id));
+  return products.filter(p => foundIds.has(p.id));
 };
 
 interface IngredientCardProps {
@@ -196,6 +197,7 @@ interface OrderWizardCardProps {
   onNextStep: (msgId: string, ownedList: string[], servings: number) => void;
   onApproveOrder: (msgId: string, itemsToBuy: { product: Product; quantity: number }[]) => void;
   cartItems: CartItem[];
+  products: Product[];
 }
 
 const OrderWizardCard: React.FC<OrderWizardCardProps> = ({
@@ -208,6 +210,7 @@ const OrderWizardCard: React.FC<OrderWizardCardProps> = ({
   onNextStep,
   onApproveOrder,
   cartItems,
+  products,
 }) => {
   const [servings, setServings] = useState<number>(initialServings);
   const [selectedOwned, setSelectedOwned] = useState<string[]>(() =>
@@ -351,9 +354,9 @@ const OrderWizardCard: React.FC<OrderWizardCardProps> = ({
   const unavailable = ingredients.filter(i => !i.isOwned && !i.isAvailable);
   const alreadyOwned = ingredients.filter(i => i.isOwned);
 
-  // Map toBuy to real PRODUCTS
+  // Map toBuy to real products
   const productsToBuy: Product[] = toBuy
-    .map(ing => PRODUCTS.find(p => p.id === ing.productId))
+    .map(ing => products.find(p => p.id === ing.productId))
     .filter((p): p is Product => !!p);
 
   const totalCost = productsToBuy.reduce((sum, p) => {
@@ -569,6 +572,17 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 }) => {
   // Authentication status
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   // Edit Profile Form State
   const [editForm, setEditForm] = useState({
@@ -618,20 +632,41 @@ export const MobileApp: React.FC<MobileAppProps> = ({
     }
   }, [currentScreen, user]);
 
+  // Keyboard state for padding content
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      // Hide the ugly iOS "Done" accessory bar to prevent layout constraint errors
+      Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(console.warn);
+
+      Keyboard.addListener("keyboardWillShow", (info) => {
+        setKeyboardHeight(info.keyboardHeight);
+      });
+      Keyboard.addListener("keyboardWillHide", () => {
+        setKeyboardHeight(0);
+      });
+
+      return () => {
+        Keyboard.removeAllListeners();
+      };
+    }
+  }, []);
+
   // Cart & Wishlist states
   const [cart, setCart] = useState<CartItem[]>([
     {
-      product: PRODUCTS.find((p) => p.id === "vine-tomatoes-500g") || PRODUCTS[2],
+      product: products.find((p) => p.id === "vine-tomatoes-500g") || products[0],
       quantity: 2,
     },
     {
-      product: PRODUCTS.find((p) => p.id === "mixed-bell-peppers-3pack") || PRODUCTS[4],
+      product: products.find((p) => p.id === "mixed-bell-peppers-3pack") || products[0],
       quantity: 1,
     },
   ]);
 
   const [wishlist, setWishlist] = useState<Product[]>([
-    PRODUCTS.find((p) => p.id === "premium-puna-yams") || PRODUCTS[13],
+    products.find((p) => p.id === "premium-puna-yams") || products[0],
   ]);
 
   // Orders and Tracking states are passed as props
@@ -641,11 +676,11 @@ export const MobileApp: React.FC<MobileAppProps> = ({
     date: "Today",
     items: [
       {
-        product: PRODUCTS.find((p) => p.id === "organic-bell-peppers-detail") || PRODUCTS[6],
+        product: products.find((p) => p.id === "organic-bell-peppers-detail") || products[0],
         quantity: 1,
       },
       {
-        product: PRODUCTS.find((p) => p.id === "fresh-ugu-leaves") || PRODUCTS[3],
+        product: products.find((p) => p.id === "fresh-ugu-leaves") || products[0],
         quantity: 2,
       },
     ],
@@ -701,7 +736,52 @@ export const MobileApp: React.FC<MobileAppProps> = ({
   // Auth state inputs
   const [loginEmail, setLoginEmail] = useState<string>("chioma.adebayo@example.com");
   const [loginPassword, setLoginPassword] = useState<string>("password123");
+  const [signUpFirstName, setSignUpFirstName] = useState<string>("");
+  const [signUpLastName, setSignUpLastName] = useState<string>("");
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
+
+  const [authLoading, setAuthLoading] = useState(false);
+
+  const handleAuth = async () => {
+    if (!loginEmail.trim() || !loginPassword.trim()) {
+      alert("Please enter both email and password.");
+      return;
+    }
+    
+    setAuthLoading(true);
+    try {
+      if (isSignUp) {
+        if (!signUpFirstName.trim() || !signUpLastName.trim()) {
+          alert("First name and Last name are required for registration.");
+          setAuthLoading(false);
+          return;
+        }
+        const { error } = await supabase.auth.signUp({
+          email: loginEmail,
+          password: loginPassword,
+          options: {
+            data: {
+              first_name: signUpFirstName.trim(),
+              last_name: signUpLastName.trim(),
+            }
+          }
+        });
+        if (error) throw error;
+        alert("Registration completed! If you configured email confirmation, check your inbox to confirm. Otherwise, you can now log in.");
+        setIsSignUp(false);
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: loginEmail,
+          password: loginPassword,
+        });
+        if (error) throw error;
+      }
+    } catch (err: any) {
+      alert(err.message || "Authentication failed. Please verify credentials.");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
 
   // Quick helper: Apply Promo Code
   const handleApplyPromo = () => {
@@ -941,17 +1021,13 @@ export const MobileApp: React.FC<MobileAppProps> = ({
   });
 
   return (
-    <div className="w-full max-w-md bg-[#F5F5F0] border-4 border-[#0B3014] rounded-[36px] shadow-[12px_12px_0px_0px_#0B3014] relative overflow-hidden flex flex-col z-10 transition-all duration-300 font-sans"
-         style={{ height: "860px" }}>
-        
-        {/* Notch / Speaker and Camera Mock */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-[#0B3014] rounded-b-2xl z-50 flex items-center justify-center">
-          <div className="w-12 h-1 bg-neutral-800 rounded-full" />
-          <div className="w-2.5 h-2.5 rounded-full bg-neutral-900 ml-4 border border-neutral-800" />
-        </div>
+    <div className="w-full h-full bg-[#F5F5F0] relative overflow-hidden flex flex-col z-10 font-sans">
 
         {/* Dynamic Screen Content Wrapper */}
-        <div className="flex-1 overflow-y-auto pb-24 relative custom-scrollbar bg-[#F5F5F0]">
+        <div 
+          className="flex-1 overflow-y-auto relative custom-scrollbar bg-[#F5F5F0]"
+          style={{ paddingBottom: keyboardHeight > 0 ? keyboardHeight : 0 }}
+        >
           
           {/* ==================== 1. SPLASH SCREEN ==================== */}
           {currentScreen === "splash" && (
@@ -1101,6 +1177,30 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
                 {/* Fields */}
                 <div className="space-y-4">
+                  {isSignUp && (
+                    <div className="grid grid-cols-2 gap-3 fade-in">
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-1">First Name</label>
+                        <input
+                          type="text"
+                          value={signUpFirstName}
+                          onChange={(e) => setSignUpFirstName(e.target.value)}
+                          className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-xs bg-slate-50 focus:bg-white focus:outline-emerald-600 transition-colors mt-1"
+                          placeholder="Chioma"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-1">Last Name</label>
+                        <input
+                          type="text"
+                          value={signUpLastName}
+                          onChange={(e) => setSignUpLastName(e.target.value)}
+                          className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-xs bg-slate-50 focus:bg-white focus:outline-emerald-600 transition-colors mt-1"
+                          placeholder="Adebayo"
+                        />
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-1">Email Address</label>
                     <input
@@ -1130,13 +1230,11 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
               <div className="pt-8 space-y-4">
                 <button
-                  onClick={() => {
-                    setIsAuthenticated(true);
-                    setCurrentScreen("home");
-                  }}
-                  className="w-full bg-[#00450d] hover:bg-[#055f18] text-white font-bold py-3 rounded-xl shadow-md text-xs uppercase tracking-wider transition-all"
+                  onClick={handleAuth}
+                  disabled={authLoading}
+                  className="w-full bg-[#00450d] hover:bg-[#055f18] disabled:bg-slate-400 text-white font-bold py-3 rounded-xl shadow-md text-xs uppercase tracking-wider transition-all"
                 >
-                  {isSignUp ? "Create Secured Account" : "Sign In Securely"}
+                  {authLoading ? "Processing secure request..." : (isSignUp ? "Create Secured Account" : "Sign In Securely")}
                 </button>
 
                 <div className="border-t border-slate-100 pt-4 flex flex-col items-center space-y-2">
@@ -1154,7 +1252,9 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 4. HOME / MARKETPLACE SCREEN ==================== */}
           {currentScreen === "home" && (
-            <div className="p-4 space-y-5 fade-in pt-12">
+            <div className="fade-in flex flex-col h-full">
+              {/* Sticky Top Header */}
+              <div className="sticky top-0 z-50 bg-[#F5F5F0]/95 backdrop-blur-sm pt-[calc(env(safe-area-inset-top)+12px)] pb-4 px-4 space-y-4 border-b border-[#0B3014]/5 shadow-sm">
               {/* Profile Greeting Section */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -1221,6 +1321,8 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                 )}
               </div>
 
+              </div>
+              <div className="flex-1 overflow-y-auto p-4 space-y-5 pb-8">
               {/* Persistent AI Prompt Assistant Banner */}
               <div className="bg-gradient-to-r from-emerald-950 to-[#00450d] text-white p-3 rounded-2xl flex items-center justify-between border border-emerald-800 shadow-md">
                 <div className="flex items-center gap-2.5">
@@ -1278,7 +1380,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                 </div>
                 
                 <div className="flex gap-3.5 overflow-x-auto no-scrollbar pb-2">
-                  {PRODUCTS.slice(0, 3).map((prod) => (
+                  {products.slice(0, 3).map((prod) => (
                     <div
                       key={prod.id}
                       className="w-48 bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between shrink-0 transition-all hover:shadow-md"
@@ -1388,12 +1490,13 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                 </div>
               </div>
 
+              </div>
             </div>
           )}
 
           {/* ==================== 5. VEGETABLES CATEGORY LIST SCREEN ==================== */}
           {currentScreen === "vegetables" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setCurrentScreen("home")}
@@ -1431,7 +1534,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
               {/* Veggies Grid */}
               <div className="grid grid-cols-2 gap-3.5 pt-1">
-                {PRODUCTS.filter((p) => p.category === "vegetables").map((prod) => (
+                {products.filter((p) => p.category === "vegetables").map((prod) => (
                   <div
                     key={prod.id}
                     className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between"
@@ -1487,9 +1590,9 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 6. PRODUCT DETAILS SCREEN ==================== */}
           {currentScreen === "product-detail" && (
-            <div className="space-y-4 fade-in relative pt-12">
+            <div className="space-y-4 fade-in relative pt-[calc(env(safe-area-inset-top)+12px)]">
               {/* Back Button Floating */}
-              <div className="absolute top-16 left-4 z-20">
+              <div className="absolute top-[calc(env(safe-area-inset-top)+16px)] left-4 z-20">
                 <button
                   onClick={() => setCurrentScreen("vegetables")}
                   className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center shadow-md border border-slate-100"
@@ -1614,7 +1717,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                       </div>
                       <button
                         onClick={() => {
-                          const prod = PRODUCTS.find(p => p.id === "scotch-bonnet-peppers");
+                          const prod = products.find(p => p.id === "scotch-bonnet-peppers");
                           if (prod) addToCart(prod);
                           alert("Habanero added to basket!");
                         }}
@@ -1639,7 +1742,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                       </div>
                       <button
                         onClick={() => {
-                          const prod = PRODUCTS.find(p => p.id === "purple-nigerian-onions");
+                          const prod = products.find(p => p.id === "purple-nigerian-onions");
                           if (prod) addToCart(prod);
                           alert("Red Onions added to basket!");
                         }}
@@ -1657,7 +1760,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
               <div className="bg-white border-t border-slate-100 p-4 flex gap-3 shadow-2xl fixed bottom-14 left-0 right-0 max-w-md mx-auto rounded-t-2xl z-30">
                 <button
                   onClick={() => {
-                    const prod = PRODUCTS.find(p => p.id === "organic-bell-peppers-detail");
+                    const prod = products.find(p => p.id === "organic-bell-peppers-detail");
                     if (prod) {
                       addToCart(prod, 1);
                       alert("Added 500g basket to Cart!");
@@ -1674,7 +1777,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 7. SHOPPING BASKET / CART SCREEN ==================== */}
           {currentScreen === "cart" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <h2 className="text-base font-bold text-slate-800 font-headline">Your Shopping Basket</h2>
 
               {cart.length === 0 ? (
@@ -1800,7 +1903,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 8. SECURE CHECKOUT SCREEN ==================== */}
           {currentScreen === "checkout" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setCurrentScreen("cart")}
@@ -1955,7 +2058,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 9. ACTIVE ORDER TRACKING SCREEN ==================== */}
           {currentScreen === "tracking" && activeOrder && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <div className="flex justify-between items-center">
                 <h2 className="text-base font-bold text-slate-800 font-headline">Live Order Tracking</h2>
                 <span className="text-[10px] bg-amber-500 text-black font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
@@ -2056,7 +2159,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 10. ORDER HISTORY LOG SCREEN ==================== */}
           {currentScreen === "order-history" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <h2 className="text-base font-bold text-slate-800 font-headline">Your Order History</h2>
 
               {/* Filter chips */}
@@ -2136,7 +2239,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 11. SAVED WISHLIST SCREEN ==================== */}
           {currentScreen === "wishlist" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               <h2 className="text-base font-bold text-slate-800 font-headline">My Wishlist</h2>
 
               {wishlist.length === 0 ? (
@@ -2217,7 +2320,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                   </div>
                   <button
                     onClick={() => {
-                      const prod = PRODUCTS.find(p => p.id === "ripe-plantains") || PRODUCTS[PRODUCTS.length-1];
+                      const prod = products.find(p => p.id === "ripe-plantains") || products[products.length-1];
                       addToCart(prod);
                       alert(`${prod.name} added to cart!`);
                     }}
@@ -2233,7 +2336,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 12. USER PROFILE SCREEN ==================== */}
           {currentScreen === "profile" && (
-            <div className="p-4 space-y-4 fade-in pt-12">
+            <div className="p-4 space-y-4 fade-in pt-[calc(env(safe-area-inset-top)+12px)]">
               {/* Profile Top Header */}
               <div className="flex justify-between items-center pb-1">
                 <h2 className="text-sm font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
@@ -2325,12 +2428,31 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                     <span className="text-[10px] text-emerald-700 font-bold">Enabled</span>
                   </div>
 
-                  <div className="p-3 flex justify-between items-center text-slate-600 hover:bg-slate-50 cursor-pointer">
+                  <div className="p-3 flex justify-between items-center text-slate-600 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                     <span className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-slate-400">notifications_active</span>
                       Harvest Notifications Setup
                     </span>
                     <span className="text-slate-400 material-symbols-outlined">chevron_right</span>
+                  </div>
+
+                  <div 
+                    onClick={() => setDarkMode(!darkMode)}
+                    className="p-3 flex justify-between items-center text-slate-600 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-slate-400">
+                        {darkMode ? "dark_mode" : "light_mode"}
+                      </span>
+                      Dark Mode Theme
+                    </span>
+                    <div className={`w-8 h-4 rounded-full transition-colors relative flex items-center px-0.5 ${
+                      darkMode ? "bg-[#0B3014] dark:bg-[#95d78e]" : "bg-slate-200"
+                    }`}>
+                      <div className={`w-3.5 h-3.5 bg-white rounded-full transition-transform shadow-sm ${
+                        darkMode ? "translate-x-3.5" : "translate-x-0"
+                      }`} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2401,8 +2523,8 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                 </div>
               )}
 
-              {/* Header Top Bar */}
-              <div className="bg-white border-b border-slate-100 px-4 py-3 flex items-center justify-between sticky top-0 z-20 shadow-sm pt-12">
+              {/* Header */}
+              <div className="bg-white border-b border-slate-100 px-4 pt-[calc(env(safe-area-inset-top)+12px)] pb-3 flex items-center justify-between sticky top-0 z-20 shadow-sm">
                 <button
                   type="button"
                   onClick={() => setCurrentScreen("profile")}
@@ -2419,8 +2541,8 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                     const firstName = parts[0] || "Oja";
                     const lastName = parts.slice(1).join(" ") || "Customer";
                     
-                    setUser(prev => ({
-                      ...prev,
+                    setUser({
+                      ...user,
                       firstName,
                       lastName,
                       email: editForm.email,
@@ -2430,7 +2552,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                       deliveryInstructions: editForm.deliveryInstructions,
                       twoFactorEnabled: editForm.twoFactorEnabled,
                       avatar: editForm.avatar
-                    }));
+                    });
                     setNotificationMessage("Your Oja profile has been successfully saved & updated!");
                     setTimeout(() => {
                       setCurrentScreen("profile");
@@ -2741,9 +2863,9 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 13. OJA AI ASSISTANT SCREEN ==================== */}
           {currentScreen === "ai-chat" && (
-            <div className="min-h-full flex flex-col justify-between bg-slate-50 relative pt-12">
+            <div className="min-h-full flex flex-col justify-between bg-slate-50 relative">
               {/* Floating Header */}
-              <div className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-20">
+              <div className="bg-white border-b border-slate-200 px-4 pt-[calc(env(safe-area-inset-top)+12px)] pb-3 flex items-center justify-between sticky top-0 z-20">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00450d] to-amber-500 flex items-center justify-center text-white">
                     <span className="material-symbols-outlined text-sm">smart_toy</span>
@@ -2777,7 +2899,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
               {/* Messages viewport */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar max-h-[550px] min-h-[450px]">
                 {chatMessages.map((msg) => {
-                  const recommended = msg.role === "assistant" ? getRecommendedProducts(msg.text) : [];
+                  const recommended = msg.role === "assistant" ? getRecommendedProducts(msg.text, products) : [];
                   return (
                     <div
                       key={msg.id}
@@ -2813,6 +2935,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
                             onNextStep={handleWizardNext}
                             onApproveOrder={handleWizardApprove}
                             cartItems={cart}
+                            products={products}
                           />
                         </div>
                       )}

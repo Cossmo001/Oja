@@ -1,307 +1,65 @@
 import { Product, User, Order } from "./types";
+import { supabase } from "./supabase";
 
-export const PRODUCTS: Product[] = [
-  {
-    id: "premium-harvest-basket",
-    name: "Premium Harvest Basket",
-    description: "An artistically curated selection of peak-harvest vegetables, including premium carrots, crisp kale, and local farm specialties.",
-    price: 12500,
-    unit: "Directly from Epe Farms",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDjaugWBatg7oUZVeKdJ2fV7ij9Ll2U4iBxwbAXeJCm6x3ebaLs7VtKnyoAxEcyX4GBDK3mYXgK6ZiJmvGBnZqDFbdBwDvw5GKVavTduKPEpYyvkjtDRMxMi24g9e9TCu9qCOhvpBy-PTa_zUczad8zaNn5Pfc7Qkta51yjN3C5WCa8ckkYvemBZ6sKZUkugBo41gf2bo-9a4-uEaD5WQgBEO_QWQt0Mr7MpgOxbPNo3aBnP5SE_5eXTjvOH0hCvmKlLy1RNngXzKM",
-    category: "organic",
-    rating: 4.8,
-    numReviews: 42,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: false,
-    harvestedTimeAgo: "Harvested 4h ago",
-    farmSource: "Epe Farms"
-  },
-  {
-    id: "tropical-medley",
-    name: "Sun-Ripened Tropical Medley",
-    description: "Vibrant local Nigerian fruits including ripe mangoes, papayas, and citrus, glistening and at peak ripeness.",
-    price: 8200,
-    unit: "Organic Certified Orchard",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC-cI2JVHpVPpQUHWfBVfBe6Q_pmUCa3w3X0fNQCrqSJVVaFCJ1-n8LObZLVl_mZcZLvk50Yk_awA_XpYNM9rdIt-28eKHwg_Xs8F37witYpWVAL9b5Wlu0HdEEMRRDFzdxePG9sHIYfSEWOxN_PH-QnU0FRfs6gsfv0O_uI96wbM33un1r8ZpHY8zbhJzKU6cHQclAxUgyaC-4WzrNdgo3pz0QSSI-ZfrOLcu-KP8UIWBEQCtnM4huKzC7HB61q7NlwUoJbxUK52E",
-    category: "fruits",
-    rating: 4.9,
-    numReviews: 29,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 5h ago",
-    farmSource: "Ogbomosho Orchards"
-  },
-  {
-    id: "vine-tomatoes-500g",
-    name: "Vine-Ripened Tomatoes",
-    description: "Deep red, firm, and succulent tomatoes grown in mineral-rich soil and harvested with expert care.",
-    price: 2400,
-    unit: "500g Pack",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDrykPaVktwT8fjBgV3aBGuMSLfbOQPJyh-zKG7DOcqA3RPLov9E4N-b3DLcKqYHUOvH8hwAfxdFnExwvRquMdwT3HL2DPtsv9Mx2PtafyXGZf-G2gC5mthE1mjkKPcSQ0OIWJj5Is6A6H_cCxd0huny9aqgj6-W-ADPnq9X3GaKS7ha2aGVs-nPRkK5rZxfUS-7ogBi_KLi1Ql236-FzIAlt-PDrdgwvlr5sNXSa8wD8ownvty7d7sWha3DBcDN_PI61kn-dhpuo4",
-    category: "vegetables",
-    rating: 4.7,
-    numReviews: 84,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 4h ago",
-    farmSource: "Jos Highlands Farms"
-  },
-  {
-    id: "fresh-ugu-leaves",
-    name: "Fresh Ugu Leaves",
-    description: "Vibrant, crisp fluted pumpkin leaves (Ugu), rich in iron and structurally intact for traditional soups.",
-    price: 1200,
-    unit: "Large Bundle",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxkrAyUsmb_4v0bQ57P4YyFowISqf2NDhlz0sAOuI0N41sqkDOZE__TxIfnM2_JeauxO8pgXahk1aEW9xgHwNhoB0D03G8JXfvFWqIfAhOPXH2RnTJoYq7t9V0Sh2IJQ_Gbnz6KewlBEyvAywMhaxFGeclhoYv0lgJaCnJYrMa5kP-CPRgF8nIMv_KIvAMahIixwYGnTLDiiKfj-LA25QL071zV71Y_hlXVAd3HzUGSQSg-5aeJmrz_Nt9h3aXBei12SK3mxECKF4",
-    category: "vegetables",
-    rating: 4.9,
-    numReviews: 53,
-    isOjaCertified: true,
-    isHandledByOja: false,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 6h ago",
-    farmSource: "Shagamu Greens"
-  },
-  {
-    id: "mixed-bell-peppers-3pack",
-    name: "Mixed Bell Peppers",
-    description: "Glossy red, yellow, and green bell peppers offering a sweet crunch and premium culinary freshness.",
-    price: 3500,
-    unit: "3-Pack",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDXlk77LzWSVOJEg9XohiSTaM2Fe915KTS9Juw8vJwc8tgMmK4zTsbfWLqyM1DVWXEz_XHi1LYsbtx7NiikTJwIW9aLKacTBLVkZ583AT5qRLmAnCY5hrnAPLlxSXVeL6pZLd01LqaiXC23678m8GcOhwIJZ76R0BvDBgKvWOZxyfeNA-F70wpqEVExdE0YIQpxAQmnLsbnzl_OSe8ekU4P_5YavTs-hQDp-hCh3WyyOZhi-_1qBaZ_pDn0RgKTlGaO0n1DOU_FSS4",
-    category: "vegetables",
-    rating: 4.6,
-    numReviews: 122,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 2h ago",
-    farmSource: "Zaria Agricultural Hub"
-  },
-  {
-    id: "organic-ginger-root-250g",
-    name: "Organic Ginger Root",
-    description: "Tangy, sharp, earthy fresh ginger root grown organically to ensure natural purity.",
-    price: 950,
-    unit: "250g Net",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBe29OBgqPxvrACWsflU-vNa9W5xYxNDr7i2CR-lBPdRp41X-9xI1xeMQxzcRpMDwE9m4KoqbiUZmTPRSUoIjtDsLRuiMTQbaSpg9QfMqeEDDwj5JWevM1pZW7YDbTGrhEzpftgvad-vgeYeIQopVprpaR7kHw3qFvzV2she7xo1Afmf0ahgcoQqlEUGrtaELxc7ty2UWJjyc7Cw5mWurxzhrtHNjKNCfrbGVKrzK52O-PK7CVdO5gx01QaItSK1Kk3MCnQdQ8Y01s",
-    category: "organic",
-    rating: 4.8,
-    numReviews: 61,
-    isOjaCertified: true,
-    isHandledByOja: false,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 8h ago",
-    farmSource: "Kaduna Farms"
-  },
-  {
-    id: "organic-bell-peppers-detail",
-    name: "Organic Bell Peppers",
-    description: "Vibrant, crisp, and naturally grown on local Nigerian soil. Perfect for stir-fries, Jollof, and fresh salads.",
-    price: 2450,
-    unit: "per 500g basket",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDq6b_H6LGc0IUYcy2FM77SLUnn601EwAQdsB7SJ0GnUWr41r447rW5WAEeCnEYqAC8SM8CsktWfmB0GqX60MHvIQWN_gGyDsrpZL84eh8NKEvWB8txduuGQh3HfRZ5yO2wO5BoJ1FNh-1yWq8TdxUT7fqkC6AckUZ5nXWWPHBsrUvgFza4l0cmI7dS0PW8NOs8YOGRxX5jUvjTBNvCP1Uu7X5ENvWgoR9s-XAJYo_tdyncSSKt0luVxLrOWkoh50fbBGM1U_VU8Ho",
-    category: "organic",
-    rating: 4.9,
-    numReviews: 122,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 3h ago",
-    farmSource: "Salinas Valley Partner Farm"
-  },
-  {
-    id: "mixed-bell-peppers-veg",
-    name: "Mixed Bell Peppers",
-    description: " Vetted select mixed bell peppers in convenient pack sizing.",
-    price: 1200,
-    unit: "500g",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxMOt6_5lsuKtk2dCBc6Urcmo-YpDROQTWGTFVCKZlxqDZMTY2Fm_mtq4TWKfb1d-942aDis51ZNjssDDNeZtj2y5D6otnDVFydjM2edREtWTfrJ-qnTangOHVAHjRr7II4JWydZCrtE8OCeGkx8XqnQggntkon9gTdUouW_EAr_NU9kcZbqbYmJvKPJhBnWlJkaQkZMkh64fRvG6AmRK7vrmKLCXTn5tSaE_fhowi8LdgkNWzaqrSx6Uhequ5Hhqh8O0U5e0YSuk",
-    category: "vegetables",
-    rating: 4.5,
-    numReviews: 14,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: false,
-    harvestedTimeAgo: "Harvested 10h ago",
-    farmSource: "Oja Central Hub"
-  },
-  {
-    id: "organic-african-spinach",
-    name: "Organic African Spinach",
-    description: "Deep green, crisp organic spinach leaves bundled neatly with water droplets signifying freshness.",
-    price: 450,
-    unit: "Bundle (300g)",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCxFNH4PsonuIlqWHrEoAeI1WM-2VQb8AYA5VPyWSv9jMDAVBGnvvydNWuwo3jO8NDk12WlUOAyoLeDp-Yv8ZUTwEVINgS7rGbRcyYrRuN2gqpS7eL_4dYwlTAjWykXEhjs_TCiMqdmx8qzETf4o_9_vxEZ9WBaARavEnHGESj9YIcig3wvSM4xgg7P684iF44K5XNXBl_3_r1E_slgUq9t5aTDaD5MOEp7JZJNJtOSruiL8AmmcyAdjKSoZwKG9A7fC-C0u3SPE6E",
-    category: "vegetables",
-    rating: 4.8,
-    numReviews: 45,
-    isOjaCertified: true,
-    isHandledByOja: false,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 1h ago",
-    farmSource: "Green Horizon Farms"
-  },
-  {
-    id: "farm-fresh-carrots",
-    name: "Farm-Fresh Carrots",
-    description: "Bright orange carrots with lush green tops, crisp and organic. Loaded with vitamins.",
-    price: 850,
-    unit: "1kg",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB8YAW1WRylWbgPZuyyrwEfLFSqQvf7pRXBtipOdprVYbT6chZZqQgYBUhU_kDsvnyQsFTLI3sZtIxUQiY0CmlOJwQBvuR12V7AXxQq8SfCMXsW9nGPK4fIZ8ViQn3SBldUNBq8FbV_9MQDXqCpUXduF3KnNoSe3Aoc9mfnMC01XCcgqdDjQ9ZsZ9UYFdziL6qE-qNVEYkJHmCwtpUCb8J7ay_c-ZC_o4tELZbUo5FtU_iotp_y_QIQfRbFXrmSgiAlXhluTjjAaSE",
-    category: "vegetables",
-    rating: 4.8,
-    numReviews: 76,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: false,
-    harvestedTimeAgo: "Harvested 3h ago",
-    farmSource: "Oja Central Sorting"
-  },
-  {
-    id: "hybrid-vine-tomatoes",
-    name: "Hybrid Vine Tomatoes",
-    description: "Large basket of ripe, deep red vine-grown tomatoes, perfect for cooking delicious Jollof and stews.",
-    price: 3500,
-    unit: "Large Basket",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5JF7GHhXZBgCTT0udWXeDLq0rvJwmTYBvU3T57_7hNs7HqEQ9xHDW8lKwDB69DmJCjWTGurH4JpWF9v9NihNVwi0-YEXukeizqXWGy0BAEdsLWwK1L2TA6n7CSN6oYe6A1HgKpLvLoJ4_jG2kLI4RWfkqMEHHUzCjyU46ItDpRLwc88UE25jtbT4ddJtYybsV_dktuubZaxgEt4sM0Z_gY3ZLjY423za8UOLyymR7tp4IyIzHxSaRpu_V02QKfNE4xipqpieBEvM",
-    category: "vegetables",
-    rating: 4.9,
-    numReviews: 92,
-    isOjaCertified: true,
-    isHandledByOja: false,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 12h ago",
-    farmSource: "Jos Highlands Farm"
-  },
-  {
-    id: "greenhouse-cucumbers",
-    name: "Greenhouse Cucumbers",
-    description: "Crispy green cucumbers lying on a clean surface with natural hydration. Highly refreshing.",
-    price: 600,
-    unit: "3 pieces",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBTzZE0IxiHb_Vk8tYTUe4x8njp_SfX-Fuwa-ozGKO9yaRN7qF8PELrfCMSM2quq7yJmgVGrfXz7ybaQgzCFKZDQ9amugCokopXVDqGigGGxDZcA6SPNN2X30wRUxfu4bfVdckA9rP7eXfdpjAeq2xutdIslHWJZwIxTk-NIF_dnD4m8Osj7qUnH4-SS0GUFbxEd977IJrkg9iNR130tt43XW9T2EBjPRxpPpgSsZmP5i_g8pPbtl0kLA9qDujEx9fHK6RaaKoqtMQ",
-    category: "vegetables",
-    rating: 4.6,
-    numReviews: 24,
-    isOjaCertified: false,
-    isHandledByOja: true,
-    isFarmDirect: false,
-    harvestedTimeAgo: "Harvested 6h ago",
-    farmSource: "Oja Central Logistics"
-  },
-  {
-    id: "purple-nigerian-onions",
-    name: "Purple Nigerian Onions",
-    description: " Violet and magenta papery skins, intense flavor, ideal for base-flavor cooking.",
-    price: 1800,
-    unit: "2kg Mesh Bag",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAK5nbg9l8ZFBh7QbWLTg8N3MMA39jekLFfmoeVkE8PexY8TJZSdBuwvRr7h6RO-PpyZ3wrOsrG3jPYC_2M3PCDeA7-UcuSSmOJT4yD3rqnBjNJespWwI9h32W_4QcQbMYMwyvb8mRkJf2JmSrI6zHLanEg6JO4XLozGSBciPoUOnamkFunUaSpvoNMmbKpi1nuE11c3BsmxoDChYBkV6_sdFx5q2hg_d3ZpII5i9XWs07xVJ4puiefN_wlWDAJ8QjOa6kJUKyJ0J4",
-    category: "vegetables",
-    rating: 4.7,
-    numReviews: 51,
-    isOjaCertified: false,
-    isHandledByOja: false,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 24h ago",
-    farmSource: "Northern Plains Cooperative"
-  },
-  {
-    id: "premium-puna-yams",
-    name: "Premium Puna Yams",
-    description: "Excellent dry texture, thick skin, highly valued local tubers harvested at perfect maturity.",
-    price: 4500,
-    unit: "per tuber",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDNzvsbvTxN6SdDGASV8f17Y3_8F6wkBuCBjGeXgffcEdh-4jAxSR7Yhja7jbQOLgmEycZRANhajbSKZjmDp4Y7_pFHU3gOHkl0islVEHADWHHndArroPYmrzQbDfqxsZFwmwAooq-CCoBjM3dXEIK4KHVg6MW6FGWEFXDAzlEUeAXY9YiqLWQVMZhDVH6JObacEJ9EShqEl_HzpAnTGANuGrRKR0YHqXKjQDFARDe01BOXo7HSRiVT6g5tqUkhvOVkDMoivixkHaU",
-    category: "organic",
-    rating: 4.8,
-    numReviews: 128,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    isFarmDirect: true,
-    harvestedTimeAgo: "Harvested 2d ago",
-    farmSource: "Abakaliki Yam Partners",
-    stockLeft: 14
-  },
-  {
-    id: "pure-wild-honey",
-    name: "Pure Wild Honey",
-    description: "Amber wildflower liquid in premium jars, 100% raw honey.",
-    price: 5800,
-    unit: "500ml jar",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDn_F9jxniVARpDXIwJa7Ucd9Y8-OTiRT_AtTxft6rLqcXeAQeHql2JtFsjQDfnPkxO989GAq2x93CwVT6nLC3M3J-WZKJWvasNxAaEmHd5xyUWvm0XyKxcCyMBKnlgeI2DU0IjqCrwuVleklaPWzxBM-OU8N42P_rmNTMCKBylI7dIhVvpjNmpcSYeh6WaiKMXM_3fqRNnegnINBRRx_UiftwDFkj_94LJ6fiLjerRSmV299-w1lKfX0bFSNUwcrrknYe1_apfgzs",
-    category: "organic",
-    rating: 4.9,
-    numReviews: 18,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    harvestedTimeAgo: "Harvested 2d ago",
-    farmSource: "Kogi Apiaries",
-    stockLeft: 3
-  },
-  {
-    id: "scotch-bonnet-peppers",
-    name: "Scotch Bonnet Peppers",
-    description: "Fierce, aromatic yellow and red pepper pods packing intense heat.",
-    price: 1500,
-    unit: "1kg",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDf1tVSHXSNGy1FLjEBN2RpnAMKFG4mb9RzCrNr-fKZNXTmnHGMrKSFpgffQTantbeVewPBntSuFcLdC9ePcO5z6L1AEsTcpO8Bnh4JyHnRmT0h0BvZDDQf8s06tqiiVmuoI-QQxX9qTkjSlL5bx6s5HzYlLRdjw9T6GLMl4p9O3LgnrVGxH5_6h_3lBfI4-7GQ1c9gVss4nQHrUqLdl7Jr0G9OzBfJkts5TSMkPRdrf_GkmlKHNJVZN-THs5askEUScdInfwIQaRI",
-    category: "vegetables",
-    rating: 4.8,
-    numReviews: 44,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    harvestedTimeAgo: "Harvested 10h ago",
-    farmSource: "Epe Farm"
-  },
-  {
-    id: "plum-tomatoes",
-    name: "Plum Tomatoes",
-    description: "Oval-shaped, thick-walled plum tomatoes perfect for traditional Nigerian paste stews.",
-    price: 2800,
-    unit: "2kg",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAVmua7Xjqd8-vEmED5p2TcxrtRB-VSFim0NNWeTyG9wNYLCY9Q1-PNLTL3LQxOuDfaUOiKWu-sJogqqtkawdMcKsdsyepnyY4zkaHcti80EKsOm7TJ1zCS3zv0b0y48GH9T3qJ-eYh2RzRLIcDwVPAlTm1dqFT31afL7Nw06RllTKDYfT02sP4_JLuI4iVAMdV2XGoCnZ4EoqDQV1cg-bieB8Fl9qQrCVVvTU0rIGwwREkwbr7VuPbyyxBfiyZvWkjma3qnpUX6TY",
-    category: "vegetables",
-    rating: 4.7,
-    numReviews: 29,
-    isOjaCertified: true,
-    isHandledByOja: false,
-    harvestedTimeAgo: "Harvested 18h ago",
-    farmSource: "Jos Highlands"
-  },
-  {
-    id: "organic-ginger",
-    name: "Organic Ginger",
-    description: "Highly potent, spicy, raw organic ginger roots with intense warmth.",
-    price: 1200,
-    unit: "500g",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBAeaQWfMNK2c92hMK5XAlQN_uYh5xeMbHCsLk6iT5aVkOe-tj9TMKJKv8IC5fz5MxcwKgT-eDyVcG4pMl5VJUUoo9DOcx4e4-D1HwlaQ3FEsQ3DWA-MtWjrwH-D2m58t9eT7vbjFD9bo7yveBCKhoB0nRB9PKr0AtQjxJtx1CyhqiP6jcSSA_ovQU07kbYwUzNKo8vKtwWgJ85Numk_nbinMSo5IriKsJ3ExY7xgW4qr8NAUIcfIeW7iqBwShb1MtqWOGqFO-4fXg",
-    category: "vegetables",
-    rating: 4.9,
-    numReviews: 67,
-    isOjaCertified: true,
-    isHandledByOja: true,
-    harvestedTimeAgo: "Harvested 12h ago",
-    farmSource: "Kaduna North"
+export const fetchProducts = async (): Promise<Product[]> => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error("Error fetching products:", error);
+    return [];
   }
-];
 
-export const DEFAULT_USER: User = {
-  firstName: "Oja",
-  lastName: "Customer",
-  email: "customer@oja-fresh.com",
-  phone: "+234801 234 5678",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
-  points: 4250,
-  joinedDate: "Joined Jan 2023",
-  balance: 42000,
-  username: "ojacustomer",
-  address: "12 Lagos View Estate, Victoria Island, Lagos",
-  deliveryInstructions: "Deliver only on weekends between 8 AM and 12 PM.",
-  twoFactorEnabled: true
+  // Map database snake_case columns back to camelCase frontend types
+  return data.map(item => ({
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    price: Number(item.price),
+    unit: item.unit,
+    image: item.image_url,
+    category: item.category,
+    rating: Number(item.rating),
+    numReviews: item.num_reviews,
+    isOjaCertified: item.is_oja_certified,
+    isHandledByOja: item.is_handled_by_oja,
+    isFarmDirect: item.is_farm_direct,
+    harvestedTimeAgo: item.harvested_time_ago,
+    farmSource: item.farm_source,
+    farmLocation: item.farm_location,
+    inStock: item.in_stock,
+    stockLeft: item.stock_left
+  })) as Product[];
+};
+
+export const fetchUser = async (userId: string = "00000000-0000-0000-0000-000000000001"): Promise<User | null> => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching user:", error);
+    return null;
+  }
+
+  return {
+    firstName: data.first_name,
+    lastName: data.last_name,
+    email: data.email,
+    phone: data.phone,
+    avatar: data.avatar_url || '',
+    points: data.points,
+    joinedDate: new Date(data.joined_date).toLocaleDateString(),
+    balance: Number(data.balance),
+    username: "@" + data.first_name.toLowerCase() + data.last_name.toLowerCase(),
+    address: data.address || '',
+    deliveryInstructions: data.delivery_notes || '',
+    twoFactorEnabled: data.two_factor_enabled
+  } as User;
 };
 
 export const DEFAULT_ADDRESSES = [

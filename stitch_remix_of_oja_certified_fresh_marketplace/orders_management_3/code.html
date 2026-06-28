@@ -1,0 +1,457 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin - Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .order-row-active {
+            background-color: #eceef0;
+            border-left: 4px solid #006c49;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#95d78e",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "primary-container": "#00450d",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#74b46e",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#002203",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-container": "#989bff",
+                        "secondary": "#006c49",
+                        "tertiary": "#0b0088",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#00714d",
+                        "primary": "#002c06",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1f1ab3",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#717a6d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary-fixed-variant": "#135219",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#2e6b2f",
+                        "outline-variant": "#c0c9bb",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed": "#b0f3a7",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-primary": "#95d78e",
+                        "on-surface-variant": "#41493e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "container-margin": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "sidebar-width": "260px",
+                        "xs": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "title-md": ["Manrope"],
+                        "title-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-lg": ["Manrope"],
+                        "label-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface font-body-md overflow-hidden">
+<!-- Navigation Drawer (Sidebar) -->
+<aside class="h-full w-sidebar-width fixed left-0 top-0 bg-primary dark:bg-primary-container shadow-md flex flex-col py-xl z-50 hidden md:flex">
+<div class="px-lg mb-xl">
+<span class="font-headline-md text-headline-md text-on-primary">Oja Management</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-lg py-md border-l-4 border-secondary-fixed bg-on-primary-fixed-variant text-on-primary font-bold transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">handshake</span>
+<span class="font-label-lg text-label-lg">Partners</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">admin_panel_settings</span>
+<span class="font-label-lg text-label-lg">Admin Management</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">group</span>
+<span class="font-label-lg text-label-lg">User Management</span>
+</a>
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+<div class="px-lg mt-auto">
+<a class="flex items-center px-lg py-md text-on-primary opacity-80 hover:bg-on-primary-fixed-variant hover:opacity-100 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">account_circle</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-sidebar-width h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-surface-container-low dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex items-center justify-between px-md h-16 w-full z-40">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-sm hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 text-primary rounded-full">menu</button>
+<h1 class="font-title-lg text-title-lg text-primary">Orders</h1>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-highest border-none rounded-full pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary w-64" placeholder="Search orders..." type="text">
+</div>
+<button class="material-symbols-outlined p-sm hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 text-primary rounded-full">notifications</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+<!-- Orders List Section -->
+<section class="flex-1 flex flex-col h-full bg-surface">
+<!-- Filters Bar -->
+<div class="p-md bg-surface border-b border-outline-variant flex flex-wrap items-center gap-md">
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-lg hover:bg-surface-container-high transition-colors cursor-pointer">All Orders</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label-lg hover:bg-surface-container-high transition-colors cursor-pointer">Pending</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label-lg hover:bg-surface-container-high transition-colors cursor-pointer">Shipped</button>
+</div>
+<div class="flex-1"></div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-2 border border-outline-variant rounded-lg text-on-surface-variant font-label-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Date Range
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 border border-outline-variant rounded-lg text-on-surface-variant font-label-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                            More Filters
+                        </button>
+</div>
+</div>
+<!-- Orders Data Table -->
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10 border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-label-lg text-on-surface-variant">ORDER ID</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant">CUSTOMER</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant">DATE</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant">STATUS</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant text-right">TOTAL</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Order Row 1 (Active) -->
+<tr class="order-row-active hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleDetails(this)">
+<td class="px-lg py-md font-title-md text-primary">#ORD-9021</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a customer, clear facial features, warm lighting, minimalist background consistent with a corporate modern design system. The palette is dominated by soft grays and forest green accents, reflecting a high-end service identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc-CgwLGUsTIaPF4oZ7SmQ8Pur2sJuPCaqb2D0721XJ7UpT73-uZDkMZjzT2UjKBox7SXBOMDu8VEWooy9T_-RUuxgVy_gTXuDhH_5qyA_ZMXXkMj_BLp6IAglNd3ld_0KfukAosZD_eTC9Zj23m-SMzjZV8u8tQ4_P6-YwbJX9k8srMdFq4OqGhAUVHajgDyoFKMTV2FCRu6FUoWx4zdTya1Xn5Qn_E2qwvflP0ObDgoHumsFfLzybhfC9szq51MJr3bFS8Jiwpk">
+</div>
+<span class="font-body-md text-on-surface">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md">Shipped</span>
+</td>
+<td class="px-lg py-md font-title-md text-primary text-right">$254.00</td>
+</tr>
+<!-- Order Row 2 -->
+<tr class="hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleDetails(this)">
+<td class="px-lg py-md font-title-md text-primary">#ORD-9022</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional business-style profile picture of a male customer in a modern workplace setting. Soft lighting highlights sophisticated features, maintaining a clean and professional look using colors from a deep forest green and neutral palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByo-y62uxcCZcAAD6NjJUz_m784QUqaXE-x58O6QO6j8ccxf4tMJDY4wLEgW7SAkqVtcvuo2wqE5G9QNhORLvlve3QU5UcTYMnjH5asTw3OI3wGKmR_JexY3IwtkGHyy-3EI2Indo1zvsK9g90tbvjfToNRl2jvQ68fy9jgOPdv12J-gTugf1ofoqdbayBr1vHqXAAruLzx8xH7t_wv5LnA-EwHVwQYyE7_JBar9YTzDDdZPZPPw4RuAZFNa3jcoeNx5kOTnzeUds">
+</div>
+<span class="font-body-md text-on-surface">Marcus Chen</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-md">Pending</span>
+</td>
+<td class="px-lg py-md font-title-md text-primary text-right">$1,120.50</td>
+</tr>
+<!-- Order Row 3 -->
+<tr class="hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleDetails(this)">
+<td class="px-lg py-md font-title-md text-primary">#ORD-9023</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young woman with a friendly, professional expression. The background is a clean, bright minimalist office space. Lighting is natural and soft, adhering to a high-density, professional UI aesthetic with forest green highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfR8ORuehyLftE0yV3b26ga32rsiQp81ix5l-Io4SN_AJHSU2-rfhnqP5M-ioPFilX_0X8qWoaoi0v6dTcXYx5V2cdV0SUXjf8DwFhFJPknXQaeeShZXFqcw52p47aE__x7nvtX-zDX1Ea0YL113JehkfK6JvQBupddIBegdZmHmy7desmQMxqJRJS6oDfulOjMp2T_5NwnZlmZw8ZfVspxRfMe4z53jrW8d0hG1rtSnoe7TKqzaQPKxdmW8XFAE7R9KmdbAdO6k">
+</div>
+<span class="font-body-md text-on-surface">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">Oct 23, 2023</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-md">Cancelled</span>
+</td>
+<td class="px-lg py-md font-title-md text-primary text-right">$45.00</td>
+</tr>
+<!-- Order Row 4 -->
+<tr class="hover:bg-surface-container transition-colors cursor-pointer" onclick="toggleDetails(this)">
+<td class="px-lg py-md font-title-md text-primary">#ORD-9024</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A corporate style profile image of a diverse man, looking confident and approachable. The aesthetic is clean, sophisticated, and high-fidelity, using the brand colors of emerald and navy to provide a grounded yet fresh feeling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp65maOZpC7CUSNL3UeZ07vUmFhAvoQGs1ry1H0IwBtBd2j-21823EeYzpr3yTfS1TvyBVY0e_jqTIOyahSPHLywWmi6Y66K8S8PwtDhaxulMX0nBHGtBWhP0t4NJ0_LIUptthgiXuBcSlyTpWGp7PB2yTncobl-aT1KR4yXXHz4mP7s943qCDC65Y4Cs2iu_0B8zo5UCvLCqsssRjiTh3AbPou1gJMeXOg5u0euQ5X1fq2Q58btNFIUPBpWdBqMQN334c0bCYYAU">
+</div>
+<span class="font-body-md text-on-surface">Amir Khan</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">Oct 23, 2023</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md">Shipped</span>
+</td>
+<td class="px-lg py-md font-title-md text-primary text-right">$892.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Order Detail Panel (Sidebar-like) -->
+<aside class="w-full md:w-[400px] bg-surface-container-lowest border-l border-outline-variant flex flex-col shadow-lg transform transition-transform duration-300 md:translate-x-0" id="detailPanel">
+<div class="p-lg border-b border-outline-variant flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-primary">Order Details</h2>
+<button class="material-symbols-outlined p-sm hover:bg-surface-container-high rounded-full" onclick="closeDetails()">close</button>
+</div>
+<div class="flex-1 overflow-y-auto p-lg space-y-xl">
+<!-- Order Info Header -->
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-lg text-on-surface-variant block uppercase">Order ID</span>
+<span class="font-headline-md text-headline-md text-primary">#ORD-9021</span>
+</div>
+<div class="text-right">
+<span class="font-label-lg text-on-surface-variant block uppercase">Placed on</span>
+<span class="font-body-md text-on-surface">Oct 24, 2023 • 14:32</span>
+</div>
+</div>
+<!-- Customer Profile Card -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant">
+<h3 class="font-title-md text-primary mb-md">Customer Information</h3>
+<div class="flex items-center gap-md mb-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Detailed portrait of a customer in a minimalist modern setting, professional and warm lighting. The image uses sophisticated tonal layering of soft whites and forest greens to create a high-end admin interface aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoQXkvdWQextvI3S3ZM8HBvz8CNr87noXablurUoz0OwpaKqkW4L7E-EHYPMjdyYQKcn5wPJKZSBeQAQQzdZqe6i6kR8K3_m3nrRe1HiQWIVh7kWfdntEAftB8_v9sXuuQpRJH9YyUY8xZteJVQz7-_3KQiUW73f9q354qtuA9UTVIOiKJbtkXfC5pCHxENukwXbS8b8mj3GHH-a6PkWxArv8qJ8FJF9oRl3Uz4CASTiIxuKVNEhdh7PI2AKx1PG6YREWMh_odW9s">
+</div>
+<div>
+<p class="font-title-md text-on-surface leading-tight">Elena Rodriguez</p>
+<p class="font-body-md text-on-surface-variant">elena.rod@email.com</p>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-lg">call</span>
+<span class="font-body-md">+1 (555) 234-8901</span>
+</div>
+<div class="flex items-start gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-body-lg">location_on</span>
+<span class="font-body-md">241 Forest Glen Road, <br>Suite 405, Austin, TX 78701</span>
+</div>
+</div>
+</div>
+<!-- Receipt / Items List -->
+<div>
+<h3 class="font-title-md text-primary mb-md">Itemized Receipt</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">package_2</span>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Forest Green Rug</p>
+<p class="font-label-md text-on-surface-variant">Qty: 1 • Large</p>
+</div>
+</div>
+<span class="font-title-md text-primary">$189.00</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<p class="font-title-md text-on-surface">Sustainable Planter</p>
+<p class="font-label-md text-on-surface-variant">Qty: 2 • Ceramic</p>
+</div>
+</div>
+<span class="font-title-md text-primary">$65.00</span>
+</div>
+</div>
+<!-- Price Breakdown -->
+<div class="mt-lg pt-lg border-t border-outline-variant space-y-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body-md">Subtotal</span>
+<span class="font-body-md">$254.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body-md">Shipping</span>
+<span class="font-body-md">$0.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body-md">Tax</span>
+<span class="font-body-md">$0.00</span>
+</div>
+<div class="flex justify-between text-primary pt-sm">
+<span class="font-title-lg">Total</span>
+<span class="font-title-lg">$254.00</span>
+</div>
+</div>
+</div>
+<!-- Shipping Status -->
+<div class="p-md bg-secondary-container rounded-xl flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-on-secondary-container text-white flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<p class="font-title-md text-on-secondary-container">Package Out for Delivery</p>
+<p class="font-label-md text-on-secondary-container opacity-80">Estimated Arrival: Today by 6 PM</p>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-lg bg-surface-container border-t border-outline-variant flex flex-col gap-md">
+<button class="w-full py-3 bg-primary text-on-primary font-title-md rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">Print Receipt</button>
+<button class="w-full py-3 border border-primary text-primary font-title-md rounded-lg hover:bg-surface-container-high transition-all">Update Status</button>
+</div>
+</aside>
+</div>
+<!-- Mobile Bottom Nav (Suppressed on Web Sidebar) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center bg-surface-container-lowest border-t border-outline-variant px-sm py-xs h-16 z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary text-on-secondary rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+</main>
+<script>
+        function toggleDetails(row) {
+            // Remove active state from all rows
+            document.querySelectorAll('tr').forEach(r => r.classList.remove('order-row-active'));
+            // Add to clicked
+            row.classList.add('order-row-active');
+            
+            // Show Panel
+            const panel = document.getElementById('detailPanel');
+            panel.classList.remove('translate-x-full');
+            panel.classList.add('translate-x-0');
+        }
+
+        function closeDetails() {
+            const panel = document.getElementById('detailPanel');
+            panel.classList.add('translate-x-full');
+            panel.classList.remove('translate-x-0');
+            // Remove highlighting
+            document.querySelectorAll('tr').forEach(r => r.classList.remove('order-row-active'));
+        }
+
+        // Handle window resizing for the sidebar panel
+        window.addEventListener('resize', () => {
+            const panel = document.getElementById('detailPanel');
+            if (window.innerWidth >= 768) {
+                panel.classList.remove('translate-x-full');
+                panel.classList.add('translate-x-0');
+            }
+        });
+    </script>
+
+
+</body></html>

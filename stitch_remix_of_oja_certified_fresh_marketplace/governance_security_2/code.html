@@ -1,0 +1,474 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin | Governance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#95d78e",
+                      "on-background": "#191c1e",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "surface-variant": "#e0e3e5",
+                      "tertiary-fixed": "#e1e0ff",
+                      "primary-container": "#00450d",
+                      "surface": "#f7f9fb",
+                      "on-primary-container": "#74b46e",
+                      "surface-container-low": "#f2f4f6",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#002113",
+                      "on-primary-fixed": "#002203",
+                      "surface-container-highest": "#e0e3e5",
+                      "on-tertiary-container": "#989bff",
+                      "secondary": "#006c49",
+                      "tertiary": "#0b0088",
+                      "on-secondary": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-secondary-container": "#00714d",
+                      "primary": "#002c06",
+                      "background": "#f7f9fb",
+                      "surface-container": "#eceef0",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#1f1ab3",
+                      "surface-dim": "#d8dadc",
+                      "outline": "#717a6d",
+                      "secondary-fixed-dim": "#4edea3",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#6cf8bb",
+                      "on-primary-fixed-variant": "#135219",
+                      "on-surface": "#191c1e",
+                      "surface-tint": "#2e6b2f",
+                      "outline-variant": "#c0c9bb",
+                      "surface-container-high": "#e6e8ea",
+                      "primary-fixed": "#b0f3a7",
+                      "surface-bright": "#f7f9fb",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "secondary-fixed": "#6ffbbe",
+                      "inverse-primary": "#95d78e",
+                      "on-surface-variant": "#41493e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "lg": "24px",
+                      "container-margin": "24px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "base": "4px",
+                      "sidebar-width": "260px",
+                      "xs": "4px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Manrope"],
+                      "headline-md-mobile": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "title-md": ["Manrope"],
+                      "title-lg": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "label-lg": ["Manrope"],
+                      "display-lg": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "headline-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-stroke { border: 1px solid #E2E8F0; }
+        .soft-shadow { box-shadow: 0 2px 4px 0 rgba(0, 69, 13, 0.04); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="docked-left h-full w-64 fixed left-0 top-0 z-40 bg-surface-container-lowest border-r border-outline-variant flex flex-col p-md gap-xl">
+<div class="flex flex-col">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Oja Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Certified Freshness</p>
+</div>
+<nav class="flex flex-col gap-sm flex-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Orders -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<!-- Products -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<!-- Partners -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+<!-- Settings / Active Governance State -->
+<a class="flex items-center gap-md bg-primary text-on-primary rounded-lg px-md py-sm transition-all scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- Profile / Admin Logout -->
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrative lead, wearing a neutral blazer, looking confidently at the camera. The background is a soft-focus modern office with lush green plants, echoing the Oja brand identity. The lighting is crisp, professional, and bright, aligned with a high-end light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqnpsDSdBob-vF5aUDYLVeCkHV5Ju6upv5N_nZzQEms4hvjER5YZQFJPPS7N-G_2q-C8WBq1jpBzIusBXEoMrLNoezS93CfHk33v32ZL-lx2WXtIe8F0qKJPRiKLN5_b27eU-9eoUfGBiAIO2X4I6X2XvjTdSaFmuf8dx9pKdPIFBF3cedfqrVYbR3e-fZT_6OT9-nFTzObqA2ypDLuhj2uKa4Z6eFlmpKqHJmZASwgc2NiK6HlNQ5kTdstIk5_6yasbUMVUl51Cg">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Alex Rivera</span>
+<span class="font-label-md text-label-md text-on-surface-variant">System Root</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top Nav Bar -->
+<header class="sticky top-0 z-30 w-full h-16 bg-surface-bright/90 backdrop-blur-md px-xl flex justify-between items-center border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-md bg-surface-container px-md py-xs rounded-full w-96 border border-outline-variant focus-within:ring-2 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full" placeholder="Search system logs or users..." type="text">
+</div>
+<div class="flex items-center gap-lg">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-outline-variant"></div>
+<button class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="security">security</span>
+                    Access Vault
+                </button>
+</div>
+</header>
+<!-- Governance Content -->
+<section class="p-xl space-y-xl">
+<!-- Header section -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">System Governance</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee account hierarchies, permission nodes, and operational security.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm px-md py-sm bg-surface-container-lowest soft-stroke text-primary rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                        Export Audit Log
+                    </button>
+<button class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-md hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="person_add">person_add</span>
+                        Provision Admin
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Main Stat Card -->
+<div class="col-span-4 bg-surface-container-lowest p-lg rounded-xl soft-stroke soft-shadow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant tracking-wider uppercase">Active Admins</span>
+<div class="bg-primary-container/10 p-sm rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="shield_person">shield_person</span>
+</div>
+</div>
+<div class="mt-lg">
+<div class="text-[40px] font-extrabold text-primary leading-tight">24</div>
+<div class="flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="trending_up">trending_up</span>
+<span class="font-label-md text-label-md text-secondary">+2 this month</span>
+</div>
+</div>
+</div>
+<!-- Permission Nodes -->
+<div class="col-span-4 bg-surface-container-lowest p-lg rounded-xl soft-stroke soft-shadow">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant tracking-wider uppercase">Permission Clusters</span>
+<div class="bg-tertiary-fixed/30 p-sm rounded-lg">
+<span class="material-symbols-outlined text-tertiary" data-icon="account_tree">account_tree</span>
+</div>
+</div>
+<div class="mt-lg">
+<div class="text-[40px] font-extrabold text-primary leading-tight">12</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Global Access Roles Defined</p>
+</div>
+</div>
+<!-- Security Events -->
+<div class="col-span-4 bg-surface-container-lowest p-lg rounded-xl soft-stroke soft-shadow border-l-4 border-l-error">
+<div class="flex justify-between items-start">
+<span class="font-label-lg text-label-lg text-on-surface-variant tracking-wider uppercase">Alert Signals</span>
+<div class="bg-error-container/20 p-sm rounded-lg text-error">
+<span class="material-symbols-outlined" data-icon="emergency_home">emergency_home</span>
+</div>
+</div>
+<div class="mt-lg text-error">
+<div class="text-[40px] font-extrabold leading-tight">03</div>
+<div class="font-label-md text-label-md flex items-center gap-xs">
+                            Critical actions requiring review
+                        </div>
+</div>
+</div>
+</div>
+<!-- User Management & Audit Log Section -->
+<div class="grid grid-cols-12 gap-lg items-start">
+<!-- Admin Management Table -->
+<div class="col-span-8 bg-surface-container-lowest rounded-xl soft-stroke soft-shadow overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-primary">Administrative Accounts</h3>
+<div class="flex gap-sm">
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Identity</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Role Level</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Last Access</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Status</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar of a tech executive with glasses, minimalist white background. Soft lighting, high professional quality, matching the Oja administrative green palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0VsKIn1E0KcqyjTVA5jNAXGiRiKyAAHGkUdgU4sYvSJjvjEwvYGu1DoeyibY-86zOYsp0DA0swJY2m2buTqu6dgRDD7iwa5HfCKQeSdibCHrjqnqmAyXXMEqZygFHQhzquStsqch3xsD9ECYjRktWZjIivrz-J4IBkdAOtR_Q4eEiM1nZWx_M568TMUYExCli143eZ6rd6w1_ZKmXwvaYPoXYm76PTTHxkufBApCTWKeqQygkd5mPLEsvaA4ctjh6AKDRSaaAgLI">
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Sarah Chen</div>
+<div class="font-label-md text-label-md text-on-surface-variant">sarah.c@oja.system</div>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded text-label-md font-bold">SUPER_ADMIN</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface-variant italic">2m ago</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-secondary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                        </span>
+</td>
+<td class="px-lg py-md">
+<div class="flex gap-md opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-error transition-colors" title="Restrict"><span class="material-symbols-outlined" data-icon="block">block</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Edit Hierarchy"><span class="material-symbols-outlined" data-icon="edit_square">edit_square</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A corporate profile photo of an African American man in a sleek dark turtleneck, neutral gray background. Sharp focus, professional lighting, corporate modern aesthetic with green accent tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYnPnB8tJ0WAVqFl3mNH87UDmRcaBWaWEff2__xo96-tBJ9SqerjAM1-oM9RS7n2vWpDHf7kjrPeAiX8fxXqhhL4zRlTnSi3B6s-bvKaoEEKwn37vARfhradvmcCsil2CLbahpvCf12EGfvTeEr9Ygfh-KznOtSMNzuCjIbijVyZpXmj4yLb8XhwHE4Uy-6YIyjMDb5DNCsjQiAmlbjRyboVndCa-Wf9Tcw_y3wcqHCe4QlRQFqHEaq6SJ4R5fFqbaeDSFtZLGf-I">
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Marcus Thorne</div>
+<div class="font-label-md text-label-md text-on-surface-variant">m.thorne@oja.system</div>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-sm py-xs rounded text-label-md font-bold">OPERATIONS</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface-variant italic">1h ago</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-secondary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                        </span>
+</td>
+<td class="px-lg py-md">
+<div class="flex gap-md opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-error transition-colors" title="Restrict"><span class="material-symbols-outlined" data-icon="block">block</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Edit Hierarchy"><span class="material-symbols-outlined" data-icon="edit_square">edit_square</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Restricted) -->
+<tr class="hover:bg-error-container/10 transition-colors group bg-error-container/5">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="person">person</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface-variant line-through">Jasmine Wu</div>
+<div class="font-label-md text-label-md text-error">Access Revoked</div>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="text-on-surface-variant px-sm py-xs rounded text-label-md font-bold opacity-50">FINANCE</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface-variant italic">12d ago</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-error font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-error"></span> Suspended
+                                        </span>
+</td>
+<td class="px-lg py-md">
+<div class="flex gap-md">
+<button class="text-secondary hover:underline font-label-md text-label-md" title="Restore">Restore Access</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Audit Log Section -->
+<div class="col-span-4 space-y-lg">
+<!-- Permission Hierarchy Visualizer -->
+<div class="bg-surface-container-lowest p-lg rounded-xl soft-stroke soft-shadow">
+<h3 class="font-title-lg text-title-lg text-primary mb-md">Node Hierarchy</h3>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="expand_more">expand_more</span>
+<div class="w-full bg-surface-container px-sm py-xs rounded-lg flex justify-between items-center">
+<span class="font-label-md text-label-md font-bold">Root Master</span>
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<div class="ml-lg border-l-2 border-outline-variant pl-md space-y-sm">
+<div class="bg-surface-container px-sm py-xs rounded-lg flex justify-between items-center opacity-80">
+<span class="font-label-md text-label-md">Inventory Controller</span>
+<span class="font-xs font-bold text-outline">8 Admins</span>
+</div>
+<div class="bg-surface-container px-sm py-xs rounded-lg flex justify-between items-center opacity-80">
+<span class="font-label-md text-label-md">Marketplace Lead</span>
+<span class="font-xs font-bold text-outline">12 Admins</span>
+</div>
+<div class="bg-surface-container px-sm py-xs rounded-lg flex justify-between items-center opacity-80">
+<span class="font-label-md text-label-md">Support Manager</span>
+<span class="font-xs font-bold text-outline">4 Admins</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-lg py-sm border border-dashed border-outline text-on-surface-variant font-label-md text-label-md rounded-lg hover:border-primary hover:text-primary transition-all">
+                            + Define New Access Node
+                        </button>
+</div>
+<!-- Live Audit Feed -->
+<div class="bg-surface-container-lowest rounded-xl soft-stroke soft-shadow h-[400px] flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-bright sticky top-0 rounded-t-xl z-10">
+<h3 class="font-title-md text-title-md text-primary">Live Audit Log</h3>
+<span class="flex items-center gap-xs px-sm py-xs bg-secondary-container/20 text-secondary rounded-full font-label-md text-label-md">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full animate-pulse"></span> Streaming
+                            </span>
+</div>
+<div class="p-md overflow-y-auto flex-1 scrollbar-hide space-y-md">
+<!-- Log Item 1 -->
+<div class="flex gap-md border-b border-outline-variant pb-md">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="vpn_key">vpn_key</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface"><span class="font-bold">Alex Rivera</span> accessed the Secure Vault</div>
+<div class="font-label-md text-label-md text-on-surface-variant">Just now • 192.168.1.1</div>
+</div>
+</div>
+<!-- Log Item 2 -->
+<div class="flex gap-md border-b border-outline-variant pb-md">
+<div class="w-8 h-8 rounded-full bg-error-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error text-[18px]" data-icon="warning">warning</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface"><span class="font-bold">System</span> failed login attempt (3x)</div>
+<div class="font-label-md text-label-md text-error">4 mins ago • Berlin Node</div>
+</div>
+</div>
+<!-- Log Item 3 -->
+<div class="flex gap-md border-b border-outline-variant pb-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="policy">policy</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface"><span class="font-bold">Sarah Chen</span> updated "Super Admin" permissions</div>
+<div class="font-label-md text-label-md text-on-surface-variant">12 mins ago • Global Server</div>
+</div>
+</div>
+<!-- Log Item 4 -->
+<div class="flex gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="person_off">person_off</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface"><span class="font-bold">System</span> revoked Jasmine Wu access</div>
+<div class="font-label-md text-label-md text-on-surface-variant">1 hour ago • Policy Violation</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Restricted to Governance/Dashboard) -->
+<button class="fixed bottom-lg right-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="absolute right-16 bg-on-background text-background px-md py-xs rounded-lg text-label-md font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Create Policy Alert</span>
+</button>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('scale-[0.99]');
+                setTimeout(() => row.classList.remove('scale-[0.99]'), 150);
+            });
+        });
+
+        // Atmospheric touch: dynamic opacity on audit feed
+        const auditFeed = document.querySelector('.overflow-y-auto');
+        if(auditFeed) {
+            auditFeed.addEventListener('scroll', () => {
+                const scrolled = auditFeed.scrollTop;
+                // Just a placeholder for any complex logic if needed
+            });
+        }
+    </script>
+
+
+</body></html>

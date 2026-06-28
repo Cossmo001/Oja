@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Oja Admin - User Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#95d78e",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "primary-container": "#00450d",
+                        "surface": "#f7f9fb",
+                        "on-primary-container": "#74b46e",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#002203",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary-container": "#989bff",
+                        "secondary": "#006c49",
+                        "tertiary": "#0b0088",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#00714d",
+                        "primary": "#002c06",
+                        "background": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1f1ab3",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#717a6d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary-fixed-variant": "#135219",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#2e6b2f",
+                        "outline-variant": "#c0c9bb",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed": "#b0f3a7",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-primary": "#95d78e",
+                        "on-surface-variant": "#41493e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "lg": "24px",
+                        "container-margin": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "sidebar-width": "260px",
+                        "xs": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "headline-md-mobile": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "title-md": ["Manrope"],
+                        "title-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-lg": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar suppression for clean mobile feel */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopNavBar (Mobile Execution) -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-surface-container-lowest shadow-sm flex justify-between items-center h-16 px-md lg:pl-[260px] border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md-mobile text-headline-md-mobile text-primary">Oja Admin</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-xs text-on-surface-variant cursor-pointer active:opacity-80 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator in a bright, modern office setting. The lighting is soft and even, highlighting a clean, sophisticated aesthetic consistent with a high-end forest green and white design system. The mood is competent and trustworthy, suitable for a lead community manager profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmv9EhYrits_nElLwtSYFpA4Utci-8pi6VzC5G8Bkrg6fOk1BFd6K2Lf5cboRDShDbayzGynsAo694H2f-8wD_pmxmzL_GUUY9Dygbf-WkyO0DpMheGiXyVd9MYq_CXkgnsOAZ9D9EZnyeciQ6y9iTwwr109McuwJLGY6EL984Q7-hy6Tz_-QeMvMPl6JdBl5XqaWyEx3IC1WVN1hrTm0jUrrCt665DL9Fajh5uGSGtBfwj9S_WGodwKk-0eH_IQSvILGkIDd2siQ"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-md space-y-md">
+<!-- Search & Filter Section -->
+<section class="space-y-sm">
+<div class="flex flex-col gap-sm">
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Users</h1>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all text-body-md font-body-md outline-none" placeholder="Search by name, email, or ID..." type="text"/>
+</div>
+</div>
+<!-- Quick Filters (Horizontal Scroll) -->
+<div class="flex gap-sm overflow-x-auto pb-xs no-scrollbar">
+<button class="flex items-center gap-xs px-md py-sm bg-primary-container text-on-primary-container rounded-full text-label-lg font-label-lg whitespace-nowrap">
+                    All Users
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-lg font-label-lg whitespace-nowrap">
+                    Active
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-lg font-label-lg whitespace-nowrap">
+                    Restricted
+                </button>
+<button class="flex items-center gap-xs px-md py-sm bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-lg font-label-lg whitespace-nowrap">
+                    Flagged
+                </button>
+<button class="p-sm bg-white border border-outline-variant text-on-surface-variant rounded-full shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Metrics Overview (Bento Style) -->
+<section class="grid grid-cols-2 gap-sm">
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Total Active</span>
+<span class="text-headline-md text-headline-md text-primary">12,482</span>
+<span class="text-label-md font-label-md text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span> +3.2%
+                </span>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Reported</span>
+<span class="text-headline-md text-headline-md text-error">142</span>
+<span class="text-label-md font-label-md text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span> Priority
+                </span>
+</div>
+</section>
+<!-- User List Area -->
+<section class="space-y-sm pb-10">
+<div class="flex justify-between items-center">
+<span class="text-label-lg font-label-lg text-outline uppercase tracking-widest">Recent Platform Activity</span>
+</div>
+<!-- User Card 1 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden transition-transform active:scale-[0.98] duration-150">
+<div class="p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young male entrepreneur in a minimalist studio environment. He has a friendly but professional expression. The background is a clean, neutral grey that complements the forest green accents of the UI. Bright, diffused daylight creates a crisp, modern look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnSt2vir1ymqm2DzZTCeoiqyTYzVw4Ms8rFHAkVKXSfzhEXahXSY5sEFjQWUTuECfKjl0LdPhb2_gjt3QUELMxuBvani9nNATl4K5MgKzEo_CZggUsYGjTPMyyQ3eHHh0YhGNIVElAxb35SuHUM_mnpePWuYDbTcC2PMlBR4t9h2KcuL181BxE4DS1v_qSWrXbes1AqfVdrAIkwUpZ5Qgv-HelxuAipOMvY8tY7zdEYN4cM4FvpUXqi2aVk6zsvSHOZlRL5OLCl2s"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Marcus Chen</h3>
+<p class="text-body-md text-on-surface-variant truncate">marcus.c@example.com</p>
+</div>
+<div class="px-sm py-xs bg-secondary-container/20 text-on-secondary-container rounded-lg text-label-md font-label-md">
+                        Level 4
+                    </div>
+</div>
+<div class="px-md pb-md flex gap-sm border-t border-outline-variant/30 pt-sm mt-xs">
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group" onclick="this.classList.toggle('bg-surface-container')">
+<span class="material-symbols-outlined text-primary group-active:scale-90 transition-transform" data-icon="history">history</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Activity</span>
+</button>
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group">
+<span class="material-symbols-outlined text-secondary group-active:scale-90 transition-transform" data-icon="lock_open">lock_open</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Restrict</span>
+</button>
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group">
+<span class="material-symbols-outlined text-error group-active:scale-90 transition-transform" data-icon="block">block</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Ban</span>
+</button>
+</div>
+</div>
+<!-- User Card 2 (Flagged State) -->
+<div class="bg-white rounded-xl border-2 border-error/20 overflow-hidden shadow-sm">
+<div class="p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a middle-aged woman with a serious expression, shot in a professional corporate setting. The background features blurred architecture and greenery, aligning with the Oja brand identity. The lighting is sharp and analytical, suitable for a profile flagged for review." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANe_6N-g3kvUCBI3E85gsuz8oRM_WYAGp-oshkRAhhZIzOsLCdM1cscxkt8cK8DQfWsz6zCqF0pSQa4Xbsn9yU7LDoKLGebxMRtP0C5sMO9v7S37Led0B65HN2exMWgVzXp300S0x5Do1JbnCYC5ZB4o9xFsYd_-BhwPEXaD2b0gssZG8_17ICZ-oeBLQ8Ikmez-7efhX6WmvqZaMJvnD07Df84Lz8_nmefQdLy3hcuA2VhDhil0OpVxsE3F7fVPN0eNWwyNxc8uI"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-xs">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Sarah Jenkins</h3>
+<span class="material-symbols-outlined text-error text-[16px]" data-icon="priority_high">priority_high</span>
+</div>
+<p class="text-body-md text-on-surface-variant truncate">s.jenkins@service.io</p>
+</div>
+<div class="px-sm py-xs bg-error-container text-on-error-container rounded-lg text-label-md font-label-md">
+                        Flagged
+                    </div>
+</div>
+<div class="px-md pb-md flex flex-col gap-sm">
+<div class="text-body-md text-on-surface-variant bg-error-container/10 p-sm rounded-lg border border-error/10">
+<strong>Recent Violation:</strong> Potential duplicate account detected with ID #8821.
+                    </div>
+<div class="flex gap-sm border-t border-outline-variant/30 pt-sm">
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Review</span>
+</button>
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg">
+<span class="material-symbols-outlined text-error" data-icon="gavel">gavel</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Execute</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User Card 3 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A photo of a diverse young professional man smiling confidently. The lighting is warm and organic, with a vibrant forest green background that matches the brand colors. High detail and crisp focus communicate high trust and platform engagement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3pcUnlt-94bdVCJ21uIloCyVLqPjPnbpCFY8-wf3k6T5tbu4vi6INYmm7ot4jqOsRuquoZqxIxgoxFnicBNYC5Zf7tYUA6TPv_ndvCJGOobVP6uX9aawp3HbC1cQysaFiWNMv4sLiHDXZBegJ796pxT8JmSX3wUhKMUkCoiBqrvRub20uVcqMJ2e0vHT-Oet1CzTmnS4wKTtYQyo7j8vM6EQ6h9EfTuMkysSZjCuHHbWD8ne4WPBh6-yUgRlfAyMWv-HoG78P6kE"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-md text-title-md text-on-surface truncate">David Okafor</h3>
+<p class="text-body-md text-on-surface-variant truncate">d.okafor@connect.com</p>
+</div>
+<div class="px-sm py-xs bg-surface-container text-on-surface-variant rounded-lg text-label-md font-label-md">
+                        New
+                    </div>
+</div>
+<div class="px-md pb-md flex gap-sm border-t border-outline-variant/30 pt-sm mt-xs">
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Activity</span>
+</button>
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group">
+<span class="material-symbols-outlined text-secondary" data-icon="lock_open">lock_open</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Restrict</span>
+</button>
+<button class="flex-1 flex flex-col items-center gap-xs p-xs hover:bg-surface-container transition-colors rounded-lg group">
+<span class="material-symbols-outlined text-error" data-icon="block">block</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Ban</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Active) -->
+<nav class="fixed bottom-0 w-full rounded-t-xl z-50 lg:hidden flex justify-around items-center h-16 px-sm pb-safe bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-2px_10px_rgba(0,69,13,0.08)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-md text-label-md">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+<span class="font-label-md text-label-md">Products</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-md text-label-md">Partners</span>
+</div>
+<!-- Active Tab: Users -> Mapping to Admin/Shield Person logic from JSON -->
+<div class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-secondary-container/20 rounded-xl px-sm py-xs active:scale-90 transition-transform duration-150 cursor-pointer active-tab">
+<span class="material-symbols-outlined" data-icon="shield_person" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<span class="font-label-md text-label-md">Admin</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</div>
+</nav>
+<!-- Interactive Layer: Ban Confirmation (Hidden by default) -->
+<div class="fixed inset-0 z-[60] bg-on-background/40 backdrop-blur-sm hidden items-center justify-center p-lg" id="ban-modal">
+<div class="bg-white w-full max-w-sm rounded-xl p-lg space-y-md shadow-xl animate-in fade-in zoom-in duration-300">
+<div class="w-12 h-12 rounded-full bg-error-container text-error flex items-center justify-center mb-md">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Confirm Ban?</h2>
+<p class="text-body-md text-on-surface-variant">This will immediately revoke platform access for <strong>Marcus Chen</strong>. This action is recorded in the governance log.</p>
+<div class="flex gap-sm">
+<button class="flex-1 py-sm border border-outline-variant text-on-surface rounded-lg font-title-md" onclick="toggleBanModal()">Cancel</button>
+<button class="flex-1 py-sm bg-error text-on-error rounded-lg font-title-md shadow-md active:scale-95 transition-transform" onclick="toggleBanModal()">Confirm</button>
+</div>
+</div>
+</div>
+<script>
+        function toggleBanModal() {
+            const modal = document.getElementById('ban-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Add visual feedback to buttons for micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                btn.classList.add('opacity-70');
+            });
+            btn.addEventListener('touchend', () => {
+                btn.classList.remove('opacity-70');
+            });
+        });
+    </script>
+</body></html>

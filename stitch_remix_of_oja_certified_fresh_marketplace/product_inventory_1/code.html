@@ -1,0 +1,358 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin - Product Management</title>
+<!-- Tailwind and Fonts -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Design System Implementation -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-dim": "#d8dadc",
+                "surface-container-high": "#e6e8ea",
+                "surface-variant": "#e0e3e5",
+                "on-primary-fixed": "#002203",
+                "on-background": "#191c1e",
+                "primary": "#002c06",
+                "on-secondary-fixed-variant": "#005236",
+                "surface-container-highest": "#e0e3e5",
+                "on-primary-fixed-variant": "#135219",
+                "surface-container-lowest": "#ffffff",
+                "surface-bright": "#f7f9fb",
+                "secondary-container": "#6cf8bb",
+                "on-error-container": "#93000a",
+                "on-tertiary-container": "#989bff",
+                "surface": "#f7f9fb",
+                "primary-fixed-dim": "#95d78e",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed-dim": "#4edea3",
+                "inverse-surface": "#2d3133",
+                "surface-container-low": "#f2f4f6",
+                "on-surface-variant": "#41493e",
+                "outline": "#717a6d",
+                "on-tertiary-fixed": "#07006c",
+                "secondary-fixed": "#6ffbbe",
+                "error-container": "#ffdad6",
+                "inverse-primary": "#95d78e",
+                "outline-variant": "#c0c9bb",
+                "background": "#f7f9fb",
+                "on-error": "#ffffff",
+                "tertiary-container": "#1f1ab3",
+                "surface-tint": "#2e6b2f",
+                "on-secondary": "#ffffff",
+                "on-secondary-container": "#00714d",
+                "error": "#ba1a1a",
+                "on-primary-container": "#74b46e",
+                "tertiary-fixed-dim": "#c0c1ff",
+                "tertiary-fixed": "#e1e0ff",
+                "primary-fixed": "#b0f3a7",
+                "on-tertiary-fixed-variant": "#2f2ebe",
+                "secondary": "#006c49",
+                "surface-container": "#eceef0",
+                "on-surface": "#191c1e",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "tertiary": "#0b0088",
+                "primary-container": "#00450d",
+                "on-secondary-fixed": "#002113"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "base": "4px",
+                "xs": "4px",
+                "gutter": "16px",
+                "container-margin": "24px",
+                "lg": "24px",
+                "sidebar-width": "260px",
+                "sm": "8px",
+                "xl": "32px",
+                "md": "16px"
+            },
+            "fontFamily": {
+                "label-lg": ["Manrope"],
+                "headline-md": ["Manrope"],
+                "display-lg": ["Manrope"],
+                "title-lg": ["Manrope"],
+                "headline-md-mobile": ["Manrope"],
+                "headline-lg": ["Manrope"],
+                "body-lg": ["Manrope"],
+                "label-md": ["Manrope"],
+                "body-md": ["Manrope"],
+                "title-md": ["Manrope"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c0c9bb; border-radius: 10px; }
+        .product-card-shadow {
+            box-shadow: 0 2px 4px 0 rgba(0, 69, 13, 0.04);
+        }
+        .active-state {
+            transition: transform 0.1s ease;
+        }
+        .active-state:active {
+            transform: scale(0.96);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline shadow-sm flex items-center justify-between px-md h-16 w-full z-50">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed active:opacity-80 transition-opacity" style="font-variation-settings: &quot;wght&quot; 500;">menu</button>
+<h1 class="font-headline-md text-headline-md-mobile text-primary dark:text-primary-fixed">AgriManage Admin</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed active:opacity-80 transition-opacity">notifications</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pb-24 pt-md px-gutter min-h-screen">
+<!-- Dashboard Header Context -->
+<div class="flex flex-col gap-xs mb-lg">
+<h2 class="font-headline-lg text-headline-md-mobile text-on-surface">Product Inventory</h2>
+<p class="font-body-md text-on-surface-variant">Manage your certified fresh catalog</p>
+</div>
+<!-- Inventory Stats Bar (Horizontal Scroll) -->
+<div class="flex gap-md overflow-x-auto pb-md no-scrollbar">
+<div class="min-w-[160px] bg-surface-container-lowest p-md rounded-xl border border-outline-variant product-card-shadow">
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider mb-xs">Total Items</p>
+<p class="font-headline-md text-primary">1,284</p>
+</div>
+<div class="min-w-[160px] bg-error-container/20 p-md rounded-xl border border-error/20 product-card-shadow">
+<p class="font-label-lg text-error uppercase tracking-wider mb-xs">Low Stock</p>
+<div class="flex items-center gap-xs">
+<p class="font-headline-md text-error">12</p>
+<span class="material-symbols-outlined text-error text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+<div class="min-w-[160px] bg-secondary-container/20 p-md rounded-xl border border-secondary/20 product-card-shadow">
+<p class="font-label-lg text-on-secondary-container uppercase tracking-wider mb-xs">Active Sales</p>
+<p class="font-headline-md text-on-secondary-container">42</p>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="flex flex-col gap-md mb-lg">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md" placeholder="Search product name or SKU..." type="text">
+</div>
+<div class="flex items-center gap-sm overflow-x-auto no-scrollbar">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-lg whitespace-nowrap active-state">All Products</button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-lg whitespace-nowrap active-state">Vegetables</button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-lg whitespace-nowrap active-state">Fruits</button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-lg whitespace-nowrap active-state">Tubers</button>
+</div>
+</div>
+<!-- High-Density Product List -->
+<div class="flex flex-col gap-sm">
+<!-- Product Item 1 (Low Stock Alert) -->
+<div class="bg-surface-container-lowest p-sm border-l-4 border-error rounded-r-xl border-y border-r border-outline-variant flex items-center gap-md product-card-shadow relative overflow-hidden">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of organic vine-ripened cherry tomatoes in a sustainable wooden crate. The lighting is warm and natural, highlighting the dew drops on the skins. The aesthetic is clean, professional, and agriculturally sophisticated, utilizing a palette of deep greens and vibrant reds." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAha5DueXsda8MxY5OINLcrjAr8GX-ZZ4o3Jnuq4lqY6qsHBd7Mr8-V_dT6WQleJWE_hJozIcZQsyH_8XJv71mg_CVJAjPXvkeX_jksC41YeW04iE1pAjlu7bcAZEX1LlJyuJSyPgeRn1eNQeWkWosqWUWGLhkJG03yhdxnDoPZLqlwv16OgVYs2whavz3OuX4ixLkgkHHkV42R73uKccAj5iE1TikEtDuEJA9VveipFIQnNbIXXPpwz9NY2j9gPfNQfeVft5QAk3g">
+</div>
+<div class="flex-grow flex flex-col justify-center gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-on-surface leading-tight">Organic Cherry Tomatoes</h3>
+<span class="material-symbols-outlined text-outline text-[20px]">more_vert</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-error-container bg-error text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">Low Stock</span>
+<p class="font-label-md text-on-surface-variant">SKU: OJA-VEG-001</p>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div>
+<p class="font-body-md text-primary font-bold">₦1,200 <span class="font-label-md text-on-surface-variant">/kg</span></p>
+<p class="font-label-lg text-on-surface-variant">Stock: <span class="text-error font-bold">4.2kg</span></p>
+</div>
+<!-- Price Toggle Microinteraction -->
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface-variant">Flash Sale</span>
+<div class="w-10 h-5 bg-outline-variant rounded-full relative cursor-pointer active-state">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="bg-surface-container-lowest p-sm border-l-4 border-secondary rounded-r-xl border-y border-r border-outline-variant flex items-center gap-md product-card-shadow relative">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High-quality professional studio photography of premium yellow yam tubers stacked neatly against a minimalist dark forest green background. The lighting is dramatic and crisp, showcasing the textures of the bark. The visual style is modern corporate agriculture, focusing on freshness and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkYkHz7uCQQ5YWEmzUqfaYHH-ChJcaKhOMKPimzXIJWgIayZcP-k6QkpOrAuTJGFa2xhVvVFX2OaJEzrh1pdaI7NIcE30-eJlkTSKV60VXKM7EvQfu22N_NFRrbKHJvdVtFc05yIRHZF4-IJo-89KxwqgI-cBZHgyNtSkr38tolUFoLMYcgXkvcNV2vNIfpH_09uozJBImQN0hTwH-FTqAZsVVeF2sHKZJxjvhv2CUgybcPpK9jhH9xHpOBStS31Xb_qda5oqrN9c">
+</div>
+<div class="flex-grow flex flex-col justify-center gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-on-surface leading-tight">Premium Yellow Yam</h3>
+<span class="material-symbols-outlined text-outline text-[20px]">more_vert</span>
+</div>
+<p class="font-label-md text-on-surface-variant">SKU: OJA-TUB-042</p>
+<div class="flex justify-between items-end mt-1">
+<div>
+<p class="font-body-md text-primary font-bold">₦4,500 <span class="font-label-md text-on-surface-variant">/large</span></p>
+<p class="font-label-lg text-on-surface-variant">Stock: <span class="text-on-secondary-container font-bold">142 units</span></p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-secondary-container">Promoted</span>
+<div class="w-10 h-5 bg-secondary-container rounded-full relative cursor-pointer active-state">
+<div class="absolute right-1 top-1 w-3 h-3 bg-on-secondary-container rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Item 3 -->
+<div class="bg-surface-container-lowest p-sm border-l-4 border-outline-variant rounded-r-xl border-y border-r border-outline-variant flex items-center gap-md product-card-shadow relative">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A vibrant arrangement of fresh Habanero peppers in shades of orange and red, presented on a clean white surface within a light-mode UI context. The image is bright and energetic with soft shadows and a crisp focus, embodying a sense of vital freshness and professional inventory quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8SYEW7g-7Gux4x__UOlo-YeoLV-89Q3l5QSIo75Zld378DgCy-BkFIk7Txeto_x6vGq-B2QYwOZ1WL0KnAWdMT3JF8uYzghp8H7qLypipQaVgJYAa7JxbefX8tNKlF7deCC3UBxdof2A1Z605RzFzyyZJmIFrjUGr1UMUTotYea1vlJMry0G1Ekzq8Dx8xu7r7LPASsL2l6BkQgk2_yhOPkQF2_BlV_JtcjBrG9mWEip_V4wV-TNTroBAXzKZIWscPzOPKZ20o5w">
+</div>
+<div class="flex-grow flex flex-col justify-center gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-on-surface leading-tight">Habanero Pepper Mix</h3>
+<span class="material-symbols-outlined text-outline text-[20px]">more_vert</span>
+</div>
+<p class="font-label-md text-on-surface-variant">SKU: OJA-VEG-089</p>
+<div class="flex justify-between items-end mt-1">
+<div>
+<p class="font-body-md text-primary font-bold">₦800 <span class="font-label-md text-on-surface-variant">/basket</span></p>
+<p class="font-label-lg text-on-surface-variant">Stock: <span class="text-on-surface font-bold">28 baskets</span></p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface-variant">Flash Sale</span>
+<div class="w-10 h-5 bg-outline-variant rounded-full relative cursor-pointer active-state">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Item 4 (Low Stock) -->
+<div class="bg-surface-container-lowest p-sm border-l-4 border-error rounded-r-xl border-y border-r border-outline-variant flex items-center gap-md product-card-shadow relative">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up of fresh spinach leaves bunched together with a rustic twine tie. The leaves are vibrant green with tiny water droplets, suggesting they were just harvested. The background is a soft neutral grey, emphasizing the organic green tones. Corporate modern agriculture aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBgUxrssksNXM8lHsYBDBBB-4UgOWwzROICYgbk427YExJQuqrfvaPb9SfZ60_mFqHeabRg_gb9_kXlTkCB1jio_KVI-VqgRUNNHuHO8jig-yrV8GnbSf9qcYtoBtz9zGYYzSyL0iq-7K869AqHvTru8BMva1EJJdsR4ZCAL7i1RMPURj69Kw4Z-V-_YhSxk3eG6kKdWrgo0O7B1NhjJxWS5MIW4Y8nKzcNMlOlzadXm5T1Ks97WzSutNcwuMVUvyyxnSzhpC2Y00">
+</div>
+<div class="flex-grow flex flex-col justify-center gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-on-surface leading-tight">Fresh Scent Leaf</h3>
+<span class="material-symbols-outlined text-outline text-[20px]">more_vert</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-error-container bg-error text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">Out of Stock</span>
+<p class="font-label-md text-on-surface-variant">SKU: OJA-VEG-112</p>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div>
+<p class="font-body-md text-primary font-bold">₦350 <span class="font-label-md text-on-surface-variant">/bunch</span></p>
+<p class="font-label-lg text-on-surface-variant">Stock: <span class="text-error font-bold">0 units</span></p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface-variant">Flash Sale</span>
+<div class="w-10 h-5 bg-outline-variant rounded-full relative cursor-pointer active-state">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination/Load More Info -->
+<div class="mt-lg flex flex-col items-center gap-sm">
+<p class="font-label-lg text-on-surface-variant">Showing 4 of 1,284 products</p>
+<button class="w-full py-3 border border-outline-variant text-primary font-title-md rounded-xl hover:bg-surface-container-high transition-colors active-state">
+                Load More Inventory
+            </button>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-gutter bottom-24 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center active-state z-40">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-sm bg-surface-container-lowest dark:bg-on-background border-t border-outline-variant shadow-[0_-2px_10px_rgba(0,69,13,0.04)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all gap-xs">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md-mobile text-label-md-mobile">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all gap-xs">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md-mobile text-label-md-mobile">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full px-4 py-1 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+<span class="font-label-md-mobile text-label-md-mobile">Inventory</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all gap-xs">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-md-mobile text-label-md-mobile">Partners</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest transition-all gap-xs">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-label-md-mobile text-label-md-mobile">More</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for toggles
+        document.querySelectorAll('.cursor-pointer').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const dot = this.querySelector('div');
+                const isOff = this.classList.contains('bg-outline-variant');
+                
+                if (isOff) {
+                    this.classList.remove('bg-outline-variant');
+                    this.classList.add('bg-secondary-container');
+                    dot.classList.remove('left-1');
+                    dot.classList.add('right-1');
+                    dot.classList.add('bg-on-secondary-container');
+                    dot.classList.remove('bg-white');
+                } else {
+                    this.classList.add('bg-outline-variant');
+                    this.classList.remove('bg-secondary-container');
+                    dot.classList.add('left-1');
+                    dot.classList.remove('right-1');
+                    dot.classList.remove('bg-on-secondary-container');
+                    dot.classList.add('bg-white');
+                }
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+
+
+</body></html>

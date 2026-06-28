@@ -1,0 +1,419 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>User Management - Oja Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2d3133",
+                        "secondary-container": "#6cf8bb",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#002203",
+                        "on-surface-variant": "#41493e",
+                        "inverse-on-surface": "#eff1f3",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#74b46e",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-container": "#1f1ab3",
+                        "outline-variant": "#c0c9bb",
+                        "on-secondary-fixed-variant": "#005236",
+                        "outline": "#717a6d",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-container": "#989bff",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "surface-tint": "#2e6b2f",
+                        "primary-fixed": "#b0f3a7",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed": "#07006c",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#135219",
+                        "on-background": "#191c1e",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-primary": "#95d78e",
+                        "primary": "#002c06",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e1e0ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#0b0088",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#95d78e",
+                        "background": "#f7f9fb",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#00714d",
+                        "surface-container": "#eceef0",
+                        "secondary": "#006c49",
+                        "primary-container": "#00450d",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "sidebar-width": "260px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "container-margin": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "title-md": ["Manrope"],
+                        "label-lg": ["Manrope"],
+                        "headline-md-mobile": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .user-card-shadow { box-shadow: 0 2px 4px rgba(0, 69, 13, 0.04); }
+        .active-nav-border { border-left: 4px solid #002c06; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm docked full-width top-0 z-50 flex justify-between items-center w-full px-gutter h-16 fixed">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer active:scale-95 duration-200">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Oja Admin</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors cursor-pointer p-2 rounded-full">search</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors cursor-pointer p-2 rounded-full">notifications</span>
+</div>
+</header>
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-sidebar-width fixed left-0 top-0 z-40 bg-primary-container dark:bg-primary-container shadow-md py-lg">
+<div class="px-6 mb-xl">
+<div class="flex items-center gap-md mb-xs">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator in a modern office, wearing a dark blazer over a white shirt. The background is a blurred high-end tech environment with soft forest green accents and warm indoor lighting. The mood is authoritative yet approachable, reflecting a corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY5m5bCh3bM8hiZ_QAqRi5qO3sRT8fs_4ZKPoWtbRibB7Sr7qcvKi1xT2wFtsWMj-IaUxXGoMATDoSx-HQaJMSduLqNMGWUwn2F2ZDiDccJnOn7rgyhhhC1IZsqW3LKeDjmnmdIkCIsRpdDdWJcAxs8uwzwgSyjLM1YA_O21sJrdQ4YDY5U2Mcpr0xiGnygWpUCYcXNsA52iW5oJ3xyt45ZC4Cjgx9bA_OwvQ-lZIUxm4JiejPRXNSX9yvL2cbBFmbTnDcrwyMCmU">
+</div>
+<div>
+<p class="font-headline-md text-headline-md font-extrabold text-primary-fixed">Oja Admin</p>
+<p class="text-on-primary-container/60 font-label-lg text-label-lg">admin@oja.com</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col space-y-1">
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">shopping_cart</span> Orders
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Products
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">handshake</span> Partners
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span> Admins
+            </a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container rounded-r-full py-3 px-6 border-l-4 border-primary font-label-lg text-label-lg active-nav-border" href="#">
+<span class="material-symbols-outlined">group</span> Users
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">account_circle</span> Profile
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-20 pb-24 md:pl-[260px] min-h-screen">
+<div class="px-gutter md:px-lg max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-lg gap-md">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">User Management</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Oversee customer base and community growth</p>
+</div>
+<div class="flex items-center gap-sm overflow-x-auto no-scrollbar py-2">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg flex items-center gap-xs font-label-lg text-label-lg shadow-sm hover:bg-on-primary-container/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">person_add</span> Add New User
+                    </button>
+<button class="border border-primary text-primary px-4 py-2 rounded-lg flex items-center gap-xs font-label-lg text-label-lg hover:bg-primary/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">download</span> Export CSV
+                    </button>
+</div>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-xl">
+<div class="col-span-1 md:col-span-1 bg-white p-md rounded-xl border border-outline-variant user-card-shadow">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-primary p-2 bg-secondary-container/20 rounded-lg">group</span>
+<span class="text-secondary font-label-md text-label-md flex items-center">+12.5% <span class="material-symbols-outlined text-xs">trending_up</span></span>
+</div>
+<p class="font-title-md text-title-md text-on-surface-variant">Total Customers</p>
+<p class="font-headline-lg text-headline-lg text-on-surface">24,512</p>
+</div>
+<div class="col-span-1 md:col-span-1 bg-white p-md rounded-xl border border-outline-variant user-card-shadow">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-primary p-2 bg-secondary-container/20 rounded-lg">person_add_alt</span>
+<span class="text-secondary font-label-md text-label-md flex items-center">+8.2% <span class="material-symbols-outlined text-xs">trending_up</span></span>
+</div>
+<p class="font-title-md text-title-md text-on-surface-variant">New Joins (30d)</p>
+<p class="font-headline-lg text-headline-lg text-on-surface">1,284</p>
+</div>
+<div class="col-span-1 md:col-span-2 bg-white p-md rounded-xl border border-outline-variant user-card-shadow flex items-center gap-xl relative overflow-hidden">
+<div class="z-10">
+<p class="font-title-md text-title-md text-on-surface-variant">Growth Trajectory</p>
+<p class="font-headline-md text-headline-md text-on-surface">Target: 30k by Q4</p>
+<div class="w-full bg-surface-container mt-md h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">82% of quarterly goal achieved</p>
+</div>
+<div class="absolute right-0 top-0 h-full w-1/3 opacity-20 hidden md:block">
+
+</div>
+</div>
+</div>
+<!-- List Controls -->
+<div class="bg-white rounded-t-xl border-x border-t border-outline-variant p-md flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search users by name, email or ID..." type="text">
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg flex items-center gap-xs font-label-lg text-label-lg shadow-sm hover:bg-on-primary-container/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">person_add</span> Add New User
+                    </button>
+<button class="flex items-center gap-xs px-3 py-2 bg-surface-container-high rounded-lg font-label-lg text-label-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">sort</span> Sort: Newest
+                    </button>
+</div>
+</div>
+<!-- User List Table -->
+<div class="bg-white border border-outline-variant rounded-b-xl overflow-x-auto user-card-shadow mb-xl">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">User</th>
+<th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider hidden md:table-cell">Status</th>
+<th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider hidden md:table-cell">Join Date</th>
+<th class="px-6 py-4 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a young professional woman with a creative style, glasses, and a friendly expression. The lighting is bright and airy, set against a modern architectural background with subtle botanical elements. High-density professional UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU03VWc9xr7ArWVvf0TXqDxuBQLVMqdZ87NEu_-kBvevvm7k1Ku_vHgFUnVy2Nh0UPJVA-7eP5TkNsI1mr2TfC-j6EIktnFxWRjabLdZWnkkhYRPA6Ej4x3XN74zG6qJ4oul6MDhgDo_xM5aPrcMQGtU2VRe0XBNFfDb6yTvVwDTBpzAQE5mFD6d8T5TwM7_kpKBlnr5KFm6wa5S0zLXzT_PWH9_UMNHa_xgDo7fV9fa6X_x2jh3Tp_GnFKapxUKsM7Fmzxl-97vc">
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Elena Rodriguez</p>
+<p class="font-body-md text-body-md text-on-surface-variant">elena.r@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 hidden md:table-cell">
+<span class="px-2 py-1 bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md rounded-full">Active</span>
+</td>
+<td class="px-6 py-4 hidden md:table-cell font-body-md text-body-md text-on-surface-variant">Oct 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded-full transition-all" title="View Details">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Ban User">
+<span class="material-symbols-outlined">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A profile photo of a middle-aged man with a neat beard, wearing a corporate casual polo shirt. He has a warm smile and is positioned against a clean, minimal light grey studio background. The lighting is crisp and clear, following a corporate modern design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx7-WZwhmPcHid1gdXZBNXDm_1RMexOrKbwOz90s5-cGRq4UZD11ti0aZeeR9M47iC-6JzNl2sWPypOq7Gx-oGr9BQEJ22tfjvnOi7e7rgkATweocoX99xk-m8XKaVzVcXDXc9d7rK5X5abA1w_EP8F7vzKecx8GRjSvuqCaoHyF_ysL8NnNUvXE-1nvW_lO2HnfnPT1c3LO-YirC3gJrQrM-Di9jZMs7VqFzQGdvGa9nyIwz70WFURgbYNqUAeISMoBPRcdVKiEc">
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Marcus Chen</p>
+<p class="font-body-md text-body-md text-on-surface-variant">m.chen@service.io</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 hidden md:table-cell">
+<span class="px-2 py-1 bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md rounded-full">Active</span>
+</td>
+<td class="px-6 py-4 hidden md:table-cell font-body-md text-body-md text-on-surface-variant">Sep 28, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded-full transition-all" title="View Details">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Ban User">
+<span class="material-symbols-outlined">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Banned example) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0 opacity-60">
+<img class="w-full h-full object-cover grayscale" data-alt="A portrait of a person with a neutral expression, styled in a minimalist fashion. The background is a flat, cool-toned neutral surface. The overall image has a slight grey desaturation to represent an inactive or restricted status within a clean digital dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAhb4Fi1qp3sqyD4Y4KiB4Ehtl5efbazhvrqj49DF9Lkdqkd1VzkQtjpQqYFcsopgTTPiMkUiyVGY7_lPu5SvAy_ouSLC8BeNEtVOEUD6szRY3dfW5yNFesGYJXPjfbtx9yaV8iXHT7MNwdEER19iyIZOyx7k7O2RreRFRyfB0pAlfnHQ5bJX9kR7fopBTSGIPCGWXPikToAM5CgIH9IAzV8MLQ46bZGRH_40mxgBYLGHMSDlQQHWjd3h1TKLJ-ZODRUhKeH949dg">
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface-variant line-through">Julian Voss</p>
+<p class="font-body-md text-body-md text-on-surface-variant">voss.j@webmail.de</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 hidden md:table-cell">
+<span class="px-2 py-1 bg-error-container text-on-error-container font-label-md text-label-md rounded-full">Banned</span>
+</td>
+<td class="px-6 py-4 hidden md:table-cell font-body-md text-body-md text-on-surface-variant">Aug 15, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded-full transition-all" title="View Details">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-primary hover:bg-secondary-container/20 rounded-full transition-all" title="Unban User">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a person with a bright, energetic presence. They are in an outdoor setting with blurred greenery and soft sunlight, creating a fresh and vibrant feel. The visual style is grounded in professional photography but with a lively, organic touch for the Oja brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO8tDeSo1LIYTsdpQBrgLNhp-k12DOjzTlhm3sPTjYM4Il5XKR6T92tWk8gD-OUT8IfByFKwAcuRqTWzL0-sDVrnnqYxwV26sfTcJ-tMXizrXjOxsOvTqy2-4aaD4Qzc6_1qYC9e_oLEe_vep2xXe4aI9imOm8390RtjIfXCdTbyivecF4_Yiu6Ja3U89EGv6HUr3LK_2rS4wUmL-UwOUHLE-YjjbDrLkcYFsRNVShia_NBdCmUkNZVu_iwqVprb6mOq-27H0Wudg">
+</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Sarah Jenkins</p>
+<p class="font-body-md text-body-md text-on-surface-variant">s.jenkins@provider.net</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 hidden md:table-cell">
+<span class="px-2 py-1 bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md rounded-full">Active</span>
+</td>
+<td class="px-6 py-4 hidden md:table-cell font-body-md text-body-md text-on-surface-variant">Jul 22, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded-full transition-all" title="View Details">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Ban User">
+<span class="material-symbols-outlined">block</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between font-label-lg text-label-lg text-on-surface-variant pb-8">
+<p class="">Showing 1-10 of 24,512 users</p>
+<div class="flex items-center gap-xs">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors border border-outline-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary text-on-primary rounded-lg">1</button>
+<button class="px-3 py-1 hover:bg-surface-variant rounded-lg transition-colors">2</button>
+<button class="px-3 py-1 hover:bg-surface-variant rounded-lg transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="px-3 py-1 hover:bg-surface-variant rounded-lg transition-colors">2,452</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors border border-outline-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 left-0 w-full flex md:hidden justify-around items-center px-4 py-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-lg z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150 py-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150 py-1" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        // Action for row click could be opening a side-panel or detail page
+                        console.log('Row clicked');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body></html>

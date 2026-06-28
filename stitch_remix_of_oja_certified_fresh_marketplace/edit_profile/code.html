@@ -1,0 +1,272 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Edit Profile | Oja</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeeee",
+                        "surface-dim": "#dadada",
+                        "outline-muted": "#c0c9bb",
+                        "on-tertiary-fixed": "#002204",
+                        "on-tertiary-container": "#66b664",
+                        "on-primary-fixed-variant": "#135219",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#733d00",
+                        "inverse-surface": "#2f3131",
+                        "secondary-fixed-dim": "#ffb77a",
+                        "warning-amber": "#ff8f00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#002203",
+                        "primary-fixed-dim": "#95d78e",
+                        "on-secondary-fixed": "#2e1500",
+                        "tertiary": "#002c06",
+                        "on-primary-container": "#74b46e",
+                        "surface-bright": "#f9f9f9",
+                        "primary-fixed": "#b0f3a7",
+                        "success-green": "#2a6b2c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "secondary-container": "#fea85a",
+                        "surface-tint": "#2e6b2f",
+                        "surface-variant": "#e2e2e2",
+                        "secondary": "#8f4e00",
+                        "secondary-fixed": "#ffdcc2",
+                        "error-red": "#ba1a1a",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#a3f69c",
+                        "on-surface-variant": "#41493e",
+                        "surface-container-high": "#e8e8e8",
+                        "background": "#f9f9f9",
+                        "outline-variant": "#c0c9bb",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary-fixed-dim": "#88d983",
+                        "tertiary-container": "#00450e",
+                        "on-background": "#1a1c1c",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#00450d",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#6d3a00",
+                        "primary": "#002c06",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#95d78e",
+                        "outline": "#717a6d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-lg": ["Manrope"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .input-focus-ring:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #00450d;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c0c9bb;
+            border-radius: 10px;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface custom-scrollbar">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-surface flex justify-between items-center w-full px-gutter py-md max-w-screen-xl mx-auto">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md text-primary">Edit Profile</h1>
+<button class="px-md py-xs rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md hover:opacity-80 transition-opacity active:scale-95 duration-150">
+            Save
+        </button>
+</header>
+<main class="max-w-screen-md mx-auto px-gutter pb-xl flex flex-col gap-xl">
+<!-- Profile Picture Section -->
+<section class="flex flex-col items-center py-lg mt-md">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full border-4 border-white shadow-md overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly West African man in his early 30s with a warm smile, wearing a clean linen shirt. The lighting is soft and natural, emphasizing a high-end corporate yet organic aesthetic. The background is a clean, neutral cream color that feels premium and airy, perfectly matching the Oja agricultural brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE50D6ipfsl6m6SAltP2y5qAdbulApLxTPfKSKIKRWGf_gDqzBQ3muhoT-MFJh3Ujv1krjRCUIXKzFY3CJxaP9Ac5BejzSvUP4z77K6mcmI3PZiM3YXIGRh_h6M-tR67AOne2fAaHMDKBYszE-2cxMaWToAs9ZQPWJf60c52h6qpPraBo8ZDXFN2Q7st2Be2zz4lgtga_BwmjY-ydUGkhqmPCZ0vWWuJBwD9p9VnC1OTOjS-usrZhuXD5Nz0dFCI5TxJ-MVft6N1Y">
+</div>
+<button class="absolute bottom-0 right-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</button>
+</div>
+<div class="mt-md text-center">
+<h2 class="text-headline-md font-headline-md text-on-surface">Oja Customer</h2>
+<p class="text-label-md font-label-md text-outline">Verified Freshness Enthusiast</p>
+</div>
+</section>
+<!-- Personal Information Section -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+<h3 class="text-label-md font-label-md uppercase tracking-wider text-outline">Personal Information</h3>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant ml-1">Username</label>
+<input class="w-full h-14 px-md rounded-xl bg-white border border-outline-muted font-body-md text-on-surface input-focus-ring transition-all" placeholder="@ojacustomer" type="text" value="">
+</div><div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant ml-1">Full Name</label>
+<input class="w-full h-14 px-md rounded-xl bg-white border border-outline-muted font-body-md text-on-surface input-focus-ring transition-all" placeholder="Enter your full name" type="text" value="Oja Customer">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant ml-1">Email Address</label>
+<input class="w-full h-14 px-md rounded-xl bg-white border border-outline-muted font-body-md text-on-surface input-focus-ring transition-all" placeholder="Enter your email" type="email" value="customer@oja-fresh.com">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant ml-1">Phone Number</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">+234</span>
+<input class="w-full h-14 pl-14 pr-md rounded-xl bg-white border border-outline-muted font-body-md text-on-surface input-focus-ring transition-all" placeholder="Enter phone number" type="tel" value="801 234 5678">
+</div>
+</div>
+</div>
+</section>
+<!-- Delivery Preferences Section -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<h3 class="text-label-md font-label-md uppercase tracking-wider text-outline">Delivery Preferences</h3>
+</div>
+<div class="bg-white rounded-xl border border-outline-muted p-md shadow-[0_4px_12px_0_rgba(0,0,0,0.02)]">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<p class="text-label-md font-label-md text-on-surface">Default Address</p>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">12 Lagos View Estate, Victoria Island, Lagos</p>
+</div>
+<button class="text-primary text-label-md font-label-md">Edit</button>
+</div>
+<div class="h-[1px] bg-outline-variant opacity-20 my-md"></div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Delivery Instructions</label>
+<textarea class="w-full p-md rounded-xl bg-surface-container-low border border-outline-muted font-body-md text-on-surface input-focus-ring transition-all resize-none" placeholder="e.g., Leave at the front gate or call upon arrival..." rows="3">Deliver only on weekends between 8 AM and 12 PM.</textarea>
+</div>
+</div>
+</section>
+<!-- Account Security Section -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">security</span>
+<h3 class="text-label-md font-label-md uppercase tracking-wider text-outline">Account Security</h3>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Change Password Button -->
+<button class="w-full h-14 px-md flex items-center justify-between rounded-xl bg-white border border-outline-muted hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+<span class="font-label-md text-on-surface">Change Password</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<!-- 2FA Toggle -->
+<div class="w-full h-14 px-md flex items-center justify-between rounded-xl bg-white border border-outline-muted">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">verified_user</span>
+<span class="font-label-md text-on-surface">Two-Factor Authentication</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="tfa-toggle" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-success-green"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="mt-md mb-xl">
+<button class="w-full py-md text-error font-label-md text-label-md border border-error/20 rounded-xl hover:bg-error/5 transition-colors">
+                Deactivate My Account
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Suppressed on sub-pages but structured for future shell consistency) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest shadow-[0_-4px_12px_0_rgba(0,0,0,0.04)] rounded-t-xl hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:transform scale-90 duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for input fields
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // 2FA Toggle visual feedback
+        const tfaToggle = document.getElementById('tfa-toggle');
+        tfaToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                console.log('Two-Factor Authentication Enabled');
+            } else {
+                console.log('Two-Factor Authentication Disabled');
+            }
+        });
+    </script>
+
+
+</body></html>

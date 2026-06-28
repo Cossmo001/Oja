@@ -1,0 +1,395 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Admin Profile | Oja Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface": "#191c1e",
+                    "on-primary-fixed": "#002203",
+                    "on-surface-variant": "#41493e",
+                    "inverse-on-surface": "#eff1f3",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#74b46e",
+                    "surface-bright": "#f7f9fb",
+                    "tertiary-container": "#1f1ab3",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary-fixed-variant": "#005236",
+                    "outline": "#717a6d",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "on-tertiary-container": "#989bff",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-tint": "#2e6b2f",
+                    "primary-fixed": "#b0f3a7",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-fixed": "#07006c",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#135219",
+                    "on-background": "#191c1e",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "on-secondary-fixed": "#002113",
+                    "inverse-primary": "#95d78e",
+                    "primary": "#002c06",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#0b0088",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#95d78e",
+                    "background": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-container": "#00714d",
+                    "surface-container": "#eceef0",
+                    "secondary": "#006c49",
+                    "primary-container": "#00450d",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "sidebar-width": "260px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "container-margin": "24px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "label-lg": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-card-shadow {
+            box-shadow: 0 2px 4px 0 rgba(0, 69, 13, 0.04);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-lg bg-primary-container fixed left-0 top-0 z-40 w-sidebar-width shadow-md">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary-fixed">Oja Admin</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-label-lg text-label-lg">Partners</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-lg text-label-lg">Admins</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Users</span>
+</a>
+<a class="flex items-center gap-md text-on-primary-container/80 py-3 px-6 hover:bg-on-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+<!-- Active Profile Tab -->
+<a class="flex items-center gap-md bg-primary text-on-primary rounded-r-full py-3 px-6 border-l-4 border-primary-fixed transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="flex items-center gap-3 py-4 border-t border-on-primary-container/20">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A professional headshot of a middle-aged senior executive with a confident smile. He is wearing a minimalist dark green polo shirt that matches the Oja brand identity. The background is a blurred high-end corporate office with soft natural lighting and lush indoor plants, reinforcing the organic yet professional supply chain theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1t3wvOOa4geYKp3bvIK797XPScsYE5YIOovBn6kf63dndcdZSAeeTGvzHyykeuVKKPsfwEU8jXv73s36kICreN_fg1okeSeU4SvbqZ590Mxa-8N5xZ9FeU5v3Y1x3qtNtuSKPrvhkiqkrBtG-ldz6UKYcth8M-Fp1LEEFJqzn3QJZplYOqYCNNota7p3mZyAJTu_ymLhyZz_YCBhypm6yKlokKuGWPN-jjAvv-1S6PF13qCu0Fj2zzTDuDe48H7MzKiVl11DIy_c">
+<div class="overflow-hidden">
+<p class="font-label-lg text-label-lg text-primary-fixed truncate">Oja Admin</p>
+<p class="text-[10px] text-on-primary-container/70 truncate">admin@oja.com</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-sidebar-width min-h-screen pb-24 md:pb-lg">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 bg-surface border-b border-outline-variant shadow-sm sticky top-0 z-30">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined md:hidden text-primary cursor-pointer active:scale-95 duration-200">menu</span>
+<h2 class="font-title-lg text-title-lg text-primary">Admin Profile</h2>
+</div>
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-on-surface-variant hover:bg-surface-variant transition-colors p-2 rounded-full cursor-pointer">notifications</span>
+<div class="hidden md:block">
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-4 py-2 rounded-lg active:scale-95 duration-200 transition-transform">Logout</button>
+</div>
+</div>
+</header>
+<div class="p-gutter max-w-6xl mx-auto space-y-lg">
+<!-- Hero Profile Section: Bento Grid Header -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Main Identity Card -->
+<div class="md:col-span-8 bg-surface-container-lowest p-lg rounded-xl border border-outline-variant soft-card-shadow flex flex-col sm:flex-row items-center sm:items-start gap-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">verified_user</span>
+</div>
+<div class="relative">
+<img class="w-32 h-32 rounded-2xl object-cover border-4 border-surface shadow-md" data-alt="A close-up studio photograph of a polished wooden desk with a high-end digital tablet displaying logistics data. Next to the tablet is a small, vibrant green sprout in a minimalist ceramic pot, symbolizing Oja's commitment to growth and sustainability in the supply chain. Soft morning light creates deep, elegant shadows across the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5gtuUCV8RNXtWHC2svRg1FUJItQlM9WEpXZ3nps8B_UC5OvqWRz5RatrqpInY9H9l2hP4R0iwUmalcwl6rYRvzSXOOA7MRQ9KqwbSm09wqRpoOLBa3SXDIXh5ZsxOWG4hHK0wMh2wRYzxVuhUEKmfBxQMFF9ZZQlX-Am7aGZ8oRurQogOtdkzh8wLvOJ8vHOWT02CV61CSfZ9O2tpv3kLyW_Dl_PZGPDAAuBvI90dOSOHpiuxycZS4CllGB5nYyXiTDsk66GwH5E">
+<button class="absolute -bottom-2 -right-2 bg-primary text-on-primary p-2 rounded-full shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="flex-1 text-center sm:text-left space-y-xs">
+<div class="flex flex-col sm:flex-row sm:items-center gap-sm">
+<h3 class="font-headline-lg text-headline-lg text-primary">Alexander Thorne</h3>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-lg text-label-lg w-fit mx-auto sm:mx-0">Verified Admin</span>
+</div>
+<p class="font-title-md text-title-md text-on-surface-variant">Senior Operations Lead</p>
+<div class="flex items-center justify-center sm:justify-start gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">domain</span>
+<span class="font-body-md text-body-md">Supply Chain Department</span>
+</div>
+<div class="pt-md flex flex-wrap justify-center sm:justify-start gap-sm">
+<div class="flex items-center gap-xs px-3 py-2 bg-surface-container rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span class="font-label-lg text-label-lg">alex.thorne@oja-logistics.com</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metrics Cards -->
+<div class="md:col-span-4 grid grid-cols-1 gap-md">
+<!-- Projects Managed -->
+<div class="bg-primary-container p-md rounded-xl border border-primary soft-card-shadow flex justify-between items-end">
+<div>
+<p class="font-label-lg text-label-lg text-on-primary-container/80 mb-1">Projects Managed</p>
+<h4 class="font-headline-lg text-headline-lg text-primary-fixed">142</h4>
+</div>
+<div class="bg-on-primary-container/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container">account_tree</span>
+</div>
+</div>
+<!-- System Uptime -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant soft-card-shadow flex justify-between items-end">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Personal Uptime</p>
+<h4 class="font-headline-lg text-headline-lg text-primary">99.8%</h4>
+</div>
+<div class="text-secondary flex flex-col items-end">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-[10px] font-bold text-secondary-fixed-variant">+1.2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Profile Settings Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Personal Information -->
+<section class="lg:col-span-2 space-y-md">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant soft-card-shadow">
+<div class="flex items-center justify-between mb-lg border-b border-outline-variant pb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">person_outline</span>
+<h4 class="font-title-lg text-title-lg">Personal Information</h4>
+</div>
+<button class="text-primary font-label-lg text-label-lg hover:underline transition-all">Save Changes</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Full Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md transition-all" type="text" value="Alexander Thorne">
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Email Address</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md transition-all" type="email" value="alex.thorne@oja-logistics.com">
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Phone Number</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md transition-all" type="tel" value="+1 (555) 012-3456">
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Job Title</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface-container font-body-md text-body-md cursor-not-allowed opacity-70" disabled="" type="text" value="Senior Operations Lead">
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-outline-variant">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Bio / Professional Summary</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md transition-all" rows="3">Managing end-to-end supply chain operations with a focus on sustainable logistics and efficient vendor management for the Oja platform.</textarea>
+</div>
+</div>
+</div>
+<!-- Account Security -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant soft-card-shadow">
+<div class="flex items-center gap-sm mb-lg border-b border-outline-variant pb-md">
+<span class="material-symbols-outlined text-primary">security</span>
+<h4 class="font-title-lg text-title-lg">Change Password</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Current Password</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md" placeholder="••••••••••••" type="password">
+</div>
+<div class="hidden md:block"></div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">New Password</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md" placeholder="Enter new password" type="password">
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant block">Confirm New Password</label>
+<input class="w-full px-4 py-3 rounded-lg border border-outline bg-surface-bright focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md" placeholder="Re-type new password" type="password">
+</div>
+</div>
+<div class="mt-lg">
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-6 py-3 rounded-lg hover:shadow-md active:scale-95 transition-all">Update Password</button>
+</div>
+</div>
+</section>
+<!-- Sidebar Actions / Danger Zone -->
+<aside class="space-y-lg">
+<!-- Notifications Preferences -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant soft-card-shadow">
+<h4 class="font-title-md text-title-md mb-md">Quick Notifications</h4>
+<div class="space-y-md">
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-body-md text-body-md">Email Alerts</span>
+<input checked="" class="w-5 h-5 rounded text-primary focus:ring-primary border-outline cursor-pointer" type="checkbox">
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-body-md text-body-md">Direct Messages</span>
+<input checked="" class="w-5 h-5 rounded text-primary focus:ring-primary border-outline cursor-pointer" type="checkbox">
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="font-body-md text-body-md">System Reports</span>
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-outline cursor-pointer" type="checkbox">
+</label>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="bg-error-container/20 p-lg rounded-xl border border-error/20 soft-card-shadow">
+<div class="flex items-center gap-sm text-error mb-sm">
+<span class="material-symbols-outlined">warning</span>
+<h4 class="font-title-md text-title-md">Critical Zone</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">
+                            Deactivating your account will immediately revoke all access to the Oja Admin suite. This action is audited.
+                        </p>
+<button class="w-full py-3 px-4 border-2 border-error text-error hover:bg-error hover:text-on-error font-label-lg text-label-lg rounded-lg transition-all active:scale-95 duration-200">
+                            Deactivate Account
+                        </button>
+</div>
+<!-- Info/Help card -->
+<div class="bg-surface-container-high p-lg rounded-xl border border-outline-variant flex items-start gap-md">
+<span class="material-symbols-outlined text-secondary">info</span>
+<div class="space-y-xs">
+<p class="font-label-lg text-label-lg text-on-surface">Need Help?</p>
+<p class="text-[12px] text-on-surface-variant leading-relaxed">
+                                Changes to Department or Role require Chief Operations Officer approval. Please contact the IT Service Desk for structural changes.
+                            </p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe bg-surface border-t border-outline-variant shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl px-4 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for input fields
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Toggle mobile drawer placeholder (logic only)
+        const menuIcon = document.querySelector('header .material-symbols-outlined:first-child');
+        menuIcon.addEventListener('click', () => {
+            console.log('Mobile menu toggled');
+            // This would normally trigger the drawer overlay
+        });
+    </script>
+
+
+</body></html>

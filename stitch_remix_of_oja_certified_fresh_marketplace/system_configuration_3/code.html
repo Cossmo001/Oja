@@ -1,0 +1,437 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin | System Settings</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#95d78e",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "surface-variant": "#e0e3e5",
+                    "tertiary-fixed": "#e1e0ff",
+                    "primary-container": "#00450d",
+                    "surface": "#f7f9fb",
+                    "on-primary-container": "#74b46e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary-fixed": "#002203",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-container": "#989bff",
+                    "secondary": "#006c49",
+                    "tertiary": "#0b0088",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-container": "#00714d",
+                    "primary": "#002c06",
+                    "background": "#f7f9fb",
+                    "surface-container": "#eceef0",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#1f1ab3",
+                    "surface-dim": "#d8dadc",
+                    "outline": "#717a6d",
+                    "secondary-fixed-dim": "#4edea3",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#6cf8bb",
+                    "on-primary-fixed-variant": "#135219",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#2e6b2f",
+                    "outline-variant": "#c0c9bb",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-fixed": "#b0f3a7",
+                    "surface-bright": "#f7f9fb",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "secondary-fixed": "#6ffbbe",
+                    "inverse-primary": "#95d78e",
+                    "on-surface-variant": "#41493e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "lg": "24px",
+                    "container-margin": "24px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "base": "4px",
+                    "sidebar-width": "260px",
+                    "xs": "4px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "title-lg": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "label-lg": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-indicator {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 24px;
+            width: 4px;
+            background-color: #6ffbbe; /* secondary-fixed */
+            border-radius: 0 4px 4px 0;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-full lg:pl-sidebar-width z-40 bg-surface-container-lowest border-b border-outline-variant/30 shadow-sm flex justify-between items-center h-16 px-lg">
+<div class="flex items-center gap-md w-1/3">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg pl-10 py-2 text-body-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search system settings..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-md">
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="font-title-md text-body-md leading-tight">Admin User</p>
+<p class="text-label-md text-on-surface-variant">Super Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed-dim object-cover" data-alt="A professional headshot of a female executive in her 40s, looking directly at the camera with a confident smile. She has short, styled dark hair and is wearing a dark forest green blazer. The background is a clean, minimalist office setting with soft, natural morning light, emphasizing a high-end corporate aesthetic consistent with a sophisticated forest green and white brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuUkEz2ZcJeEg3gYn5K5qa7eqXywZW-u-Qb57G1cMSxpekcMFrIH4nM2KhPGuyEVk1LQGLdi12NDGQNETJ1sWX27pfd4_A4yPPJThoLQa6C6kjjvtbDg0SvHoHdCiyLjeCqpml-lai9fIitr5F9IIxGNug-TOUiMrtVgJDr95p0UNlOxlZPOpebWCcCCJMNsrSLMGkVe2Lf4g4fVLyLNi30MRmM06F3-jpGoDL9t2asPMFoKMyVLov2cVn2oW3st9BhwJgptMXE5c">
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed h-full w-sidebar-width left-0 top-0 bg-primary z-50 shadow-md hidden lg:flex flex-col py-lg">
+<div class="px-lg mb-xl">
+<h1 class="font-display-lg text-display-lg text-primary-fixed tracking-tighter">Oja</h1>
+<p class="text-on-primary-container font-label-lg tracking-widest opacity-80 uppercase">Marketplace Suite</p>
+</div>
+<nav class="flex-1 flex flex-col gap-xs overflow-y-auto no-scrollbar"><a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#"><span class="material-symbols-outlined">shopping_cart</span><span class="font-title-md text-title-md">Orders</span></a><a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#"><span class="material-symbols-outlined">inventory_2</span><span class="font-title-md text-title-md">Products</span></a><a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#"><span class="material-symbols-outlined">handshake</span><span class="font-title-md text-title-md">Partners</span></a><a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#"><span class="material-symbols-outlined">gavel</span><span class="font-title-md text-title-md">Governance</span></a><a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#"><span class="material-symbols-outlined">group</span><span class="font-title-md text-title-md">Users</span></a><a class="flex items-center gap-md px-md py-sm border-l-4 border-secondary-fixed bg-on-primary-fixed-variant text-primary-fixed transition-colors duration-200" href="#"><span class="material-symbols-outlined">settings</span><span class="font-title-md text-title-md">Settings</span></a></nav>
+<div class="mt-auto px-md pt-lg flex flex-col gap-md">
+<button class="w-full flex items-center justify-center gap-sm bg-primary-fixed text-primary px-md py-sm rounded-lg font-title-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+                System Status
+            </button>
+<a class="flex items-center gap-md px-md py-sm text-surface-variant hover:bg-on-primary-fixed-variant/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-title-md text-title-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:ml-sidebar-width pt-16 min-h-screen pb-20 lg:pb-lg transition-all">
+<div class="p-lg max-w-[1400px] mx-auto">
+<!-- Page Header -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">System Settings</h2>
+<p class="text-on-surface-variant text-body-lg">Manage platform global configurations and your administrative profile.</p>
+</div>
+<div class="flex gap-md">
+<button class="px-lg py-sm rounded-lg border border-outline text-on-surface hover:bg-surface-container-high transition-all font-title-md">Discard</button>
+<button class="px-lg py-sm rounded-lg bg-primary-fixed text-primary hover:brightness-110 transition-all font-title-md flex items-center gap-sm active:scale-95"><span class="material-symbols-outlined text-[18px]">save</span>Save All Changes</button>
+</div>
+</div>
+<!-- Settings Grid (Bento Style) -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left Column: Platform & Notifications -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-lg">
+<!-- Platform Fees Section -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden">
+<div class="px-lg py-md bg-surface-container-low/50 border-b border-outline-variant/30 flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h3 class="font-title-lg text-title-lg">Platform Fees</h3>
+</div>
+<div class="p-lg grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Default Transaction Fee (%)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg p-3 text-headline-md text-primary focus:border-primary focus:ring-0" step="0.1" type="number" value="2.5">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-headline-md">%</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Global fee applied to all marketplace transactions.</p>
+</div>
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Partner Commission Cap</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-headline-md">$</span>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg p-3 pl-10 text-headline-md text-primary focus:border-primary focus:ring-0" type="number" value="500">
+</div>
+<p class="text-label-md text-on-surface-variant">Maximum dollar amount for partner service fees.</p>
+</div>
+<div class="md:col-span-2 flex items-center justify-between p-md bg-secondary-container/10 border border-secondary/20 rounded-xl">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary">info</span>
+<div>
+<p class="font-title-md text-secondary">Automated Tax Calculation</p>
+<p class="text-body-md text-on-surface-variant">System currently using Vertex for real-time tax compliance.</p>
+</div>
+</div>
+<button class="text-secondary font-title-md underline decoration-2 underline-offset-4">Manage Provider</button>
+</div>
+</div>
+</section>
+<!-- Maintenance Mode (Asymmetric Card) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm p-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-md mb-md">
+<span class="material-symbols-outlined text-error">engineering</span>
+<h3 class="font-title-lg text-title-lg">Maintenance Mode</h3>
+</div>
+<p class="text-body-md text-on-surface-variant mb-lg">Enabling this will restrict access to the marketplace for all users except authorized administrators. A custom landing page will be displayed.</p>
+</div>
+<div class="flex items-center gap-lg">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-14 h-7 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-error"></div>
+</label>
+<span class="font-title-md text-on-surface-variant">Deactivated</span>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-lg rounded-xl flex flex-col items-center justify-center text-center shadow-md relative overflow-hidden group">
+
+<div class="relative z-10">
+<span class="material-symbols-outlined text-[48px] mb-md text-primary-fixed">schedule</span>
+<h4 class="font-title-lg text-primary-fixed">Scheduled Sync</h4>
+<p class="text-label-lg opacity-80 mb-md">Next system update in:</p>
+<p class="font-display-lg text-headline-lg tracking-widest">04:12:55</p>
+</div>
+</div>
+</section>
+<!-- Notification Protocols -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="px-lg py-md bg-surface-container-low/50 border-b border-outline-variant/30 flex justify-between items-center">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="font-title-lg text-title-lg">Notification Protocols</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full text-label-md">v2.4 Active</span>
+</div>
+<div class="divide-y divide-outline-variant/20">
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low/30 transition-colors">
+<div>
+<p class="font-title-md">Critical System Alerts</p>
+<p class="text-body-md text-on-surface-variant">Immediate SMS &amp; Email for server downtime or security breaches.</p>
+</div>
+<span class="text-secondary font-title-md flex items-center gap-xs">Always On <span class="material-symbols-outlined text-[18px]">lock</span></span>
+</div>
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low/30 transition-colors">
+<div>
+<p class="font-title-md">Partner Onboarding Notifications</p>
+<p class="text-body-md text-on-surface-variant">Notify admins when a new merchant completes verification.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low/30 transition-colors">
+<div>
+<p class="font-title-md">Weekly Analytics Summary</p>
+<p class="text-body-md text-on-surface-variant">Automated report delivery every Monday at 08:00 AM.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Admin Profile & Security -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<!-- Admin Profile Section -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden">
+<div class="h-24 bg-gradient-to-r from-primary to-secondary relative">
+<div class="absolute -bottom-10 left-lg">
+<div class="relative group">
+<img class="w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover shadow-md" data-alt="A professional headshot of a female executive in her 40s, looking directly at the camera with a confident smile. She has short, styled dark hair and is wearing a dark forest green blazer. The background is a clean, minimalist office setting with soft, natural morning light, emphasizing a high-end corporate aesthetic consistent with a sophisticated forest green and white brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrj8i5de6j1VvhrWTmIbUemo-HyQ4fPmLd6M0t0JMuLc56KQytZsjI7PrRquql8Cup6e8MQOXLbzDWX-haK6QuN-egXuO_SwtC-0CN9NjCvyjWWKhjUp9miEX6a5ceYdXi3HxU9PjSAgqKb6KVwuUWMBy99hrJRQ04YkqlZ8nKtkmEKQ6yzcS0HEnag-nAyiEEITm2tgxnkIaWPS0esQXcAn5_VtS92xQZeRaSK3d4HCJdA4PSLa62Hqv-Ovx-qg5Cq9_mHzu5MM0">
+<button class="absolute inset-0 bg-black/40 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+<div class="pt-12 px-lg pb-lg">
+<div class="mb-lg">
+<h3 class="font-headline-md text-primary">Admin Profile</h3>
+<p class="text-on-surface-variant text-body-md">Personal account management</p>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<label class="text-label-lg font-label-lg text-on-surface-variant uppercase">Full Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg p-2 text-body-lg focus:border-primary focus:ring-0" type="text" value="Elena Thorne">
+</div>
+<div class="space-y-xs">
+<label class="text-label-lg font-label-lg text-on-surface-variant uppercase">Email Address</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-lg p-2 text-body-lg focus:border-primary focus:ring-0" type="email" value="elena.t@oja-marketplace.com">
+</div>
+<div class="space-y-xs">
+<label class="text-label-lg font-label-lg text-on-surface-variant uppercase">Staff ID</label>
+<p class="bg-surface-container-low rounded-lg p-2 text-body-lg text-on-surface-variant font-mono">ADM-9942-X</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Credentials -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm p-lg">
+<div class="flex items-center gap-md mb-lg">
+<span class="material-symbols-outlined text-primary">security</span>
+<h3 class="font-title-lg text-title-lg">Security</h3>
+</div>
+<div class="space-y-md">
+<button class="w-full flex items-center justify-between p-md border border-outline-variant/30 rounded-xl hover:bg-surface-container-low transition-all group">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">password</span>
+<span class="font-title-md">Change Password</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-md border border-outline-variant/30 rounded-xl hover:bg-surface-container-low transition-all group">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">key</span>
+<span class="font-title-md">API Keys</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<div class="p-md bg-on-tertiary-fixed-variant/5 border border-on-tertiary-fixed-variant/20 rounded-xl">
+<div class="flex items-center justify-between mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">verified_user</span>
+<span class="font-title-md text-on-tertiary-fixed-variant">Two-Factor Auth</span>
+</div>
+<span class="text-label-md text-on-tertiary-fixed-variant font-bold uppercase">Enabled</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Last verified: 2 hours ago from London, UK</p>
+</div>
+</div>
+</section>
+<!-- Session Activity -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm p-lg">
+<h4 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-md">Active Sessions</h4>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary">desktop_windows</span>
+<div>
+<p class="font-title-md text-body-md leading-tight">MacBook Pro • London</p>
+<p class="text-label-md text-on-surface-variant">Current Session</p>
+</div>
+</div>
+<div class="flex items-center gap-md opacity-60">
+<span class="material-symbols-outlined text-on-surface-variant">phone_iphone</span>
+<div>
+<p class="font-title-md text-body-md leading-tight">iPhone 15 • Paris</p>
+<p class="text-label-md text-on-surface-variant">3 days ago</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 w-full rounded-t-xl z-50 lg:hidden bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-2px_10px_rgba(0,69,13,0.08)] flex justify-around items-center h-16 px-sm pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">eco</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Partners</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">shield_person</span>
+<span class="font-label-md text-label-md">Admin</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-secondary-container/20 rounded-xl px-sm py-xs active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for maintenance mode toggle
+        const toggle = document.querySelector('input[type="checkbox"]');
+        const statusText = toggle?.parentElement?.nextElementSibling;
+        
+        toggle?.addEventListener('change', (e) => {
+            if(statusText) {
+                statusText.textContent = e.target.checked ? 'Activated' : 'Deactivated';
+                statusText.classList.toggle('text-error', e.target.checked);
+                statusText.classList.toggle('text-on-surface-variant', !e.target.checked);
+            }
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[placeholder="Search system settings..."]');
+        searchInput?.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-105');
+        });
+        searchInput?.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-105');
+        });
+    </script>
+
+
+</body></html>

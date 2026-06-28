@@ -1,0 +1,576 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Oja Admin - Product Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#717a6d",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "on-tertiary-container": "#989bff",
+                    "primary-container": "#00450d",
+                    "tertiary-container": "#1f1ab3",
+                    "surface": "#f7f9fb",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-container": "#eceef0",
+                    "secondary": "#006c49",
+                    "on-surface": "#191c1e",
+                    "surface-variant": "#e0e3e5",
+                    "background": "#f7f9fb",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#95d78e",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary-container": "#00714d",
+                    "on-primary-fixed": "#002203",
+                    "on-surface-variant": "#41493e",
+                    "surface-tint": "#2e6b2f",
+                    "secondary-fixed-dim": "#4edea3",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-dim": "#d8dadc",
+                    "primary": "#00450d",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#95d78e",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-container": "#6cf8bb",
+                    "primary-fixed": "#b0f3a7",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#07006c",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#002113",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#135219",
+                    "error": "#ba1a1a",
+                    "tertiary": "#0b0088",
+                    "on-primary-container": "#74b46e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "8px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "sidebar-width": "260px",
+                    "base": "4px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "gutter": "16px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "headline-md-mobile": ["Manrope"],
+                    "label-lg": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "title-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "display-lg": ["Manrope"],
+                    "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c0c9bb;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="docked-left h-full w-64 fixed left-0 top-0 z-40 bg-white border-r border-outline-variant flex flex-col p-md gap-xl">
+<div class="flex items-center gap-sm mb-md px-sm">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Oja Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Certified Freshness</p>
+</div>
+</div>
+<nav class="flex flex-col gap-sm flex-grow">
+<!-- Dashboard -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-md transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-title-md text-title-md">Dashboard</span>
+</a>
+<!-- Orders -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-md transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-title-md text-title-md">Orders</span>
+</a>
+<!-- Products (ACTIVE) -->
+<a class="flex items-center gap-md bg-primary text-on-primary rounded px-md py-md shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-title-md text-title-md">Products</span>
+</a>
+<!-- Partners -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-md transition-colors" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-title-md text-title-md">Partners</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-md transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-title-md text-title-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl flex items-center gap-sm border border-outline-variant">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuvV7nKPR4PFiSklcCWy98-wZgTcJJEEOiMkaLHQApp2ya5uj2hf29qX6uTD4sBhucutpCnATBW1Ti66JnYoNlryE9HQMx8nJEIQmwIrkEHyuEpqJpTZssNNCtOjPwvLMDLyE1tkaLWcLcMV0x1x6YA2cqChv40r-3pgRFl47bA0fOLfMf_AVhYSAk5oJIe3I3dtBM-qTidHs37Jr8dBt0dbitDCx26rbQMUAZEVZoEINMu2-RokeXNIGXXHLoznxinbKiMv5K_t8">
+</div>
+<div class="overflow-hidden flex-1">
+<p class="font-label-md text-label-md font-bold truncate">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant truncate">Inventory Manager</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary p-xs">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen bg-[#f7f9fb]">
+<!-- TopNavBar Shell -->
+<header class="docked-top w-full sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center h-16 px-xl">
+<div class="flex items-center gap-xl flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface-container-low border border-outline-variant rounded-full font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Search products, SKUs, or categories..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm">
+<span class="font-title-md text-title-md font-bold text-on-surface">Oja Admin</span>
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<section class="p-xl space-y-xl">
+<!-- Header Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Product Inventory</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your global freshness catalog and stock distribution.</p>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-sm px-lg py-md border border-outline text-on-surface rounded-lg font-title-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                        Export
+                    </button>
+<button class="flex items-center gap-sm px-lg py-md bg-primary text-on-primary rounded font-title-md hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Add Product
+                    </button>
+</div>
+</div>
+<!-- Dashboard Analytics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<div class="bg-white p-lg rounded-xl border border-outline-variant shadow-sm">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-sm">Total Products</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="font-headline-md text-headline-md">1,284</h3>
+<span class="font-label-md text-label-md text-secondary">+12%</span>
+</div>
+</div>
+<div class="bg-white p-lg rounded-xl border border-outline-variant shadow-sm relative overflow-hidden">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-sm">Low Stock Alert</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="font-headline-md text-headline-md text-error">18</h3>
+<span class="font-label-md text-label-md text-error font-semibold">Requires action</span>
+</div>
+<div class="absolute -right-2 -bottom-2 opacity-5 text-error">
+<span class="material-symbols-outlined text-[64px]">warning</span>
+</div>
+</div>
+<div class="bg-white p-lg rounded-xl border border-outline-variant shadow-sm">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-sm">Active Categories</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="font-headline-md text-headline-md">24</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">Global</span>
+</div>
+</div>
+<div class="bg-white p-lg rounded-xl border border-outline-variant shadow-sm">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-sm">Inventory Value</p>
+<div class="flex items-baseline gap-sm">
+<h3 class="font-headline-md text-headline-md">$42,902</h3>
+<span class="font-label-md text-label-md text-secondary">0.4% ↑</span>
+</div>
+</div>
+</div>
+<!-- Product Table Container -->
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+<!-- Table Controls -->
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs px-md py-sm bg-white border border-outline-variant rounded-lg font-title-md text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filters
+                        </button>
+<span class="text-on-surface-variant font-body-md">Showing 5 of 1,284 products</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<span class="font-title-md text-title-md">Page 1 of 64</span>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+<!-- High-Density Table -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant w-12">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox">
+</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">SKU</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">PRODUCT NAME</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">CATEGORY</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">PRICE</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">STOCK LEVEL</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant">STATUS</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant border-b border-outline-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Product Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md"><input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"></td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">OJA-VG-001</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Organic Curly Kale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRyyusAd6zUw2xp140R64puCpu7tCIK_twEEdCbIX4rZGt7lGu7GXep8cXV9dM9DVrQH5TuERTDP8oD00VqG97_jkOb6xpirzn66yl8axGleuBj9h8qVyVFEPbtaCPqgjQeQDN1XtF-2TdiZjGSQVD2liXKQVjVTofRor1U1WdP1Gn_jnG6JUcKCxSC8pX7SUV8QZlZcYjzlVAKdKw_rZUCGuoFHcLdezkrDj6ZCJiirDMOQ1tp042q4KTWSd9okx3Ix-us7bAKtU">
+</div>
+<span class="font-title-md text-title-md text-on-surface">Organic Curly Kale</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#e8f5e9] text-[#004d40] rounded font-label-md text-label-md">Vegetables</span>
+</td>
+<td class="px-lg py-md font-title-md text-on-surface">$4.50</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">452 units</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm hover:bg-surface-container rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 2 (Low Stock) -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md"><input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"></td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">OJA-FR-112</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Premium Strawberries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArpoPsPBiIDGmeDH0oS9saA4yrlqSbEdIqLaZ3SyZ83GMttwYD0gILrzdBiWDHz1tSTjZNqXm8yBrOd0OwldNIsVk7AEUoBcdzqNBnP9EU0T9SzXdRQ1chJxgl1VOQ216wKXRwHfHELhWwPqMF3fmx0zwG3b2OSNgIh31yLKEYDr7x1uSkQKzvaox5rEtAwHGph1j82jYXP5roJtp44BcfwTN-Cudt2VN3wyE7-ojMvYoBZNtkIErYkz9bsKuCuYYlrRmMLxZFywQ">
+</div>
+<span class="font-title-md text-title-md text-on-surface">Premium Strawberries</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#e3f2fd] text-[#0d47a1] rounded font-label-md text-label-md">Fruits</span>
+</td>
+<td class="px-lg py-md font-title-md text-on-surface">$6.25</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-1/6 h-full bg-error"></div>
+</div>
+<span class="font-label-md text-label-md text-error font-bold">12 units</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-error-container text-on-error-container rounded-full font-label-md text-label-md border border-error/20">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                        Low Stock
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm hover:bg-surface-container rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md"><input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"></td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">OJA-DR-502</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Almond Milk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDddsGbksM7XOatQUdZ6ibWvFdNnDre_nMJFIEsMqdKXOtGT3UqS3BXfw3R9fxVwrmx-X7vwI-2Eow3-mbsZwuQJsMEdUGQNZcBYujz4wRSdboHj9IJH5Q18Rc_ViCVnByd7iTTDJ__jl2gkgYxBzpasDxbW9j8_y7hpwLFmXoo2d__In361fvDSXmRr567uCsl6yuEce7gh2MYpFuIjl6p9-rOJ0r1yyOJcuF1HKmz_a55Q-VNbWa9LhpHsN0udAelrtJ7F3zCmwc">
+</div>
+<span class="font-title-md text-title-md text-on-surface">Almond Milk (Unsweetened)</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant rounded font-label-md text-label-md">Dairy &amp; Alts</span>
+</td>
+<td class="px-lg py-md font-title-md text-on-surface">$5.50</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-full h-full bg-primary"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">1,120 units</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm hover:bg-surface-container rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md"><input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"></td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">OJA-BK-024</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Artisan Sourdough" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMav0SLwykE97eNPLDBfS--f_ZNbCy1jcRYxOTif2elZvfLJQVzNujs_mR6yq949CPSRkX1UKShQi84CKT6zXlMRSOi4omMlvwIySeRPRNRRX1sw_XdHpMH9douvUJrtnJ7CenglSFy-IWCrhrtbAWsAoQD0T8CFaWn126qru5jhMTrBEYNMjy-Ip1qMxJU_hcktNP0Euuz4NVuJkjCPpzCc2lIPdd4R6L1NFPbXqqmJcr8yuk7C5w4RqJFgggcfkRZicd6IQQFBI">
+</div>
+<span class="font-title-md text-title-md text-on-surface">Artisan Sourdough</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#fff3e0] text-[#e65100] rounded font-label-md text-label-md">Bakery</span>
+</td>
+<td class="px-lg py-md font-title-md text-on-surface">$7.00</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-1/2 h-full bg-primary"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">84 units</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-primary/10 text-primary rounded-full font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm hover:bg-surface-container rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Product Row 5 (Out of Stock) -->
+<tr class="hover:bg-surface-container-low transition-colors group opacity-60">
+<td class="px-lg py-md"><input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"></td>
+<td class="px-lg py-md font-body-md text-on-surface-variant">OJA-MT-990</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 border border-outline-variant grayscale">
+<img class="w-full h-full object-cover" data-alt="A5 Wagyu Beef" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5I0RIE8ylY4cw9i1cAgJWkyokm8DqUPmTDpMA3mUrGRWOgJCSA_siUmNCwlCAHtZnCkYIKTB4Gpd1HmsOmP0-m4T06gm_IvQjHmCXTYEZWTYEiMS7p_INnR5gO6Lc_u7wYrbeOgxRtPfUjIvLAyv1UQqNswVpQT5cMDzgUmFmxZaqR8wtb8DF0KwOhBSIGaayCsNWNawIoZrp94levCfOCMFe8baRlma8KSctK3xLZyPOv1njCgFFonSI5F3q2KCts-Vb2gGokJI">
+</div>
+<span class="font-title-md text-title-md text-on-surface">A5 Wagyu Beef</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#fbe9e7] text-[#bf360c] rounded font-label-md text-label-md">Meat</span>
+</td>
+<td class="px-lg py-md font-title-md text-on-surface">$85.00</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-0 h-full bg-error"></div>
+</div>
+<span class="font-label-md text-label-md text-error font-bold">0 units</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-surface-container text-on-surface-variant rounded-full font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
+                                        Out of Stock
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm hover:bg-surface-container rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Pagination -->
+<div class="px-lg py-md border-t border-outline-variant flex justify-between items-center bg-white">
+<div class="flex items-center gap-md">
+<select class="bg-white border border-outline-variant rounded-lg px-md py-sm font-title-md text-on-surface focus:ring-primary focus:border-primary">
+<option>10 per page</option>
+<option>25 per page</option>
+<option>50 per page</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<button class="px-md py-sm rounded-lg hover:bg-surface-container font-title-md text-on-surface-variant">Previous</button>
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-title-md">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container font-title-md text-on-surface">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container font-title-md text-on-surface">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded hover:bg-surface-container font-title-md text-on-surface">64</button>
+</div>
+<button class="px-md py-sm rounded-lg hover:bg-surface-container font-title-md text-on-surface-variant">Next</button>
+</div>
+</div>
+</div>
+<!-- Contextual Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl mt-xl">
+<div class="lg:col-span-2 bg-white p-xl rounded-2xl border border-outline-variant relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md text-primary mb-sm">Inventory Optimization</h4>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-lg">Our AI predicts a surge in 'Fruits' demand over the next 48 hours. Consider increasing stock levels for seasonal berries.</p>
+<button class="bg-primary text-on-primary px-lg py-md rounded-lg font-title-md shadow-lg shadow-primary/10 hover:scale-[1.02] transition-all">View Predictions</button>
+</div>
+<div class="absolute right-0 top-0 h-full w-1/3 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px] text-primary -mr-20 -mt-10">insights</span>
+</div>
+</div>
+<div class="bg-white p-xl rounded-2xl border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-lg">
+<h4 class="font-title-lg text-title-lg text-on-surface">Recent Activity</h4>
+<span class="material-symbols-outlined text-primary">history</span>
+</div>
+<ul class="space-y-lg">
+<li class="flex gap-md">
+<div class="w-1 bg-primary rounded-full"></div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Stock Updated</p>
+<p class="text-[12px] text-on-surface-variant">Organic Kale • 2 mins ago</p>
+</div>
+</li>
+<li class="flex gap-md">
+<div class="w-1 bg-error rounded-full"></div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Low Stock Alert</p>
+<p class="text-[12px] text-on-surface-variant">Strawberries • 45 mins ago</p>
+</div>
+</li>
+<li class="flex gap-md">
+<div class="w-1 bg-primary rounded-full"></div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">New SKU Added</p>
+<p class="text-[12px] text-on-surface-variant">Cold Brew Coffee • 3 hrs ago</p>
+</div>
+</li>
+</ul>
+</div>
+<button class="w-full mt-xl py-sm font-title-md text-title-md text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">
+                        View Audit Log
+                    </button>
+</div>
+</div>
+</section>
+<!-- Toast Notification -->
+<div class="fixed bottom-lg right-lg bg-inverse-surface text-inverse-on-surface px-lg py-md rounded-xl shadow-2xl flex items-center gap-md translate-y-32 transition-transform duration-300 z-50 border border-white/10" id="toast">
+<span class="material-symbols-outlined text-[#81c784]">check_circle</span>
+<p class="font-body-md text-body-md">Inventory report exported successfully.</p>
+<button class="ml-sm hover:opacity-70 p-xs" onclick="document.getElementById('toast').classList.add('translate-y-32')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</main>
+<script>
+        // Export button simulation
+        const exportBtn = document.querySelectorAll('button').item(2); // Export button
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-32');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-32');
+                }, 4000);
+            });
+        }
+
+        // Active state and button feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+
+
+</body></html>

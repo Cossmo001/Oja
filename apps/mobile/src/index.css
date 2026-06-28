@@ -215,3 +215,37 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headline);
 }
 
+
+/* Fix iOS Zoom bug */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+.dark {
+  /* Override core theme variables */
+  --color-background: #0c0e10;
+  --color-surface: #131618;
+  --color-on-surface: #eaedf0;
+  --color-on-surface-variant: #a2adb9;
+  --color-outline: #8c97a5;
+  --color-outline-variant: #292f36;
+  
+  --color-primary: #95d78e;
+  --color-on-primary: #002203;
+  --color-secondary: #fea85a;
+
+  /* Override general utilities and shades */
+  --color-white: #131618; /* Elevated card bg */
+  --color-slate-50: #171a1d; /* Subtle backgrounds */
+  --color-slate-100: #1c1e22;
+  --color-slate-200: #292f36; /* Borders */
+  --color-slate-300: #333a43;
+  --color-slate-400: #8c97a5; /* Secondary texts */
+  --color-slate-500: #a2adb9;
+  --color-slate-700: #dce2e8;
+  --color-slate-800: #eaedf0; /* Primary headings */
+  --color-slate-900: #ffffff;
+  
+  --color-surface-container-low: #171a1d;
+  --color-surface-container-lowest: #131618;
+}

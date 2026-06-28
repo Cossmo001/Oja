@@ -1,30 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ManagementDashboard } from "./ManagementDashboard";
-import { PRODUCTS, DEFAULT_USER, Product, Order, User } from "@oja/shared";
+import { fetchProducts, fetchUser, Product, Order, User } from "@oja/shared";
 import { ScreenSelector } from "@oja/shared";
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<string>("management-dashboard");
-  const [products, setProducts] = useState<Product[]>(PRODUCTS);
-  const [user, setUser] = useState<User>(DEFAULT_USER);
-  const [orders, setOrders] = useState<Order[]>([
-    {
-      id: "OJ-4929-LA",
-      date: "June 25, 2026",
-      items: [
-        {
-          product: PRODUCTS.find((p) => p.id === "premium-harvest-basket") || PRODUCTS[0],
-          quantity: 1,
-        },
-      ],
-      subtotal: 12500,
-      deliveryFee: 1500,
-      serviceFee: 250,
-      total: 14250,
-      status: "Delivered",
-      estDeliveryTime: "Delivered at 03:15 PM, June 25",
-    },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [p, u] = await Promise.all([
+          fetchProducts(),
+          fetchUser()
+        ]);
+        
+        setProducts(p);
+        if (u) setUser(u);
+        if (p.length > 0) {
+          setOrders([
+            {
+              id: "OJ-4929-LA",
+              date: "June 25, 2026",
+              items: [{ product: p[0], quantity: 1 }],
+              subtotal: 12500,
+              deliveryFee: 1500,
+              serviceFee: 250,
+              total: 14250,
+              status: "Delivered",
+              estDeliveryTime: "Delivered at 03:15 PM, June 25",
+            }
+          ]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadData();
+  }, []);
+
+  if (!user || products.length === 0) {
+    return <div className="min-h-screen bg-[#F5F5F0] flex items-center justify-center font-sans">Loading Oja...</div>;
+  }
+
+
+
 
   return (
     <div className="min-h-screen bg-[#F5F5F0] flex flex-col lg:flex-row items-center justify-center font-sans relative overflow-hidden p-2 lg:p-6 select-none">
@@ -38,7 +59,7 @@ export default function App() {
           onUpdateProducts={setProducts}
           orders={orders}
           onUpdateOrders={setOrders}
-          user={user}
+          user={user!}
           onUpdateUser={setUser}
           onScreenChange={setCurrentScreen}
         />
