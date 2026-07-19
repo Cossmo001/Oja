@@ -731,7 +731,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chatMessages, chatLoading]);
+  }, [chatMessages, chatLoading, keyboardHeight]);
 
   // Auth state inputs
   const [loginEmail, setLoginEmail] = useState<string>("chioma.adebayo@example.com");
@@ -1021,12 +1021,14 @@ export const MobileApp: React.FC<MobileAppProps> = ({
   });
 
   return (
-    <div className="w-full h-full bg-[#F5F5F0] relative overflow-hidden flex flex-col z-10 font-sans">
+    <div 
+      className="w-full h-full bg-[#F5F5F0] relative overflow-hidden flex flex-col z-10 font-sans"
+      style={{ paddingBottom: keyboardHeight > 0 ? keyboardHeight : 0 }}
+    >
 
         {/* Dynamic Screen Content Wrapper */}
         <div 
-          className="flex-1 overflow-y-auto relative custom-scrollbar bg-[#F5F5F0]"
-          style={{ paddingBottom: keyboardHeight > 0 ? keyboardHeight : 0 }}
+          className="flex-1 overflow-y-auto relative custom-scrollbar bg-[#F5F5F0] flex flex-col"
         >
           
           {/* ==================== 1. SPLASH SCREEN ==================== */}
@@ -2863,7 +2865,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
 
           {/* ==================== 13. OJA AI ASSISTANT SCREEN ==================== */}
           {currentScreen === "ai-chat" && (
-            <div className="min-h-full flex flex-col justify-between bg-slate-50 relative">
+            <div className="flex-1 w-full flex flex-col justify-between bg-slate-50 relative min-h-0">
               {/* Floating Header */}
               <div className="bg-white border-b border-slate-200 px-4 pt-[calc(env(safe-area-inset-top)+12px)] pb-3 flex items-center justify-between sticky top-0 z-20">
                 <div className="flex items-center gap-2.5">
@@ -2897,7 +2899,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
               </div>
 
               {/* Messages viewport */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar max-h-[550px] min-h-[450px]">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar min-h-0">
                 {chatMessages.map((msg) => {
                   const recommended = msg.role === "assistant" ? getRecommendedProducts(msg.text, products) : [];
                   return (
@@ -3126,7 +3128,7 @@ export const MobileApp: React.FC<MobileAppProps> = ({
         </div>
 
         {/* persistent navigation bar shown only if authenticated and not in intro screens */}
-        {isAuthenticated && currentScreen !== "splash" && currentScreen !== "welcome" && currentScreen !== "auth" && (
+        {isAuthenticated && currentScreen !== "splash" && currentScreen !== "welcome" && currentScreen !== "auth" && keyboardHeight === 0 && (
           <Navbar
             currentScreen={currentScreen}
             onScreenChange={setCurrentScreen}

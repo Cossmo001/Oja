@@ -471,22 +471,6 @@ export const FarmersDashboard: React.FC<FarmersDashboardProps> = ({
   if (dashboardViewMode === "portrait") {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
-        {/* Floating Developer Control Panel (Outside Simulator) */}
-        <div className="mb-4 bg-white/10 backdrop-blur-md p-2 rounded-xl flex gap-2 text-xs font-bold text-white border border-white/10 z-20">
-          <button
-            onClick={() => setDashboardViewMode("landscape")}
-            className="px-4 py-1.5 rounded-lg uppercase tracking-wider transition-all bg-white/20 hover:bg-white/30 text-white"
-          >
-            Switch to Desktop Layout
-          </button>
-          <button
-            onClick={() => onScreenChange("home")}
-            className="px-4 py-1.5 rounded-lg uppercase tracking-wider transition-all bg-[#00450d] text-white"
-          >
-            Shop View
-          </button>
-        </div>
-
         {/* Mobile Phone Mockup Device Frame */}
         <div className="w-[390px] h-[800px] bg-surface rounded-[40px] border-[12px] border-slate-900 shadow-2xl relative overflow-hidden flex flex-col font-sans">
           {/* Mock Mobile Top Notch & Status Bar */}
@@ -642,26 +626,6 @@ export const FarmersDashboard: React.FC<FarmersDashboardProps> = ({
             </div>
 
             <div className="h-5 w-px bg-slate-200" />
-
-            {/* Dev Simulator Toggles */}
-            <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border dark:border-slate-700 gap-0.5 text-[9px] font-bold">
-              <button
-                onClick={() => setDashboardViewMode("landscape")}
-                className={`px-3 py-1 rounded transition-all ${
-                  (dashboardViewMode as string) === "landscape" ? "bg-white dark:bg-slate-700 text-[#00450d] dark:text-[#95d78e] shadow-sm font-extrabold" : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
-                }`}
-              >
-                System Landscape
-              </button>
-              <button
-                onClick={() => setDashboardViewMode("portrait")}
-                className={`px-3 py-1 rounded transition-all ${
-                  (dashboardViewMode as string) === "portrait" ? "bg-white dark:bg-slate-700 text-[#00450d] dark:text-[#95d78e] shadow-sm font-extrabold" : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
-                }`}
-              >
-                Phone Portrait
-              </button>
-            </div>
 
             {/* Dark Mode Toggle */}
             <button
